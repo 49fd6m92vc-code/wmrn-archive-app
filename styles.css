@@ -281,46 +281,80 @@ form button {
 }
 
 /* =========================
-   FLOATING BOTTOM NAV (TIGHTENED & BALANCED)
+   BOTTOM NAV — EDGE TO EDGE + SAFE AREA + BUMP + HIDE ON SCROLL
+   (NAV ONLY — SAFE)
    ========================= */
 
 .bottom-nav {
   position: fixed;
-  left: 8px;
-  right: 8px;
-  bottom: 16px;
-  height: 52px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  /* Base height + iOS safe-area padding */
+  height: 56px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+
   background: var(--nav-glass);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
+
+  border-radius: 0;
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.25);
+
   display: flex;
   align-items: center;
+  justify-content: space-around;
+
   z-index: 1000;
+
+  /* Hide-on-scroll animation */
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+/* When hidden */
+.bottom-nav.nav-hidden {
+  transform: translateY(110%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .bottom-nav a {
   flex: 1;
   min-width: 0;
+
   text-align: center;
   font-size: 0.65rem;
   font-weight: 700;
   color: var(--muted);
   text-decoration: none;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1px;
+
+  gap: 2px;
 }
 
+/* Icon baseline + smooth bump transitions */
 .bottom-nav a .icon {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  transform: translateY(0) scale(1);
+  transition: transform 160ms ease;
 }
 
+/* Active state */
 .bottom-nav a.active {
   color: var(--accent);
+}
+
+/* Subtle active icon bump (only icon, not whole link) */
+.bottom-nav a.active .icon {
+  transform: translateY(-1px) scale(1.06);
 }
 
 /* =========================
