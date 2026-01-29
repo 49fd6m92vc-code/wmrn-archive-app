@@ -26,17 +26,50 @@
 </header>
 
 <main>
+
   <p>
-    Welcome to the WMRN Radio History Archive. This project preserves recordings,
-    photographs, documents, and memories connected to WMRN Radio and its role
-    in Marion, Ohio and beyond.
+    Welcome to the WMRN Radio History Archive. This project documents and preserves
+    recordings, photographs, documents, and personal memories connected to WMRN Radio
+    and its role in Marion, Ohio and the surrounding region.
   </p>
-</main>
 
-<!-- PAGE CONTENT ABOVE -->
+  <p class="home-mission">
+    For generations, WMRN has helped shape the sound, stories, and shared experience
+    of this community. This archive exists to ensure that history is not lost.
+  </p>
 
-<main>
-  <!-- page-specific content -->
+  <section class="home-actions">
+    <h2>Explore the Archive</h2>
+
+    <ul class="home-links">
+      <li>
+        <a href="/wmrn-archive-app/decades.html">
+          Browse WMRN history by decade
+        </a>
+      </li>
+      <li>
+        <a href="/wmrn-archive-app/photos.html">
+          View historic photos from studios, events, and daily life
+        </a>
+      </li>
+      <li>
+        <a href="/wmrn-archive-app/audio.html">
+          Listen to preserved broadcasts and recordings
+        </a>
+      </li>
+      <li>
+        <a href="/wmrn-archive-app/submit.html">
+          Contribute materials, memories, or information
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <p class="home-note">
+    This is a living archive. New materials are added as recordings, photographs,
+    and stories are discovered, preserved, and documented.
+  </p>
+
 </main>
 
 <!-- FLOATING BOTTOM NAV -->
@@ -65,9 +98,6 @@
 
 <!-- NAV BEHAVIOR: AUTO-HIGHLIGHT + HAPTICS + SWIPE -->
 <script>
-  /* =========================
-     AUTO-HIGHLIGHT ACTIVE TAB
-     ========================= */
   const navLinks = document.querySelectorAll(".bottom-nav a");
   const currentPath = window.location.pathname;
 
@@ -77,9 +107,6 @@
     }
   });
 
-  /* =========================
-     HAPTIC FEEDBACK ON TAP
-     ========================= */
   function hapticTap() {
     if (navigator.vibrate) {
       navigator.vibrate(10);
@@ -90,9 +117,6 @@
     link.addEventListener("click", hapticTap);
   });
 
-  /* =========================
-     SWIPE NAVIGATION (FIXED)
-     ========================= */
   const pages = [
     "/wmrn-archive-app/index.html",
     "/wmrn-archive-app/decades.html",
@@ -119,7 +143,6 @@
     const diffX = Math.abs(touch.clientX - startX);
     const diffY = Math.abs(touch.clientY - startY);
 
-    /* Cancel swipe if vertical scrolling dominates */
     if (diffY > diffX) {
       isSwiping = false;
     }
@@ -131,7 +154,6 @@
     const touch = e.changedTouches[0];
     const diffX = touch.clientX - startX;
 
-    /* Require intentional horizontal swipe */
     if (Math.abs(diffX) < 90) {
       isSwiping = false;
       return;
@@ -142,12 +164,10 @@
     );
 
     if (diffX < 0 && index < pages.length - 1) {
-      /* Swipe left → next page */
       window.location.href = pages[index + 1];
     }
 
     if (diffX > 0 && index > 0) {
-      /* Swipe right → previous page */
       window.location.href = pages[index - 1];
     }
 
