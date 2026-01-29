@@ -443,3 +443,53 @@ body.theme-light {
   --nav-glass: rgba(255,255,255,0.75);
   --shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
+
+/* =========================
+   FIX: FEATURED CARD LAYOUT
+   ========================= */
+
+.featured {
+  margin-top: 1.5rem;
+}
+
+.featured-card {
+  display: block;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: var(--card-bg-soft);
+  border: 1px solid var(--border-soft);
+  text-decoration: none;
+  color: var(--text);
+  text-align: left;
+}
+
+.featured-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.featured-content strong {
+  display: block;
+  font-size: 1rem;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.25;
+}
+
+.featured-content p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.85;
+  line-height: 1.35;
+}
+
+.featured-meta {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
