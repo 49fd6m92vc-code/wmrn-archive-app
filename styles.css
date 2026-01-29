@@ -233,6 +233,78 @@ form button {
 }
 
 /* =========================
+   FEATURED ITEM (HOME)
+   ========================= */
+
+.featured {
+  margin-top: 2.5rem;
+  text-align: left;
+}
+
+.featured h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.featured-card {
+  position: relative;
+  display: block;
+
+  padding: 1.1rem 1.2rem;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(155, 28, 28, 0.08),
+    rgba(155, 28, 28, 0.02)
+  );
+
+  border: 1px solid rgba(155, 28, 28, 0.25);
+
+  text-decoration: none;
+  color: #111;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.featured-card:active {
+  transform: scale(0.98);
+}
+
+.featured-tag {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+
+  background: #9b1c1c;
+  color: #fff;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.featured-content strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.featured-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.featured-meta {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* =========================
    FLOATING BOTTOM NAV (iOS GLASS – THINNED)
    ========================= */
 
@@ -260,7 +332,6 @@ form button {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Auto-hide state (JS toggles this) */
 .bottom-nav.hidden {
   transform: translateY(120%);
   opacity: 0;
@@ -289,75 +360,4 @@ form button {
 
 .bottom-nav a.active {
   color: #9b1c1c;
-}
-
-/* =========================
-   HOME PAGE POLISH
-   ========================= */
-
-.home-mission {
-  margin-top: 1rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #333;
-}
-
-.home-actions {
-  margin-top: 2.5rem;
-  text-align: left;
-}
-
-.home-actions h2 {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.home-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.home-card {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-
-  padding: 0.9rem 1rem;
-  border-radius: 12px;
-
-  background: #f8f8f8;
-  border: 1px solid #e0e0e0;
-
-  text-decoration: none;
-  color: #111;
-
-  transition: background 0.2s ease, transform 0.1s ease;
-}
-
-.home-card:active {
-  transform: scale(0.98);
-}
-
-.home-card .icon {
-  font-size: 1.4rem;
-}
-
-.home-card strong {
-  display: block;
-  font-size: 0.95rem;
-  margin-bottom: 0.15rem;
-}
-
-.home-card p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #555;
-}
-
-.home-note {
-  margin-top: 2.5rem;
-  font-size: 0.9rem;
-  color: #444;
-  text-align: center;
 }
