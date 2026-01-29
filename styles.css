@@ -1,4 +1,6 @@
-/* Base layout */
+/* =========================
+   BASE LAYOUT
+   ========================= */
 
 body {
   margin: 0;
@@ -6,6 +8,9 @@ body {
   background: #ffffff;
   color: #111;
   text-align: center;
+
+  /* Space for floating bottom nav */
+  padding-bottom: 96px;
 }
 
 header {
@@ -29,7 +34,9 @@ h1 {
   margin: 0 auto;
 }
 
-/* Navigation */
+/* =========================
+   TOP NAV (DESKTOP / FALLBACK)
+   ========================= */
 
 nav {
   display: flex;
@@ -46,7 +53,16 @@ nav a {
   font-weight: 600;
 }
 
-/* Main content wrapper */
+/* Hide top nav on mobile when bottom nav is used */
+@media (max-width: 768px) {
+  nav:not(.bottom-nav) {
+    display: none;
+  }
+}
+
+/* =========================
+   MAIN CONTENT
+   ========================= */
 
 main {
   padding: 2rem 1rem;
@@ -55,7 +71,9 @@ main {
   text-align: center;
 }
 
-/* Audio */
+/* =========================
+   AUDIO
+   ========================= */
 
 audio {
   width: 100%;
@@ -87,7 +105,9 @@ audio {
   margin-bottom: 0.8rem;
 }
 
-/* Forms */
+/* =========================
+   FORMS
+   ========================= */
 
 form input,
 form textarea,
@@ -98,7 +118,9 @@ form button {
   font-size: 1rem;
 }
 
-/* Decades */
+/* =========================
+   DECADES
+   ========================= */
 
 .decade-list {
   list-style: none;
@@ -121,7 +143,9 @@ form button {
   color: #9b1c1c;
 }
 
-/* Photos – FIXED */
+/* =========================
+   PHOTOS
+   ========================= */
 
 .photo-grid {
   display: grid;
@@ -145,6 +169,7 @@ form button {
   height: auto;
   display: block;
   background: #f4f4f4;
+  cursor: pointer;
 }
 
 .photo-meta {
@@ -160,7 +185,9 @@ form button {
   line-height: 1.35;
 }
 
-/* LIGHTBOX */
+/* =========================
+   LIGHTBOX
+   ========================= */
 
 .lightbox {
   position: fixed;
@@ -203,4 +230,63 @@ form button {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+/* =========================
+   FLOATING BOTTOM NAV (iOS GLASS)
+   ========================= */
+
+.bottom-nav {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 16px;
+
+  height: 64px;
+  background: rgba(255, 255, 255, 0.75);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  z-index: 1000;
+
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Auto-hide state (JS toggles this) */
+.bottom-nav.hidden {
+  transform: translateY(120%);
+  opacity: 0;
+}
+
+.bottom-nav a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #666;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 2px;
+}
+
+.bottom-nav a span.icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.bottom-nav a.active {
+  color: #9b1c1c;
 }
