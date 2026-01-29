@@ -31,6 +31,26 @@
 console.log("WMRN Archive loaded · Theme:", localStorage.getItem("theme") || "system");
 
 /* =========================
+   BOTTOM NAV ACTIVE TAB FIX
+   (GLOBAL, PATH-SAFE)
+   ========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = document.querySelectorAll(".bottom-nav a");
+  const currentPath = window.location.pathname.replace(/\/$/, "");
+
+  navLinks.forEach(link => {
+    const linkPath = new URL(link.href).pathname.replace(/\/$/, "");
+
+    if (currentPath === linkPath) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+});
+
+/* =========================
    BOTTOM NAV HIDE-ON-SCROLL
    (NAV ONLY — SAFE)
    ========================= */
