@@ -1,15 +1,29 @@
 /* =========================
-   BASE LAYOUT
+   THEME TOKENS (DEFAULT = LIGHT)
+   System mode is handled via prefers-color-scheme below.
+   Manual overrides use: body.theme-light / body.theme-dark
    ========================= */
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #ffffff;
-  color: #111;
-  text-align: center;
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #666666;
 
-   /* =========================
+  --card-bg: #ffffff;
+  --card-bg-soft: #f7f7f7;
+
+  --border: #dddddd;
+  --border-soft: #e2e2e2;
+
+  --accent: #9b1c1c;
+
+  --nav-glass: rgba(255, 255, 255, 0.75);
+  --nav-glass-dark: rgba(30, 30, 34, 0.75);
+
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================
    ACCESSIBILITY HELPERS
    ========================= */
 
@@ -25,7 +39,18 @@ body {
   border: 0;
 }
 
-  /* Space for floating bottom nav (unchanged) */
+/* =========================
+   BASE LAYOUT
+   ========================= */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  text-align: center;
+
+  /* Space for floating bottom nav (UNCHANGED) */
   padding-bottom: 84px;
 }
 
@@ -45,7 +70,7 @@ h1 {
 
 .tagline {
   font-size: 1rem;
-  color: #444;
+  color: var(--muted);
   max-width: 320px;
   margin: 0 auto;
 }
@@ -65,13 +90,13 @@ nav {
   justify-content: center;
   gap: 1rem;
   padding: 1rem;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 nav a {
   text-decoration: none;
-  color: #9b1c1c;
+  color: var(--accent);
   font-weight: 600;
 }
 
@@ -108,11 +133,12 @@ audio {
 }
 
 .audio-card {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   padding: 1.2rem;
   margin-top: 1.5rem;
   border-radius: 6px;
   text-align: left;
+  background: var(--card-bg);
 }
 
 .audio-card h3 {
@@ -122,13 +148,14 @@ audio {
 
 .audio-meta {
   font-size: 0.85rem;
-  color: #666;
+  color: var(--muted);
   margin-bottom: 0.5rem;
 }
 
 .audio-description {
   font-size: 0.95rem;
-  color: #333;
+  color: var(--text);
+  opacity: 0.9;
   margin-bottom: 0.8rem;
 }
 
@@ -143,6 +170,23 @@ form button {
   margin-top: 1rem;
   padding: 0.6rem;
   font-size: 1rem;
+  box-sizing: border-box;
+}
+
+form input,
+form textarea {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+form button {
+  border: none;
+  border-radius: 999px;
+  background: #0a84ff;
+  color: #fff;
+  font-weight: 700;
 }
 
 /* =========================
@@ -162,12 +206,13 @@ form button {
 
 .decade-list a {
   text-decoration: none;
-  color: #111;
-  font-weight: 600;
+  color: var(--text);
+  font-weight: 700;
+  opacity: 0.95;
 }
 
 .decade-list a:hover {
-  color: #9b1c1c;
+  color: var(--accent);
 }
 
 /* =========================
@@ -184,8 +229,8 @@ form button {
 .photo-card {
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
   text-align: left;
@@ -201,13 +246,14 @@ form button {
 
 .photo-meta {
   font-size: 0.75rem;
-  color: #666;
+  color: var(--muted);
   padding: 0.5rem 0.7rem 0;
 }
 
 .photo-caption {
   font-size: 0.9rem;
-  color: #222;
+  color: var(--text);
+  opacity: 0.9;
   padding: 0.3rem 0.7rem 0.8rem;
   line-height: 1.35;
 }
@@ -259,7 +305,7 @@ form button {
 }
 
 /* =========================
-   FLOATING BOTTOM NAV (iOS GLASS – THINNED)
+   FLOATING BOTTOM NAV (iOS GLASS)
    ========================= */
 
 .bottom-nav {
@@ -269,13 +315,13 @@ form button {
   bottom: 16px;
 
   height: 56px;
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--nav-glass);
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
   border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow);
 
   display: flex;
   justify-content: space-around;
@@ -295,8 +341,8 @@ form button {
   text-align: center;
   text-decoration: none;
   font-size: 0.7rem;
-  font-weight: 600;
-  color: #666;
+  font-weight: 700;
+  color: var(--muted);
 
   display: flex;
   flex-direction: column;
@@ -312,7 +358,7 @@ form button {
 }
 
 .bottom-nav a.active {
-  color: #9b1c1c;
+  color: var(--accent);
 }
 
 /* =========================
@@ -323,7 +369,8 @@ form button {
   margin-top: 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  color: #333;
+  color: var(--text);
+  opacity: 0.9;
 }
 
 .featured {
@@ -335,16 +382,17 @@ form button {
   margin-top: 0.75rem;
   padding: 1rem;
   border-radius: 14px;
-  background: #f7f7f7;
-  border: 1px solid #e2e2e2;
+  background: var(--card-bg-soft);
+  border: 1px solid var(--border-soft);
   text-decoration: none;
-  color: #111;
+  color: var(--text);
 }
 
 .featured-tag {
+  display: inline-block;
   font-size: 0.7rem;
-  font-weight: 700;
-  color: #9b1c1c;
+  font-weight: 800;
+  color: var(--accent);
   margin-bottom: 0.25rem;
 }
 
@@ -357,12 +405,15 @@ form button {
 .featured-content p {
   margin: 0.25rem 0;
   font-size: 0.9rem;
-  color: #444;
+  color: var(--text);
+  opacity: 0.85;
 }
 
 .featured-meta {
+  display: inline-block;
+  margin-top: 0.1rem;
   font-size: 0.75rem;
-  color: #666;
+  color: var(--muted);
 }
 
 .home-actions {
@@ -386,10 +437,12 @@ form button {
   gap: 0.9rem;
   padding: 0.9rem 1rem;
   border-radius: 12px;
-  background: #f8f8f8;
-  border: 1px solid #e0e0e0;
+
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+
   text-decoration: none;
-  color: #111;
+  color: var(--text);
 }
 
 .home-card:active {
@@ -409,68 +462,14 @@ form button {
 .home-card p {
   margin: 0;
   font-size: 0.85rem;
-  color: #555;
+  color: var(--muted);
 }
 
 .home-note {
   margin-top: 2rem;
   font-size: 0.9rem;
-  color: #444;
-  text-align: center;
-}
-
-/* =========================
-   DARK MODE
-   ========================= */
-
-:root {
-  --bg: #ffffff;
-  --text: #111;
-  --card-bg: #ffffff;
-  --border: #ddd;
-  --muted: #666;
-  --accent: #9b1c1c;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-}
-
-/* Cards & surfaces */
-.photo-card,
-.audio-card,
-.home-card,
-.featured-card {
-  background: var(--card-bg);
-  border-color: var(--border);
-}
-
-/* Bottom nav */
-.bottom-nav {
-  background: rgba(255, 255, 255, 0.75);
-}
-
-/* DARK MODE VARIABLES */
-body.dark {
-  --bg: #0f0f12;
-  --text: #f2f2f2;
-  --card-bg: #1a1a1f;
-  --border: #2a2a2f;
-  --muted: #aaa;
-}
-
-/* Dark nav glass */
-body.dark .bottom-nav {
-  background: rgba(30, 30, 34, 0.75);
-}
-
-/* Text tweaks */
-body.dark .tagline,
-body.dark .home-note,
-body.dark .photo-meta,
-body.dark .audio-meta {
   color: var(--muted);
+  text-align: center;
 }
 
 /* =========================
@@ -514,77 +513,57 @@ body.dark .audio-meta {
 }
 
 /* =========================
-   SIMPLE DARK MODE OVERRIDES
+   SYSTEM DARK MODE (DEFAULT WHEN NO OVERRIDE CLASS)
    ========================= */
 
-body.dark {
-  background: #0f0f12;
-  color: #f1f1f1;
-}
+@media (prefers-color-scheme: dark) {
+  body:not(.theme-light):not(.theme-dark) {
+    --bg: #0f0f12;
+    --text: #f2f2f2;
+    --muted: #a9a9a9;
 
-/* Headings */
-body.dark h1,
-body.dark h2,
-body.dark h3,
-body.dark strong {
-  color: #ffffff;
-}
+    --card-bg: #1a1a1f;
+    --card-bg-soft: #1a1a1f;
 
-/* General text */
-body.dark p,
-body.dark li,
-body.dark span {
-  color: #d0d0d0;
-}
+    --border: #2a2a2f;
+    --border-soft: #2a2a2f;
 
-/* Muted text */
-body.dark .tagline,
-body.dark .home-note,
-body.dark .photo-meta,
-body.dark .audio-meta,
-body.dark .featured-meta {
-  color: #9a9a9a;
-}
-
-/* Cards */
-body.dark .home-card,
-body.dark .featured-card,
-body.dark .audio-card,
-body.dark .photo-card,
-body.dark .settings-card {
-  background: #1a1a1f;
-  border-color: #2a2a2f;
-}
-
-/* Forms */
-body.dark input,
-body.dark textarea {
-  background: #1a1a1f;
-  color: #ffffff;
-  border-color: #2a2a2f;
-}
-
-/* Bottom nav */
-body.dark .bottom-nav {
-  background: rgba(30, 30, 35, 0.8);
-}
-
-body.dark .bottom-nav a {
-  color: #aaaaaa;
-}
-
-body.dark .bottom-nav a.active {
-  color: #ff4d4d;
+    --nav-glass: var(--nav-glass-dark);
+    --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  }
 }
 
 /* =========================
-   DARK MODE – DECADES FIX
+   MANUAL OVERRIDES
    ========================= */
 
-body.dark .decade-list a {
-  color: #f1f1f1;
+body.theme-dark {
+  --bg: #0f0f12;
+  --text: #f2f2f2;
+  --muted: #a9a9a9;
+
+  --card-bg: #1a1a1f;
+  --card-bg-soft: #1a1a1f;
+
+  --border: #2a2a2f;
+  --border-soft: #2a2a2f;
+
+  --nav-glass: var(--nav-glass-dark);
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
-body.dark .decade-list a:hover {
-  color: #9b1c1c;
+body.theme-light {
+  /* Explicit light in case system is dark */
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #666666;
+
+  --card-bg: #ffffff;
+  --card-bg-soft: #f7f7f7;
+
+  --border: #dddddd;
+  --border-soft: #e2e2e2;
+
+  --nav-glass: rgba(255, 255, 255, 0.75);
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
