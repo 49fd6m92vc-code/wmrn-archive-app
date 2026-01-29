@@ -38,31 +38,32 @@
 
   <!-- BEHAVIOR -->
   <section class="home-actions">
-    <h2>App Behavior</h2>
+  <h2>Appearance & Behavior</h2>
 
-    <div class="home-card">
-      <div>
-        <strong>Swipe Navigation</strong>
-        <p>Swipe left or right to move between sections</p>
-        <p style="font-size:0.8rem; color:#666;">Currently always enabled</p>
-      </div>
+  <div class="home-card toggle">
+    <div>
+      <strong>Dark Mode</strong>
+      <p>Use a darker color scheme</p>
     </div>
+    <input type="checkbox" id="toggleDark">
+  </div>
 
-    <div class="home-card">
-      <div>
-        <strong>Haptic Feedback</strong>
-        <p>Light vibration when tapping navigation</p>
-        <p style="font-size:0.8rem; color:#666;">Uses system settings</p>
-      </div>
+  <div class="home-card toggle">
+    <div>
+      <strong>Swipe Navigation</strong>
+      <p>Swipe left or right to change sections</p>
     </div>
+    <input type="checkbox" id="toggleSwipe">
+  </div>
 
-    <div class="home-card">
-      <div>
-        <strong>Reduced Motion</strong>
-        <p>Respects your device’s accessibility settings</p>
-      </div>
+  <div class="home-card toggle">
+    <div>
+      <strong>Haptic Feedback</strong>
+      <p>Light vibration when tapping navigation</p>
     </div>
-  </section>
+    <input type="checkbox" id="toggleHaptics">
+  </div>
+</section>
 
   <!-- ARCHIVE NOTES -->
   <section class="home-actions">
