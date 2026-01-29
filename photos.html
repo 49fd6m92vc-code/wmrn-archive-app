@@ -123,13 +123,14 @@
     <span class="icon">✍️</span>
     <span>Submit</span>
   </a>
+<a href="/wmrn-archive-app/settings.html">
+    <span class="icon">⚙️</span>
+    <span>Settings</span>
+  </a>
 </nav>
 
 <!-- NAV BEHAVIOR: AUTO-HIGHLIGHT + HAPTICS + SWIPE -->
 <script>
-  /* =========================
-     AUTO-HIGHLIGHT ACTIVE TAB
-     ========================= */
   const navLinks = document.querySelectorAll(".bottom-nav a");
   const currentPath = window.location.pathname;
 
@@ -139,9 +140,6 @@
     }
   });
 
-  /* =========================
-     HAPTIC FEEDBACK ON TAP
-     ========================= */
   function hapticTap() {
     if (navigator.vibrate) {
       navigator.vibrate(10);
@@ -152,9 +150,6 @@
     link.addEventListener("click", hapticTap);
   });
 
-  /* =========================
-     SWIPE NAVIGATION (FIXED)
-     ========================= */
   const pages = [
     "/wmrn-archive-app/index.html",
     "/wmrn-archive-app/decades.html",
@@ -181,7 +176,6 @@
     const diffX = Math.abs(touch.clientX - startX);
     const diffY = Math.abs(touch.clientY - startY);
 
-    /* Cancel swipe if vertical scrolling dominates */
     if (diffY > diffX) {
       isSwiping = false;
     }
@@ -193,7 +187,6 @@
     const touch = e.changedTouches[0];
     const diffX = touch.clientX - startX;
 
-    /* Require intentional horizontal swipe */
     if (Math.abs(diffX) < 90) {
       isSwiping = false;
       return;
@@ -204,17 +197,21 @@
     );
 
     if (diffX < 0 && index < pages.length - 1) {
-      /* Swipe left → next page */
       window.location.href = pages[index + 1];
     }
 
     if (diffX > 0 && index > 0) {
-      /* Swipe right → previous page */
       window.location.href = pages[index - 1];
     }
 
     isSwiping = false;
   }, { passive: true });
+</script>
+
+  <script>
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark");
+  }
 </script>
 
 </body>
