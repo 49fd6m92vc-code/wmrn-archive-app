@@ -32,7 +32,7 @@
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
+  margin: 0;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -206,6 +206,70 @@ form button {
 }
 
 /* =========================
+   DECADES LIST – HEADER CLEANUP
+   ========================= */
+
+.decades {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.decade {
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.decade summary {
+  list-style: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0.9rem 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.decade summary::-webkit-details-marker {
+  display: none;
+}
+
+.decade-title {
+  flex: 1;
+}
+
+.decade-arrow {
+  font-size: 1.1rem;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.decade[open] .decade-arrow {
+  transform: rotate(90deg);
+}
+
+.decade-content {
+  padding: 0.25rem 0 1rem;
+}
+
+.decade-content p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.decade-content ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+}
+
+.decade-content li {
+  margin: 0.3rem 0;
+}
+
+/* =========================
    PHOTOS
    ========================= */
 
@@ -291,7 +355,6 @@ form button {
   right: 0;
   bottom: 0;
 
-  /* Base height + iOS safe-area padding */
   height: 56px;
   padding-bottom: env(safe-area-inset-bottom, 0px);
 
@@ -308,13 +371,11 @@ form button {
 
   z-index: 1000;
 
-  /* Hide-on-scroll animation */
   transform: translateY(0);
   opacity: 1;
   transition: transform 220ms ease, opacity 220ms ease;
 }
 
-/* When hidden */
 .bottom-nav.nav-hidden {
   transform: translateY(110%);
   opacity: 0;
@@ -339,7 +400,6 @@ form button {
   gap: 2px;
 }
 
-/* Icon baseline + smooth bump transitions */
 .bottom-nav a .icon {
   font-size: 1.1rem;
   line-height: 1;
@@ -347,12 +407,10 @@ form button {
   transition: transform 160ms ease;
 }
 
-/* Active state */
 .bottom-nav a.active {
   color: var(--accent);
 }
 
-/* Subtle active icon bump (only icon, not whole link) */
 .bottom-nav a.active .icon {
   transform: translateY(-1px) scale(1.06);
 }
@@ -587,11 +645,10 @@ body.theme-light {
 /* Featured card base */
 .featured-card {
   position: relative;
-  background: rgba(155, 28, 28, 0.08); /* pale red tint */
+  background: rgba(155, 28, 28, 0.08);
   border: 1px solid rgba(155, 28, 28, 0.25);
 }
 
-/* Dark mode adjustment */
 body.theme-dark .featured-card,
 @media (prefers-color-scheme: dark) {
   body:not(.theme-light):not(.theme-dark) .featured-card {
@@ -600,7 +657,6 @@ body.theme-dark .featured-card,
   }
 }
 
-/* Featured pill */
 .featured-tag {
   position: absolute;
   top: -10px;
@@ -619,7 +675,6 @@ body.theme-dark .featured-card,
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-/* Ensure spacing below pill */
 .featured-content {
   margin-top: 0.5rem;
 }
@@ -634,14 +689,12 @@ body.theme-dark .featured-card,
   justify-content: space-between;
 }
 
-/* Left text stack */
 .home-actions .home-card > div {
   flex: 1;
   text-align: left;
   padding-right: 1rem;
 }
 
-/* Theme selector */
 .home-actions select {
   appearance: none;
   -webkit-appearance: none;
@@ -659,7 +712,6 @@ body.theme-dark .featured-card,
   cursor: pointer;
 }
 
-/* Dark mode select harmony */
 body.theme-dark .home-actions select,
 @media (prefers-color-scheme: dark) {
   body:not(.theme-light):not(.theme-dark) .home-actions select {
