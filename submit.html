@@ -12,6 +12,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="WMRN Archive">
 <link rel="apple-touch-icon" href="/wmrn-archive-app/icons/icon-192.png">
+
+<!-- GLOBAL APP LOGIC -->
+<script src="/wmrn-archive-app/app.js" defer></script>
 </head>
 
 <body>
@@ -134,13 +137,13 @@
     <span class="icon">✍️</span>
     <span>Submit</span>
   </a>
-<a href="/wmrn-archive-app/settings.html">
+  <a href="/wmrn-archive-app/settings.html">
     <span class="icon">⚙️</span>
     <span>Settings</span>
   </a>
 </nav>
 
-<!-- NAV BEHAVIOR: AUTO-HIGHLIGHT + HAPTICS + SWIPE -->
+<!-- NAV BEHAVIOR -->
 <script>
   const navLinks = document.querySelectorAll(".bottom-nav a");
   const currentPath = window.location.pathname;
@@ -152,7 +155,7 @@
   });
 
   function hapticTap() {
-    if (navigator.vibrate) {
+    if (navigator.vibrate && localStorage.getItem("haptics") !== "off") {
       navigator.vibrate(10);
     }
   }
@@ -160,69 +163,6 @@
   navLinks.forEach(link => {
     link.addEventListener("click", hapticTap);
   });
-
-  const pages = [
-    "/wmrn-archive-app/index.html",
-    "/wmrn-archive-app/decades.html",
-    "/wmrn-archive-app/photos.html",
-    "/wmrn-archive-app/audio.html",
-    "/wmrn-archive-app/submit.html"
-  ];
-
-  let startX = 0;
-  let startY = 0;
-  let isSwiping = false;
-
-  window.addEventListener("touchstart", e => {
-    const touch = e.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-    isSwiping = true;
-  }, { passive: true });
-
-  window.addEventListener("touchmove", e => {
-    if (!isSwiping) return;
-
-    const touch = e.touches[0];
-    const diffX = Math.abs(touch.clientX - startX);
-    const diffY = Math.abs(touch.clientY - startY);
-
-    if (diffY > diffX) {
-      isSwiping = false;
-    }
-  }, { passive: true });
-
-  window.addEventListener("touchend", e => {
-    if (!isSwiping) return;
-
-    const touch = e.changedTouches[0];
-    const diffX = touch.clientX - startX;
-
-    if (Math.abs(diffX) < 90) {
-      isSwiping = false;
-      return;
-    }
-
-    const index = pages.findIndex(p =>
-      currentPath.includes(p)
-    );
-
-    if (diffX < 0 && index < pages.length - 1) {
-      window.location.href = pages[index + 1];
-    }
-
-    if (diffX > 0 && index > 0) {
-      window.location.href = pages[index - 1];
-    }
-
-    isSwiping = false;
-  }, { passive: true });
-</script>
-
-  <script>
-  if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark");
-  }
 </script>
 
 </body>
