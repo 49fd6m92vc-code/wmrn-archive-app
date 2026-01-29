@@ -16,7 +16,6 @@ const photos = [
   "WMRN-2026-012_1979_Peanut-Push_Larry-Mathiot_01.jpg",
 
   "WMRN-2026-012_1980_Karen-Sharp-Wedding_Becky-Van-House_Paul-Michaels_Susan-Westfall_Jeff-Ruth_01 (1).jpg",
-  "WMRN-2026-012_1980_Karen-Sharp-Wedding_Becky-Van-House_Paul-Michaels_S提醒-Westfall_Jeff-Ruth_01.jpg".replace("提醒-", ""),
   "WMRN-2026-012_1980_Paul-Van-House_Dracula-Costume_Orbit_01.jpg",
 
   "WMRN-2026-012_Orbit_Show_Susan-Westfall_Paul-Van-House_Studio-Costume_01.jpg"
