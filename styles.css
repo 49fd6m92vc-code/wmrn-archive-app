@@ -512,3 +512,67 @@ body.dark .audio-meta {
 .home-card.toggle input[type="checkbox"]:checked::after {
   transform: translateX(18px);
 }
+
+/* =========================
+   SIMPLE DARK MODE OVERRIDES
+   ========================= */
+
+body.dark {
+  background: #0f0f12;
+  color: #f1f1f1;
+}
+
+/* Headings */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark strong {
+  color: #ffffff;
+}
+
+/* General text */
+body.dark p,
+body.dark li,
+body.dark span {
+  color: #d0d0d0;
+}
+
+/* Muted text */
+body.dark .tagline,
+body.dark .home-note,
+body.dark .photo-meta,
+body.dark .audio-meta,
+body.dark .featured-meta {
+  color: #9a9a9a;
+}
+
+/* Cards */
+body.dark .home-card,
+body.dark .featured-card,
+body.dark .audio-card,
+body.dark .photo-card,
+body.dark .settings-card {
+  background: #1a1a1f;
+  border-color: #2a2a2f;
+}
+
+/* Forms */
+body.dark input,
+body.dark textarea {
+  background: #1a1a1f;
+  color: #ffffff;
+  border-color: #2a2a2f;
+}
+
+/* Bottom nav */
+body.dark .bottom-nav {
+  background: rgba(30, 30, 35, 0.8);
+}
+
+body.dark .bottom-nav a {
+  color: #aaaaaa;
+}
+
+body.dark .bottom-nav a.active {
+  color: #ff4d4d;
+}
