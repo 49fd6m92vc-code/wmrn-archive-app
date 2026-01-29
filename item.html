@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <title>Archive Item – WMRN</title>
+  <title id="pageTitle">Archive Item – WMRN</title>
 
   <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
   <meta name="theme-color" content="#9b1c1c">
@@ -19,62 +19,46 @@
 
 <main>
 
-  <!-- ITEM TITLE -->
+  <!-- ITEM HEADER -->
   <header>
     <h1 id="itemTitle">WMRN Archive Item</h1>
     <p class="muted" id="itemSubtitle"></p>
   </header>
 
-  <!-- ARCHIVE ITEM MEDIA -->
+  <!-- ARCHIVE ITEM MEDIA (HERO IMAGE) -->
   <section class="archive-media">
-    <figure>
-      <img
-        id="itemImage"
-        src=""
-        alt=""
-        loading="lazy"
-      >
-      <figcaption class="muted" id="itemCaption"></figcaption>
-    </figure>
+    <img
+      id="itemImage"
+      src=""
+      alt=""
+      loading="lazy"
+    >
+
+    <p class="muted" id="itemCaption"></p>
   </section>
 
   <!-- METADATA RECORD -->
   <section class="archive-meta">
-    <p><strong>Accession:</strong> <span id="itemAccession"></span></p>
-    <p><strong>Date:</strong> Circa 1970s</p>
-    <p><strong>Format:</strong> Photograph</p>
-    <p><strong>Decade:</strong> 1970s</p>
-    <p><strong>Collection:</strong> Paul Van House Photo Collection</p>
+    <p><strong>Accession:</strong> <span id="itemAccession">—</span></p>
+    <p><strong>Date:</strong> <span id="itemDate">—</span></p>
+    <p><strong>Format:</strong> <span id="itemFormat">Photograph</span></p>
+    <p><strong>Decade:</strong> <span id="itemDecade">—</span></p>
+    <p><strong>Collection:</strong> <span id="itemCollection">Paul Van House Photo Collection</span></p>
   </section>
 
   <!-- DESCRIPTION -->
   <section class="archive-description">
     <h2>Description</h2>
-
-    <p>
-      This photograph shows the AM control room at WMRN Radio during the 1970s.
-      Visible are reel-to-reel tape machines, broadcast consoles, and monitoring
-      equipment typical of mid-20th-century radio operations.
-    </p>
-
-    <p>
-      Images from this era document a period when WMRN operated as a dual AM/FM
-      broadcaster and played a central role in Marion’s local news, sports, and
-      community programming.
+    <p id="itemDescription">
+      —
     </p>
   </section>
 
   <!-- CONTEXT & NOTES -->
   <section class="archive-context">
     <h3>Context &amp; Notes</h3>
-
-    <ul>
-      <li>Likely photographed inside the North Main Street studio facilities</li>
-      <li>Equipment reflects pre-digital broadcast workflows</li>
-      <li>
-        Exact date unknown; assigned to the 1970s based on equipment and staff
-        recollection
-      </li>
+    <ul id="itemNotes">
+      <li>—</li>
     </ul>
   </section>
 
@@ -82,14 +66,12 @@
   <section class="archive-rights">
     <h3>Rights &amp; Credit</h3>
 
-    <p>
-      Courtesy of Paul Van House. Preserved as part of the WMRN Radio History
-      Archive.
+    <p id="itemRights">
+      Courtesy of Paul Van House. Preserved as part of the WMRN Radio History Archive.
     </p>
 
     <p class="muted">
-      Some materials may be restricted due to condition, rights, or donor
-      preferences.
+      Some materials may be restricted due to condition, rights, or donor preferences.
     </p>
   </section>
 
@@ -118,8 +100,8 @@
 <script>
   const params = new URLSearchParams(window.location.search);
 
-  const accession = params.get("item");
   const file = params.get("file");
+  const accession = params.get("item");
 
   if (file) {
     const imagePath = `/wmrn-archive-app/Photos/${file}`;
@@ -131,12 +113,25 @@
     document.getElementById("itemImage").alt = readableName;
     document.getElementById("itemCaption").textContent = readableName;
     document.getElementById("itemTitle").textContent = readableName;
+    document.getElementById("pageTitle").textContent = `${readableName} – WMRN Archive`;
+
     document.getElementById("itemSubtitle").textContent =
       "Photograph, AM Control Room, North Main Street studios";
+
+    document.getElementById("itemDescription").textContent =
+      "This photograph shows the AM control room at WMRN Radio during the 1970s. Visible are reel-to-reel tape machines, broadcast consoles, and monitoring equipment typical of mid-20th-century radio operations.";
+
+    document.getElementById("itemNotes").innerHTML = `
+      <li>Likely photographed inside the North Main Street studio facilities</li>
+      <li>Equipment reflects pre-digital broadcast workflows</li>
+      <li>Exact date unknown; assigned to the 1970s based on equipment and staff recollection</li>
+    `;
   }
 
   if (accession) {
     document.getElementById("itemAccession").textContent = accession;
+    document.getElementById("itemDecade").textContent = "1970s";
+    document.getElementById("itemDate").textContent = "Circa 1970s";
   }
 </script>
 
