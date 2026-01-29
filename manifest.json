@@ -1,13 +1,21 @@
 {
   "name": "WMRN Radio History Archive",
   "short_name": "WMRN Archive",
-  "description": "Preserving the voices, people, and legacy of WMRN Radio.",
-  "start_url": "/",
+  "start_url": "/wmrn-archive-app/index.html",
+  "scope": "/wmrn-archive-app/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#9b1c1c",
   "icons": [
-    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "/wmrn-archive-app/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/wmrn-archive-app/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
