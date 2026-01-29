@@ -472,3 +472,43 @@ body.dark .photo-meta,
 body.dark .audio-meta {
   color: var(--muted);
 }
+
+/* =========================
+   SETTINGS TOGGLES
+   ========================= */
+
+.home-card.toggle {
+  justify-content: space-between;
+}
+
+.home-card.toggle input[type="checkbox"] {
+  width: 42px;
+  height: 24px;
+  appearance: none;
+  background: #ccc;
+  border-radius: 20px;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.home-card.toggle input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 3px;
+  left: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.home-card.toggle input[type="checkbox"]:checked {
+  background: var(--accent);
+}
+
+.home-card.toggle input[type="checkbox"]:checked::after {
+  transform: translateX(18px);
+}
