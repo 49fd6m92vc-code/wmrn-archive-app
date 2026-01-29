@@ -1,6 +1,4 @@
-The latest code screwed up the settings layout again… here’s the correct code, ONLY FIX THE NAVIGATION BAR:
-
-“/* =========================
+/* =========================
    THEME TOKENS (DEFAULT = LIGHT)
    System mode is handled via prefers-color-scheme below.
    Manual overrides use: body.theme-light / body.theme-dark
@@ -283,29 +281,22 @@ form button {
 }
 
 /* =========================
-   BOTTOM NAV – EDGE TO EDGE (FACEBOOK STYLE)
+   FLOATING BOTTOM NAV (TIGHTENED & BALANCED)
    ========================= */
 
 .bottom-nav {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  height: 56px;
-  padding-bottom: env(safe-area-inset-bottom);
-
+  left: 8px;
+  right: 8px;
+  bottom: 16px;
+  height: 52px;
   background: var(--nav-glass);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-
-  border-top: 1px solid var(--border);
-  border-radius: 0;
-
+  border-radius: 18px;
+  box-shadow: var(--shadow);
   display: flex;
   align-items: center;
-  justify-content: space-around;
-
   z-index: 1000;
 }
 
@@ -313,23 +304,19 @@ form button {
   flex: 1;
   min-width: 0;
   text-align: center;
-
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: var(--muted);
   text-decoration: none;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  gap: 2px;
+  gap: 1px;
 }
 
 .bottom-nav a .icon {
-  font-size: 1.1rem;
-  line-height: 1;
+  font-size: 1.05rem;
 }
 
 .bottom-nav a.active {
@@ -646,4 +633,4 @@ body.theme-dark .home-actions select,
     color: var(--text);
     border-color: var(--border);
   }
-}”
+}
