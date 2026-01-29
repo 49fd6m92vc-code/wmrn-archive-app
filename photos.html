@@ -39,14 +39,17 @@
   const grid = document.getElementById("photoGrid");
 
   photos.forEach(filename => {
+    const itemId = filename.replace(".jpg", "");
+
     const link = document.createElement("a");
-    link.href = `/wmrn-archive-app/item.html?item=WMRN-2026-012&file=${encodeURIComponent(filename)}`;
+    link.href = `/wmrn-archive-app/item.html?item=${encodeURIComponent(itemId)}&file=${encodeURIComponent(filename)}`;
     link.className = "photo-card";
     link.setAttribute("aria-label", "View archival record");
 
     const img = document.createElement("img");
     img.src = `/wmrn-archive-app/Photos/${filename}`;
-    img.alt = filename.replace(/_/g, " ");
+    img.alt = itemId.replace(/_/g, " ");
+    img.loading = "lazy";
 
     const meta = document.createElement("p");
     meta.className = "photo-meta";
@@ -54,9 +57,7 @@
 
     const caption = document.createElement("p");
     caption.className = "photo-caption";
-    caption.textContent = filename
-      .replace(".jpg", "")
-      .replace(/_/g, " ");
+    caption.textContent = itemId.replace(/_/g, " ");
 
     link.appendChild(img);
     link.appendChild(meta);
@@ -68,30 +69,12 @@
 
 <!-- FLOATING BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
-  <a href="/wmrn-archive-app/index.html">
-    <span class="icon">🏠</span>
-    <span>Home</span>
-  </a>
-  <a href="/wmrn-archive-app/decades.html">
-    <span class="icon">📆</span>
-    <span>Decades</span>
-  </a>
-  <a href="/wmrn-archive-app/photos.html">
-    <span class="icon">📷</span>
-    <span>Photos</span>
-  </a>
-  <a href="/wmrn-archive-app/audio.html">
-    <span class="icon">🎙️</span>
-    <span>Audio</span>
-  </a>
-  <a href="/wmrn-archive-app/submit.html">
-    <span class="icon">✍️</span>
-    <span>Submit</span>
-  </a>
-  <a href="/wmrn-archive-app/settings.html">
-    <span class="icon">⚙️</span>
-    <span>Settings</span>
-  </a>
+  <a href="/wmrn-archive-app/index.html"><span class="icon">🏠</span><span>Home</span></a>
+  <a href="/wmrn-archive-app/decades.html"><span class="icon">📆</span><span>Decades</span></a>
+  <a href="/wmrn-archive-app/photos.html"><span class="icon">📷</span><span>Photos</span></a>
+  <a href="/wmrn-archive-app/audio.html"><span class="icon">🎙️</span><span>Audio</span></a>
+  <a href="/wmrn-archive-app/submit.html"><span class="icon">✍️</span><span>Submit</span></a>
+  <a href="/wmrn-archive-app/settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
 </nav>
 
 <!-- NAV BEHAVIOR -->
@@ -114,45 +97,6 @@
   navLinks.forEach(link => {
     link.addEventListener("click", hapticTap);
   });
-
-  const pages = [
-    "/wmrn-archive-app/index.html",
-    "/wmrn-archive-app/decades.html",
-    "/wmrn-archive-app/photos.html",
-    "/wmrn-archive-app/audio.html",
-    "/wmrn-archive-app/submit.html",
-    "/wmrn-archive-app/settings.html"
-  ];
-
-  let startX = 0;
-  let startY = 0;
-  let isSwiping = false;
-
-  window.addEventListener("touchstart", e => {
-    if (localStorage.getItem("swipeNav") === "off") return;
-    const touch = e.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-    isSwiping = true;
-  }, { passive: true });
-
-  window.addEventListener("touchmove", e => {
-    if (!isSwiping) return;
-    const touch = e.touches[0];
-    if (Math.abs(touch.clientY - startY) > Math.abs(touch.clientX - startX)) {
-      isSwiping = false;
-    }
-  }, { passive: true });
-
-  window.addEventListener("touchend", e => {
-    if (!isSwiping) return;
-    const diffX = e.changedTouches[0].clientX - startX;
-    if (Math.abs(diffX) < 90) return;
-
-    const index = pages.findIndex(p => currentPath.includes(p));
-    if (diffX < 0 && index < pages.length - 1) location.href = pages[index + 1];
-    if (diffX > 0 && index > 0) location.href = pages[index - 1];
-  }, { passive: true });
 </script>
 
 </body>
