@@ -19,30 +19,30 @@
 
 <main>
 
-  <!-- ARCHIVE ITEM WRAPPER -->
   <article class="archive-item">
 
-    <!-- HERO MEDIA -->
-    <section class="archive-media">
-      <figure>
-        <img
-          src="/wmrn-archive-app/Photos/WMRN-2026-012_1970s_AM-Control-Room_01.jpg"
-          alt="WMRN AM control room at the North Main Street studios, circa 1970s"
-          loading="eager"
-        >
-        <figcaption class="muted">
-          WMRN AM control room, North Main Street studios, circa 1970s
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- TITLE & SUMMARY -->
-    <header class="archive-header">
+    <!-- ITEM TITLE -->
+    <header>
       <h1>WMRN AM Control Room — 1970s</h1>
       <p class="muted">
         Photograph · AM Control Room · North Main Street studios
       </p>
     </header>
+
+    <!-- IMAGE (PROPERLY CONTAINED) -->
+    <section class="archive-media">
+      <figure style="max-width: 720px; margin: 0 auto;">
+        <img
+          src="/wmrn-archive-app/Photos/WMRN-2026-012_1970s_AM-Control-Room_01.jpg"
+          alt="WMRN AM control room at the North Main Street studios, circa 1970s"
+          style="width: 100%; height: auto; display: block; border-radius: 12px;"
+          loading="eager"
+        >
+        <figcaption class="muted" style="margin-top: 0.5rem;">
+          WMRN AM control room, North Main Street studios, circa 1970s
+        </figcaption>
+      </figure>
+    </section>
 
     <!-- METADATA -->
     <section class="archive-meta">
@@ -99,9 +99,10 @@
       </p>
     </section>
 
-    <!-- ITEM NAVIGATION -->
+    <!-- NAV -->
     <nav class="archive-navigation">
       <a href="/wmrn-archive-app/decades.html">← Back to Decades</a>
+      &nbsp;&nbsp;
       <a href="/wmrn-archive-app/photos.html">View More Photos →</a>
     </nav>
 
