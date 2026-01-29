@@ -258,5 +258,10 @@
   setInterval(updateFeatured, 7000);
 </script>
   <script src="/wmrn-archive-app/app.js" defer></script>
+  <script>
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark");
+  }
+</script>
 </body>
 </html>
