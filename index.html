@@ -20,27 +20,94 @@
 <body>
 
 <header>
-  <img class="logo" src="/wmrn-archive-app/icons/logo.png" alt="WMRN Logo">
+  <img class="logo" src="/wmrn-archive-app/icons/logo.png" alt="WMRN Radio History Archive logo">
   <h1>WMRN Radio History Archive</h1>
   <p class="tagline">Preserving the voices, people, and legacy of WMRN Radio.</p>
 </header>
 
 <main>
-  <p>
-    Welcome to the WMRN Radio History Archive. This project preserves recordings,
-    photographs, documents, and memories connected to WMRN Radio and its role
-    in Marion, Ohio and beyond.
+
+  <!-- INTRODUCTION -->
+  <section aria-labelledby="intro-heading">
+    <h2 id="intro-heading" class="visually-hidden">About the Archive</h2>
+
+    <p>
+      Welcome to the WMRN Radio History Archive. This project documents and preserves
+      recordings, photographs, documents, and personal memories connected to WMRN Radio
+      and its role in Marion, Ohio and the surrounding region.
+    </p>
+
+    <p class="home-mission">
+      For generations, WMRN has helped shape the sound, stories, and shared experience
+      of this community. This archive exists to ensure that history is not lost.
+    </p>
+  </section>
+
+  <!-- FEATURED ITEM -->
+  <section class="featured" aria-labelledby="featured-heading">
+    <h2 id="featured-heading">Featured from the Archive</h2>
+
+    <a id="featuredCard" class="featured-card" href="#">
+      <span class="featured-tag">Featured</span>
+
+      <div class="featured-content">
+        <strong id="featuredTitle"></strong>
+        <p id="featuredDescription"></p>
+        <span class="featured-meta" id="featuredMeta"></span>
+      </div>
+    </a>
+  </section>
+
+  <!-- EXPLORE -->
+  <section class="home-actions" aria-labelledby="explore-heading">
+    <h2 id="explore-heading">Explore the Archive</h2>
+
+    <div class="home-cards">
+
+      <a class="home-card" href="/wmrn-archive-app/decades.html">
+        <span class="icon">📆</span>
+        <div>
+          <strong>Browse by Decade</strong>
+          <p>Explore WMRN history across the decades.</p>
+        </div>
+      </a>
+
+      <a class="home-card" href="/wmrn-archive-app/photos.html">
+        <span class="icon">📷</span>
+        <div>
+          <strong>Historic Photos</strong>
+          <p>Studios, staff, events, and everyday life.</p>
+        </div>
+      </a>
+
+      <a class="home-card" href="/wmrn-archive-app/audio.html">
+        <span class="icon">🎙️</span>
+        <div>
+          <strong>Audio Recordings</strong>
+          <p>Preserved broadcasts and archival audio.</p>
+        </div>
+      </a>
+
+      <a class="home-card" href="/wmrn-archive-app/submit.html">
+        <span class="icon">✍️</span>
+        <div>
+          <strong>Contribute</strong>
+          <p>Share materials, memories, or information.</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <p class="home-note">
+    This is a living archive. New materials are added as recordings, photographs,
+    and stories are discovered, preserved, and documented.
   </p>
-</main>
 
-<!-- PAGE CONTENT ABOVE -->
-
-<main>
-  <!-- page-specific content -->
 </main>
 
 <!-- FLOATING BOTTOM NAV -->
-<nav class="bottom-nav" id="bottomNav">
+<nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
   <a href="/wmrn-archive-app/index.html">
     <span class="icon">🏠</span>
     <span>Home</span>
@@ -65,9 +132,6 @@
 
 <!-- NAV BEHAVIOR: AUTO-HIGHLIGHT + HAPTICS + SWIPE -->
 <script>
-  /* =========================
-     AUTO-HIGHLIGHT ACTIVE TAB
-     ========================= */
   const navLinks = document.querySelectorAll(".bottom-nav a");
   const currentPath = window.location.pathname;
 
@@ -77,9 +141,6 @@
     }
   });
 
-  /* =========================
-     HAPTIC FEEDBACK ON TAP
-     ========================= */
   function hapticTap() {
     if (navigator.vibrate) {
       navigator.vibrate(10);
@@ -90,9 +151,6 @@
     link.addEventListener("click", hapticTap);
   });
 
-  /* =========================
-     SWIPE NAVIGATION (FIXED)
-     ========================= */
   const pages = [
     "/wmrn-archive-app/index.html",
     "/wmrn-archive-app/decades.html",
@@ -119,7 +177,6 @@
     const diffX = Math.abs(touch.clientX - startX);
     const diffY = Math.abs(touch.clientY - startY);
 
-    /* Cancel swipe if vertical scrolling dominates */
     if (diffY > diffX) {
       isSwiping = false;
     }
@@ -131,28 +188,74 @@
     const touch = e.changedTouches[0];
     const diffX = touch.clientX - startX;
 
-    /* Require intentional horizontal swipe */
     if (Math.abs(diffX) < 90) {
       isSwiping = false;
       return;
     }
 
-    const index = pages.findIndex(p =>
-      currentPath.includes(p)
-    );
+    const index = pages.findIndex(p => currentPath.includes(p));
 
     if (diffX < 0 && index < pages.length - 1) {
-      /* Swipe left → next page */
       window.location.href = pages[index + 1];
     }
 
     if (diffX > 0 && index > 0) {
-      /* Swipe right → previous page */
       window.location.href = pages[index - 1];
     }
 
     isSwiping = false;
   }, { passive: true });
+</script>
+
+<!-- FEATURED ITEM ROTATION -->
+<script>
+  const featuredItems = [
+    {
+      title: "1979 Peanut Push Broadcast",
+      description: "Highlights from the annual Peanut Push awards ceremony.",
+      meta: "Audio · 1979 · Accession WMRN-2026-012",
+      link: "/wmrn-archive-app/audio.html"
+    },
+    {
+      title: "Paul Van House in Studio",
+      description: "On-air moments inside the WMRN studios during the 1970s.",
+      meta: "Photo · 1970s · Accession WMRN-2026-012",
+      link: "/wmrn-archive-app/photos.html"
+    },
+    {
+      title: "WMRN Control Room",
+      description: "AM control room equipment and layout from the 1970s.",
+      meta: "Photo · 1970s · Accession WMRN-2026-012",
+      link: "/wmrn-archive-app/photos.html"
+    },
+    {
+      title: "Help Us Preserve More",
+      description: "Do you have recordings, photos, or memories to share?",
+      meta: "Contribute · Community Archive",
+      link: "/wmrn-archive-app/submit.html"
+    }
+  ];
+
+  let featuredIndex = 0;
+
+  const featuredCard = document.getElementById("featuredCard");
+  const featuredTitle = document.getElementById("featuredTitle");
+  const featuredDescription = document.getElementById("featuredDescription");
+  const featuredMeta = document.getElementById("featuredMeta");
+
+  function updateFeatured() {
+    const item = featuredItems[featuredIndex];
+
+    featuredTitle.textContent = item.title;
+    featuredDescription.textContent = item.description;
+    featuredMeta.textContent = item.meta;
+    featuredCard.href = item.link;
+
+    featuredIndex = (featuredIndex + 1) % featuredItems.length;
+  }
+
+  updateFeatured();
+  setInterval(updateFeatured, 7000);
 </script>
 
 </body>
