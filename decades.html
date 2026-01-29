@@ -12,7 +12,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="WMRN Archive">
 
-<!-- GLOBAL APP LOGIC -->
 <script src="/wmrn-archive-app/app.js" defer></script>
 </head>
 
@@ -26,106 +25,124 @@
     recordings, photographs, documents, and memories from that era.
   </p>
 
-  <ul class="decade-list">
-    <li><a href="#">1940s</a></li>
-    <li><a href="#">1950s</a></li>
-    <li><a href="#">1960s</a></li>
-    <li><a href="#">1970s</a></li>
-    <li><a href="#">1980s</a></li>
-    <li><a href="#">1990s</a></li>
-    <li><a href="#">2000s</a></li>
-    <li><a href="#">2010s</a></li>
-    <li><a href="#">2020s</a></li>
-  </ul>
+  <!-- DECADES ACCORDION -->
+  <div class="decades-accordion">
+
+    <!-- DECADE -->
+    <button class="decade-toggle" aria-expanded="false">
+      <span>1940s</span>
+      <span class="chevron">▸</span>
+    </button>
+    <div class="decade-panel" hidden>
+      <p>Early years of WMRN and the foundation of local broadcasting.</p>
+      <ul>
+        <li>📻 Early AM broadcasts</li>
+        <li>📷 Studio and staff photos</li>
+      </ul>
+    </div>
+
+    <button class="decade-toggle" aria-expanded="false">
+      <span>1950s</span>
+      <span class="chevron">▸</span>
+    </button>
+    <div class="decade-panel" hidden>
+      <p>Growth, community presence, and post-war radio.</p>
+      <ul>
+        <li>🎙️ Music and talk programming</li>
+        <li>📷 Promotional material</li>
+      </ul>
+    </div>
+
+    <button class="decade-toggle" aria-expanded="false">
+      <span>1960s</span>
+      <span class="chevron">▸</span>
+    </button>
+    <div class="decade-panel" hidden>
+      <p>Format evolution and cultural shifts.</p>
+    </div>
+
+    <button class="decade-toggle" aria-expanded="false">
+      <span>1970s</span>
+      <span class="chevron">▸</span>
+    </button>
+    <div class="decade-panel" hidden>
+      <p>FM growth, personalities, and landmark recordings.</p>
+    </div>
+
+    <button class="decade-toggle" aria-expanded="false">
+      <span>1980s</span>
+      <span class="chevron">▸</span>
+    </button>
+    <div class="decade-panel" hidden>
+      <p>Modernization and branding changes.</p>
+    </div>
+
+    <button class="decade-toggle" aria-expanded="false">
+      <span>1990s</span>
+      <span class="chevron">▸</span>
+    </button>
+    <div class="decade-panel" hidden>
+      <p>Transition years and new formats.</p>
+    </div>
+
+    <button class="decade-toggle" aria-expanded="false">
+      <span>2000s</span>
+      <span class="chevron">▸</span>
+    </button>
+    <div class="decade-panel" hidden>
+      <p>Digital beginnings and archive survivals.</p>
+    </div>
+
+    <button class="decade-toggle" aria-expanded="false">
+      <span>2010s</span>
+      <span class="chevron">▸</span>
+    </button>
+    <div class="decade-panel" hidden>
+      <p>Preservation efforts and memory recovery.</p>
+    </div>
+
+    <button class="decade-toggle" aria-expanded="false">
+      <span>2020s</span>
+      <span class="chevron">▸</span>
+    </button>
+    <div class="decade-panel" hidden>
+      <p>The WMRN Radio History Archive era.</p>
+    </div>
+
+  </div>
 </main>
 
 <!-- FLOATING BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
-  <a href="/wmrn-archive-app/index.html">
-    <span class="icon">🏠</span>
-    <span>Home</span>
-  </a>
-  <a href="/wmrn-archive-app/decades.html">
-    <span class="icon">📆</span>
-    <span>Decades</span>
-  </a>
-  <a href="/wmrn-archive-app/photos.html">
-    <span class="icon">📷</span>
-    <span>Photos</span>
-  </a>
-  <a href="/wmrn-archive-app/audio.html">
-    <span class="icon">🎙️</span>
-    <span>Audio</span>
-  </a>
-  <a href="/wmrn-archive-app/submit.html">
-    <span class="icon">✍️</span>
-    <span>Submit</span>
-  </a>
-  <a href="/wmrn-archive-app/settings.html">
-    <span class="icon">⚙️</span>
-    <span>Settings</span>
-  </a>
+  <a href="/wmrn-archive-app/index.html"><span class="icon">🏠</span><span>Home</span></a>
+  <a href="/wmrn-archive-app/decades.html"><span class="icon">📆</span><span>Decades</span></a>
+  <a href="/wmrn-archive-app/photos.html"><span class="icon">📷</span><span>Photos</span></a>
+  <a href="/wmrn-archive-app/audio.html"><span class="icon">🎙️</span><span>Audio</span></a>
+  <a href="/wmrn-archive-app/submit.html"><span class="icon">✍️</span><span>Submit</span></a>
+  <a href="/wmrn-archive-app/settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
 </nav>
 
-<!-- NAV BEHAVIOR: ACTIVE TAB + HAPTICS + SWIPE -->
+<!-- DECADES ACCORDION LOGIC (PAGE-LOCAL, SAFE) -->
 <script>
-  const navLinks = document.querySelectorAll(".bottom-nav a");
-  const currentPath = window.location.pathname;
+  const toggles = document.querySelectorAll(".decade-toggle");
 
-  navLinks.forEach(link => {
-    if (currentPath.includes(link.getAttribute("href"))) {
-      link.classList.add("active");
-    }
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+
+      toggles.forEach(t => {
+        t.setAttribute("aria-expanded", "false");
+        t.nextElementSibling.hidden = true;
+        t.querySelector(".chevron").textContent = "▸";
+      });
+
+      if (!expanded) {
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.nextElementSibling.hidden = false;
+        toggle.querySelector(".chevron").textContent = "▾";
+      }
+    });
   });
-
-  function hapticTap() {
-    if (navigator.vibrate && localStorage.getItem("haptics") !== "off") {
-      navigator.vibrate(10);
-    }
-  }
-
-  navLinks.forEach(link => {
-    link.addEventListener("click", hapticTap);
-  });
-
-  const pages = [
-    "/wmrn-archive-app/index.html",
-    "/wmrn-archive-app/decades.html",
-    "/wmrn-archive-app/photos.html",
-    "/wmrn-archive-app/audio.html",
-    "/wmrn-archive-app/submit.html",
-    "/wmrn-archive-app/settings.html"
-  ];
-
-  let startX = 0;
-  let startY = 0;
-  let isSwiping = false;
-
-  window.addEventListener("touchstart", e => {
-    if (localStorage.getItem("swipeNav") === "off") return;
-    const touch = e.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-    isSwiping = true;
-  }, { passive: true });
-
-  window.addEventListener("touchmove", e => {
-    if (!isSwiping) return;
-    const touch = e.touches[0];
-    if (Math.abs(touch.clientY - startY) > Math.abs(touch.clientX - startX)) {
-      isSwiping = false;
-    }
-  }, { passive: true });
-
-  window.addEventListener("touchend", e => {
-    if (!isSwiping) return;
-    const diffX = e.changedTouches[0].clientX - startX;
-    if (Math.abs(diffX) < 90) return;
-
-    const index = pages.findIndex(p => currentPath.includes(p));
-    if (diffX < 0 && index < pages.length - 1) location.href = pages[index + 1];
-    if (diffX > 0 && index > 0) location.href = pages[index - 1];
-  }, { passive: true });
 </script>
 
 </body>
