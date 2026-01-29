@@ -95,46 +95,103 @@
   });
 </script>
 
+<!-- PAGE CONTENT ABOVE -->
+
+<main>
+  <!-- page-specific content -->
+</main>
+
+<!-- FLOATING BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav">
   <a href="/wmrn-archive-app/index.html">
     <span class="icon">🏠</span>
     <span>Home</span>
   </a>
-
   <a href="/wmrn-archive-app/decades.html">
     <span class="icon">📆</span>
     <span>Decades</span>
   </a>
-
   <a href="/wmrn-archive-app/photos.html">
     <span class="icon">📷</span>
     <span>Photos</span>
   </a>
-
   <a href="/wmrn-archive-app/audio.html">
     <span class="icon">🎙️</span>
     <span>Audio</span>
   </a>
-
   <a href="/wmrn-archive-app/submit.html">
     <span class="icon">✍️</span>
     <span>Submit</span>
   </a>
 </nav>
 
+<!-- NAV BEHAVIOR: AUTO-HIGHLIGHT + HAPTICS + SWIPE -->
 <script>
-  let lastScrollY = window.scrollY;
-  const bottomNav = document.getElementById("bottomNav");
+  /* =========================
+     AUTO-HIGHLIGHT ACTIVE TAB
+     ========================= */
+  const navLinks = document.querySelectorAll(".bottom-nav a");
+  const currentPath = window.location.pathname;
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > lastScrollY && window.scrollY > 100) {
-      bottomNav.classList.add("hidden");
-    } else {
-      bottomNav.classList.remove("hidden");
+  navLinks.forEach(link => {
+    if (currentPath.includes(link.getAttribute("href"))) {
+      link.classList.add("active");
     }
-    lastScrollY = window.scrollY;
+  });
+
+  /* =========================
+     HAPTIC FEEDBACK ON TAP
+     ========================= */
+  function hapticTap() {
+    if (navigator.vibrate) {
+      navigator.vibrate(10);
+    }
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", hapticTap);
+  });
+
+  /* =========================
+     SWIPE NAVIGATION
+     ========================= */
+  const pages = [
+    "/wmrn-archive-app/index.html",
+    "/wmrn-archive-app/decades.html",
+    "/wmrn-archive-app/photos.html",
+    "/wmrn-archive-app/audio.html",
+    "/wmrn-archive-app/submit.html"
+  ];
+
+  let startX = null;
+
+  document.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  });
+
+  document.addEventListener("touchend", e => {
+    if (startX === null) return;
+
+    const endX = e.changedTouches[0].clientX;
+    const diffX = startX - endX;
+
+    if (Math.abs(diffX) < 80) return;
+
+    const index = pages.findIndex(p =>
+      currentPath.includes(p)
+    );
+
+    if (diffX > 0 && index < pages.length - 1) {
+      window.location.href = pages[index + 1];
+    }
+
+    if (diffX < 0 && index > 0) {
+      window.location.href = pages[index - 1];
+    }
+
+    startX = null;
   });
 </script>
-  
+
 </body>
 </html>
