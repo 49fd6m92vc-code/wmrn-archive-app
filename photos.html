@@ -26,99 +26,47 @@
 
   <p class="page-intro">
     This section preserves photographs documenting the people, studios,
-    equipment, events, and everyday life of WMRN Radio. Many of the images
-    shown here were contributed by former WMRN DJ Paul Van House.
+    equipment, events, and everyday life of WMRN Radio.
+    Many of the images shown here were contributed by former WMRN DJ
+    Paul Van House.
   </p>
 
-  <section class="photo-grid">
-
-    <!-- STUDIO INTERIORS -->
-
-    <div class="photo-card">
-      <img src="/wmrn-archive-app/Photos/WMRN-2026-012_1970s_AM-Control-Room_01.jpg"
-           alt="WMRN AM control room, 1970s">
-      <div class="photo-text">
-        <p class="photo-meta">1970s · Accession WMRN-2026-012</p>
-        <p class="photo-caption">AM control room at WMRN during the 1970s.</p>
-      </div>
-    </div>
-
-    <div class="photo-card">
-      <img src="/wmrn-archive-app/Photos/WMRN-2026-012_1970s_FM-Control-Room_01.jpg"
-           alt="WMRN FM control room, 1970s">
-      <div class="photo-text">
-        <p class="photo-meta">1970s · Accession WMRN-2026-012</p>
-        <p class="photo-caption">FM control room at WMRN.</p>
-      </div>
-    </div>
-
-    <!-- PAUL VAN HOUSE -->
-
-    <div class="photo-card">
-      <img src="/wmrn-archive-app/Photos/WMRN-2026-012_1970s_Paul-Van-House_In-Studio_01.jpg"
-           alt="Paul Van House in studio at WMRN">
-      <div class="photo-text">
-        <p class="photo-meta">1970s · Accession WMRN-2026-012 · Paul Van House</p>
-        <p class="photo-caption">Paul Van House during an on-air shift at WMRN.</p>
-      </div>
-    </div>
-
-    <div class="photo-card">
-      <img src="/wmrn-archive-app/Photos/WMRN-2026-012_1970s_Paul-Van-House_In-Studio_02.jpg"
-           alt="Paul Van House in studio at WMRN">
-      <div class="photo-text">
-        <p class="photo-meta">1970s · Accession WMRN-2026-012 · Paul Van House</p>
-        <p class="photo-caption">Additional studio view featuring Paul Van House.</p>
-      </div>
-    </div>
-
-    <!-- FACILITIES -->
-
-    <div class="photo-card">
-      <img src="/wmrn-archive-app/Photos/WMRN-2026-012_1970s_Stereo-Marion-Studios_01.jpg"
-           alt="Stereo Marion Studios, 1970s">
-      <div class="photo-text">
-        <p class="photo-meta">1970s · Accession WMRN-2026-012</p>
-        <p class="photo-caption">Stereo Marion Studios facility.</p>
-      </div>
-    </div>
-
-    <div class="photo-card">
-      <img src="/wmrn-archive-app/Photos/WMRN-2026-012_1970s_WMRN-Antenna-Tower_01.jpg"
-           alt="WMRN antenna tower">
-      <div class="photo-text">
-        <p class="photo-meta">1970s · Accession WMRN-2026-012</p>
-        <p class="photo-caption">WMRN antenna tower.</p>
-      </div>
-    </div>
-
-    <!-- EVENTS -->
-
-    <div class="photo-card">
-      <img src="/wmrn-archive-app/Photos/WMRN-2026-012_1979_Peanut-Push_Awards-Ceremony_Charlie-Evers-at-Microphone_01.jpg"
-           alt="Peanut Push awards ceremony, 1979">
-      <div class="photo-text">
-        <p class="photo-meta">1979 · Accession WMRN-2026-012</p>
-        <p class="photo-caption">
-          Charlie Evers speaking during the Peanut Push awards ceremony.
-        </p>
-      </div>
-    </div>
-
-    <div class="photo-card">
-      <img src="/wmrn-archive-app/Photos/WMRN-2026-012_1979_Peanut-Push_Group_Larry-Mathiot_Charlie-Evers_Randy-Roeder_01.jpg"
-           alt="Peanut Push group photo, 1979">
-      <div class="photo-text">
-        <p class="photo-meta">1979 · Accession WMRN-2026-012</p>
-        <p class="photo-caption">
-          Group photo from the 1979 Peanut Push event.
-        </p>
-      </div>
-    </div>
-
-  </section>
+  <!-- EMPTY GRID – JS FILLS THIS -->
+  <section id="photoGrid" class="photo-grid"></section>
 
 </main>
+
+<!-- LOAD PHOTO LIST -->
+<script src="/wmrn-archive-app/photos.js"></script>
+
+<!-- RENDER ALL PHOTOS -->
+<script>
+  const grid = document.getElementById("photoGrid");
+
+  photos.forEach(filename => {
+    const card = document.createElement("div");
+    card.className = "photo-card";
+
+    const img = document.createElement("img");
+    img.src = `/wmrn-archive-app/Photos/${filename}`;
+    img.alt = filename.replace(/_/g, " ");
+
+    const meta = document.createElement("p");
+    meta.className = "photo-meta";
+    meta.textContent = "Accession WMRN-2026-012";
+
+    const caption = document.createElement("p");
+    caption.className = "photo-caption";
+    caption.textContent = filename
+      .replace(".jpg", "")
+      .replace(/_/g, " ");
+
+    card.appendChild(img);
+    card.appendChild(meta);
+    card.appendChild(caption);
+    grid.appendChild(card);
+  });
+</script>
 
 </body>
 </html>
