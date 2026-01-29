@@ -418,3 +418,57 @@ form button {
   color: #444;
   text-align: center;
 }
+
+/* =========================
+   DARK MODE
+   ========================= */
+
+:root {
+  --bg: #ffffff;
+  --text: #111;
+  --card-bg: #ffffff;
+  --border: #ddd;
+  --muted: #666;
+  --accent: #9b1c1c;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Cards & surfaces */
+.photo-card,
+.audio-card,
+.home-card,
+.featured-card {
+  background: var(--card-bg);
+  border-color: var(--border);
+}
+
+/* Bottom nav */
+.bottom-nav {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* DARK MODE VARIABLES */
+body.dark {
+  --bg: #0f0f12;
+  --text: #f2f2f2;
+  --card-bg: #1a1a1f;
+  --border: #2a2a2f;
+  --muted: #aaa;
+}
+
+/* Dark nav glass */
+body.dark .bottom-nav {
+  background: rgba(30, 30, 34, 0.75);
+}
+
+/* Text tweaks */
+body.dark .tagline,
+body.dark .home-note,
+body.dark .photo-meta,
+body.dark .audio-meta {
+  color: var(--muted);
+}
