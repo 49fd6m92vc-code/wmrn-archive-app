@@ -12,7 +12,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="WMRN Archive">
 
+  <!-- GLOBAL APP LOGIC -->
   <script src="/wmrn-archive-app/app.js" defer></script>
+
+  <!-- ARCHIVE ITEM DATA (THIS WAS MISSING) -->
   <script src="/wmrn-archive-app/archive-items.js" defer></script>
 </head>
 
@@ -26,16 +29,21 @@
     <p class="muted" id="itemSubtitle"></p>
   </header>
 
-  <!-- MEDIA -->
-  <section class="archive-media">
+  <!-- ARCHIVE ITEM MEDIA -->
+  <section class="archive-media" id="mediaSection" hidden>
     <figure>
-      <img id="itemImage" alt="" loading="lazy">
+      <img
+        id="itemImage"
+        src=""
+        alt=""
+        loading="lazy"
+      >
       <figcaption class="muted" id="itemCaption"></figcaption>
     </figure>
   </section>
 
-  <!-- METADATA -->
-  <section class="archive-meta">
+  <!-- METADATA RECORD -->
+  <section class="archive-meta" id="metaSection" hidden>
     <p><strong>Accession:</strong> <span id="itemAccession"></span></p>
     <p><strong>Date:</strong> <span id="itemDate"></span></p>
     <p><strong>Format:</strong> <span id="itemFormat"></span></p>
@@ -44,19 +52,19 @@
   </section>
 
   <!-- DESCRIPTION -->
-  <section class="archive-description">
+  <section class="archive-description" id="descriptionSection" hidden>
     <h2>Description</h2>
-    <div id="itemDescription"></div>
+    <p id="itemDescription"></p>
   </section>
 
-  <!-- CONTEXT -->
-  <section class="archive-context">
+  <!-- CONTEXT & NOTES -->
+  <section class="archive-context" id="contextSection" hidden>
     <h3>Context &amp; Notes</h3>
     <ul id="itemNotes"></ul>
   </section>
 
   <!-- RIGHTS -->
-  <section class="archive-rights">
+  <section class="archive-rights" id="rightsSection" hidden>
     <h3>Rights &amp; Credit</h3>
     <p id="itemRights"></p>
     <p class="muted">
@@ -64,7 +72,14 @@
     </p>
   </section>
 
-  <!-- NAV -->
+  <!-- FALLBACK MESSAGE -->
+  <section id="errorSection">
+    <p class="muted">
+      No archive item selected. Please return to the archive and choose an item.
+    </p>
+  </section>
+
+  <!-- NAVIGATION CONTEXT -->
   <section class="archive-navigation">
     <p>
       <a href="/wmrn-archive-app/decades.html">← Back to Decades</a>
@@ -75,7 +90,7 @@
 
 </main>
 
-<!-- FLOATING NAV -->
+<!-- FLOATING BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
   <a href="/wmrn-archive-app/index.html"><span class="icon">🏠</span><span>Home</span></a>
   <a href="/wmrn-archive-app/decades.html"><span class="icon">📆</span><span>Decades</span></a>
@@ -89,45 +104,39 @@
 <script>
   const params = new URLSearchParams(window.location.search);
   const itemId = params.get("item");
-  const item = archiveItems?.[itemId];
 
-  if (!item) {
-    document.getElementById("itemTitle").textContent = "Item not found";
-  } else {
-    document.title = `${item.title} — ${item.decade}`;
+  if (itemId && window.archiveItems && archiveItems[itemId]) {
+    const item = archiveItems[itemId];
 
-    document.getElementById("itemTitle").textContent =
-      `${item.title} — ${item.decade}`;
+    document.getElementById("errorSection").hidden = true;
+
+    document.getElementById("itemTitle").textContent = item.title;
     document.getElementById("itemSubtitle").textContent = item.subtitle;
 
-    const img = document.getElementById("itemImage");
-    img.src = `/wmrn-archive-app/Photos/${item.filename}`;
-    img.alt = item.title;
+    document.getElementById("itemImage").src = `/wmrn-archive-app/Photos/${item.image}`;
+    document.getElementById("itemImage").alt = item.title;
+    document.getElementById("itemCaption").textContent = item.caption;
 
-    document.getElementById("itemCaption").textContent =
-      `${item.title}, ${item.subtitle}, ${item.date}`;
-
-    document.getElementById("itemAccession").textContent = item.id;
+    document.getElementById("itemAccession").textContent = item.accession;
     document.getElementById("itemDate").textContent = item.date;
     document.getElementById("itemFormat").textContent = item.format;
     document.getElementById("itemDecade").textContent = item.decade;
     document.getElementById("itemCollection").textContent = item.collection;
-
-    const desc = document.getElementById("itemDescription");
-    item.description.forEach(p => {
-      const para = document.createElement("p");
-      para.textContent = p;
-      desc.appendChild(para);
-    });
-
-    const notes = document.getElementById("itemNotes");
-    item.notes.forEach(n => {
-      const li = document.createElement("li");
-      li.textContent = n;
-      notes.appendChild(li);
-    });
-
+    document.getElementById("itemDescription").textContent = item.description;
     document.getElementById("itemRights").textContent = item.rights;
+
+    const notesList = document.getElementById("itemNotes");
+    item.notes.forEach(note => {
+      const li = document.createElement("li");
+      li.textContent = note;
+      notesList.appendChild(li);
+    });
+
+    document.getElementById("mediaSection").hidden = false;
+    document.getElementById("metaSection").hidden = false;
+    document.getElementById("descriptionSection").hidden = false;
+    document.getElementById("contextSection").hidden = false;
+    document.getElementById("rightsSection").hidden = false;
   }
 </script>
 
