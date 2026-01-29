@@ -49,8 +49,6 @@ body {
   background: var(--bg);
   color: var(--text);
   text-align: center;
-
-  /* Space for floating bottom nav (UNCHANGED) */
   padding-bottom: 84px;
 }
 
@@ -75,14 +73,13 @@ h1 {
   margin: 0 auto;
 }
 
-/* Normalize heading rhythm globally */
 h2 {
   margin: 1.25rem 0 0.75rem;
   font-size: 1.25rem;
 }
 
 /* =========================
-   TOP NAV (DESKTOP / FALLBACK)
+   TOP NAV (DESKTOP FALLBACK)
    ========================= */
 
 nav {
@@ -100,7 +97,6 @@ nav a {
   font-weight: 600;
 }
 
-/* Hide top nav on mobile when bottom nav is used */
 @media (max-width: 768px) {
   nav:not(.bottom-nav) {
     display: none;
@@ -115,7 +111,6 @@ main {
   padding: 2rem 1rem;
   max-width: 720px;
   margin: 0 auto;
-  text-align: center;
 }
 
 main p {
@@ -137,26 +132,22 @@ audio {
   padding: 1.2rem;
   margin-top: 1.5rem;
   border-radius: 6px;
-  text-align: left;
   background: var(--card-bg);
+  text-align: left;
 }
 
 .audio-card h3 {
   margin: 0 0 0.5rem;
-  font-size: 1.15rem;
 }
 
 .audio-meta {
   font-size: 0.85rem;
   color: var(--muted);
-  margin-bottom: 0.5rem;
 }
 
 .audio-description {
   font-size: 0.95rem;
-  color: var(--text);
   opacity: 0.9;
-  margin-bottom: 0.8rem;
 }
 
 /* =========================
@@ -208,7 +199,6 @@ form button {
   text-decoration: none;
   color: var(--text);
   font-weight: 700;
-  opacity: 0.95;
 }
 
 .decade-list a:hover {
@@ -223,12 +213,9 @@ form button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1.5rem;
-  margin-top: 1.5rem;
 }
 
 .photo-card {
-  display: flex;
-  flex-direction: column;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -238,9 +225,7 @@ form button {
 
 .photo-card img {
   width: 100%;
-  height: auto;
   display: block;
-  background: #f4f4f4;
   cursor: pointer;
 }
 
@@ -252,10 +237,7 @@ form button {
 
 .photo-caption {
   font-size: 0.9rem;
-  color: var(--text);
-  opacity: 0.9;
   padding: 0.3rem 0.7rem 0.8rem;
-  line-height: 1.35;
 }
 
 /* =========================
@@ -265,13 +247,12 @@ form button {
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0,0,0,0.9);
   display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   z-index: 9999;
-  padding: 1rem;
 }
 
 .lightbox.open {
@@ -281,16 +262,12 @@ form button {
 .lightbox img {
   max-width: 95%;
   max-height: 80vh;
-  object-fit: contain;
 }
 
 .lightbox-caption {
   color: #eee;
-  font-size: 0.9rem;
   margin-top: 0.75rem;
-  text-align: center;
-  max-width: 90%;
-  line-height: 1.4;
+  font-size: 0.9rem;
 }
 
 .lightbox-close {
@@ -298,63 +275,48 @@ form button {
   top: 0.75rem;
   right: 1rem;
   font-size: 2rem;
-  color: #fff;
   background: none;
   border: none;
-  cursor: pointer;
+  color: #fff;
 }
 
 /* =========================
-   FLOATING BOTTOM NAV (iOS GLASS)
+   FLOATING BOTTOM NAV (TIGHTENED & BALANCED)
    ========================= */
 
 .bottom-nav {
   position: fixed;
-  left: 12px;
-  right: 12px;
+  left: 8px;
+  right: 8px;
   bottom: 16px;
-
-  height: 56px;
+  height: 52px;
   background: var(--nav-glass);
-
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-
   border-radius: 18px;
   box-shadow: var(--shadow);
-
   display: flex;
-  justify-content: space-around;
   align-items: center;
-
   z-index: 1000;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.bottom-nav.hidden {
-  transform: translateY(120%);
-  opacity: 0;
 }
 
 .bottom-nav a {
   flex: 1;
+  min-width: 0;
   text-align: center;
-  text-decoration: none;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: var(--muted);
-
+  text-decoration: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-
+  align-items: center;
   gap: 1px;
 }
 
-.bottom-nav a span.icon {
-  font-size: 1.15rem;
-  line-height: 1;
+.bottom-nav a .icon {
+  font-size: 1.05rem;
 }
 
 .bottom-nav a.active {
@@ -362,67 +324,24 @@ form button {
 }
 
 /* =========================
-   HOME PAGE POLISH
+   HOME PAGE
    ========================= */
 
 .home-mission {
-  margin-top: 0.75rem;
   font-size: 1rem;
-  line-height: 1.5;
-  color: var(--text);
   opacity: 0.9;
 }
 
-.featured {
-  margin-top: 1.5rem;
-}
-
 .featured-card {
-  display: block;
   margin-top: 0.75rem;
   padding: 1rem;
   border-radius: 14px;
   background: var(--card-bg-soft);
   border: 1px solid var(--border-soft);
-  text-decoration: none;
-  color: var(--text);
-}
-
-.featured-tag {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: var(--accent);
-  margin-bottom: 0.25rem;
-}
-
-.featured-content strong {
-  display: block;
-  font-size: 1rem;
-  margin-bottom: 0.25rem;
-}
-
-.featured-content p {
-  margin: 0.25rem 0;
-  font-size: 0.9rem;
-  color: var(--text);
-  opacity: 0.85;
-}
-
-.featured-meta {
-  display: inline-block;
-  margin-top: 0.1rem;
-  font-size: 0.75rem;
-  color: var(--muted);
 }
 
 .home-actions {
   margin-top: 2rem;
-  text-align: left;
-}
-
-.home-actions h2 {
-  text-align: center;
 }
 
 .home-cards {
@@ -433,87 +352,54 @@ form button {
 
 .home-card {
   display: flex;
-  align-items: center;
   gap: 0.9rem;
   padding: 0.9rem 1rem;
   border-radius: 12px;
-
   background: var(--card-bg);
   border: 1px solid var(--border);
-
   text-decoration: none;
   color: var(--text);
 }
-
-.home-card:active {
-  transform: scale(0.98);
-}
-
-.home-card .icon {
-  font-size: 1.4rem;
-}
-
-.home-card strong {
-  display: block;
-  font-size: 0.95rem;
-  margin-bottom: 0.15rem;
-}
-
-.home-card p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.home-note {
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  color: var(--muted);
-  text-align: center;
-}
-
-/* =========================
-   SETTINGS TOGGLES
-   ========================= */
 
 .home-card.toggle {
   justify-content: space-between;
 }
 
-.home-card.toggle input[type="checkbox"] {
+/* =========================
+   TOGGLES
+   ========================= */
+
+.home-card.toggle input {
   width: 42px;
   height: 24px;
   appearance: none;
   background: #ccc;
   border-radius: 20px;
   position: relative;
-  outline: none;
-  cursor: pointer;
-  transition: background 0.2s ease;
 }
 
-.home-card.toggle input[type="checkbox"]::after {
+.home-card.toggle input::after {
   content: "";
-  position: absolute;
   width: 18px;
   height: 18px;
+  background: #fff;
+  position: absolute;
   top: 3px;
   left: 3px;
-  background: #fff;
   border-radius: 50%;
   transition: transform 0.2s ease;
 }
 
-.home-card.toggle input[type="checkbox"]:checked {
+.home-card.toggle input:checked {
   background: var(--accent);
 }
 
-.home-card.toggle input[type="checkbox"]:checked::after {
+.home-card.toggle input:checked::after {
   transform: translateX(18px);
 }
 
 /* =========================
-   SYSTEM DARK MODE (DEFAULT WHEN NO OVERRIDE CLASS)
+   SYSTEM DARK MODE
    ========================= */
 
 @media (prefers-color-scheme: dark) {
@@ -521,15 +407,12 @@ form button {
     --bg: #0f0f12;
     --text: #f2f2f2;
     --muted: #a9a9a9;
-
     --card-bg: #1a1a1f;
     --card-bg-soft: #1a1a1f;
-
     --border: #2a2a2f;
     --border-soft: #2a2a2f;
-
     --nav-glass: var(--nav-glass-dark);
-    --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    --shadow: 0 12px 30px rgba(0,0,0,0.35);
   }
 }
 
@@ -541,29 +424,22 @@ body.theme-dark {
   --bg: #0f0f12;
   --text: #f2f2f2;
   --muted: #a9a9a9;
-
   --card-bg: #1a1a1f;
   --card-bg-soft: #1a1a1f;
-
   --border: #2a2a2f;
   --border-soft: #2a2a2f;
-
   --nav-glass: var(--nav-glass-dark);
-  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --shadow: 0 12px 30px rgba(0,0,0,0.35);
 }
 
 body.theme-light {
-  /* Explicit light in case system is dark */
   --bg: #ffffff;
   --text: #111111;
   --muted: #666666;
-
   --card-bg: #ffffff;
   --card-bg-soft: #f7f7f7;
-
   --border: #dddddd;
   --border-soft: #e2e2e2;
-
-  --nav-glass: rgba(255, 255, 255, 0.75);
-  --shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  --nav-glass: rgba(255,255,255,0.75);
+  --shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
