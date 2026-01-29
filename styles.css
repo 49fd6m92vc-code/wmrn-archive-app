@@ -89,3 +89,24 @@ form button {
   color: #444;
   margin-top: 0.4rem;
 }
+
+.decade-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.decade-list li {
+  margin: 0.8rem 0;
+  font-size: 1.3rem;
+}
+
+.decade-list a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+}
+
+.decade-list a:hover {
+  color: #9b1c1c;
+}
