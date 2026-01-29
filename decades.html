@@ -143,3 +143,9 @@
     isSwiping = false;
   }, { passive: true });
 </script>
+
+  <script>
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark");
+  }
+</script>
