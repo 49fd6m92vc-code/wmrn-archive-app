@@ -9,8 +9,8 @@ body {
   color: #111;
   text-align: center;
 
-  /* Space for floating bottom nav */
-  padding-bottom: 96px;
+  /* Space for floating bottom nav (adjusted) */
+  padding-bottom: 84px;
 }
 
 header {
@@ -233,7 +233,7 @@ form button {
 }
 
 /* =========================
-   FLOATING BOTTOM NAV (iOS GLASS)
+   FLOATING BOTTOM NAV (iOS GLASS – THINNED)
    ========================= */
 
 .bottom-nav {
@@ -242,7 +242,7 @@ form button {
   right: 12px;
   bottom: 16px;
 
-  height: 64px;
+  height: 56px;
   background: rgba(255, 255, 255, 0.75);
 
   backdrop-filter: blur(18px);
@@ -279,11 +279,11 @@ form button {
   align-items: center;
   justify-content: center;
 
-  gap: 2px;
+  gap: 1px;
 }
 
 .bottom-nav a span.icon {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   line-height: 1;
 }
 
