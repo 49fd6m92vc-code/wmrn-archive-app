@@ -91,7 +91,7 @@
   });
 
   /* =========================
-     SWIPE NAVIGATION
+     SWIPE NAVIGATION (FIXED)
      ========================= */
   const pages = [
     "/wmrn-archive-app/index.html",
@@ -101,34 +101,58 @@
     "/wmrn-archive-app/submit.html"
   ];
 
-  let startX = null;
+  let startX = 0;
+  let startY = 0;
+  let isSwiping = false;
 
-  document.addEventListener("touchstart", e => {
-    startX = e.touches[0].clientX;
-  });
+  window.addEventListener("touchstart", e => {
+    const touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    isSwiping = true;
+  }, { passive: true });
 
-  document.addEventListener("touchend", e => {
-    if (startX === null) return;
+  window.addEventListener("touchmove", e => {
+    if (!isSwiping) return;
 
-    const endX = e.changedTouches[0].clientX;
-    const diffX = startX - endX;
+    const touch = e.touches[0];
+    const diffX = Math.abs(touch.clientX - startX);
+    const diffY = Math.abs(touch.clientY - startY);
 
-    if (Math.abs(diffX) < 80) return;
+    /* Cancel swipe if vertical scrolling dominates */
+    if (diffY > diffX) {
+      isSwiping = false;
+    }
+  }, { passive: true });
+
+  window.addEventListener("touchend", e => {
+    if (!isSwiping) return;
+
+    const touch = e.changedTouches[0];
+    const diffX = touch.clientX - startX;
+
+    /* Require intentional horizontal swipe */
+    if (Math.abs(diffX) < 90) {
+      isSwiping = false;
+      return;
+    }
 
     const index = pages.findIndex(p =>
       currentPath.includes(p)
     );
 
-    if (diffX > 0 && index < pages.length - 1) {
+    if (diffX < 0 && index < pages.length - 1) {
+      /* Swipe left → next page */
       window.location.href = pages[index + 1];
     }
 
-    if (diffX < 0 && index > 0) {
+    if (diffX > 0 && index > 0) {
+      /* Swipe right → previous page */
       window.location.href = pages[index - 1];
     }
 
-    startX = null;
-  });
+    isSwiping = false;
+  }, { passive: true });
 </script>
 
 </body>
