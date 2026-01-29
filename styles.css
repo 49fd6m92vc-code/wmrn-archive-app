@@ -9,7 +9,7 @@ body {
   color: #111;
   text-align: center;
 
-  /* Space for floating bottom nav (adjusted) */
+  /* Space for floating bottom nav (unchanged) */
   padding-bottom: 84px;
 }
 
@@ -32,6 +32,12 @@ h1 {
   color: #444;
   max-width: 320px;
   margin: 0 auto;
+}
+
+/* Normalize heading rhythm globally */
+h2 {
+  margin: 1.25rem 0 0.75rem;
+  font-size: 1.25rem;
 }
 
 /* =========================
@@ -71,6 +77,11 @@ main {
   text-align: center;
 }
 
+main p {
+  margin: 0.75rem 0;
+  line-height: 1.55;
+}
+
 /* =========================
    AUDIO
    ========================= */
@@ -89,7 +100,7 @@ audio {
 }
 
 .audio-card h3 {
-  margin-top: 0;
+  margin: 0 0 0.5rem;
   font-size: 1.15rem;
 }
 
@@ -125,12 +136,12 @@ form button {
 .decade-list {
   list-style: none;
   padding: 0;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .decade-list li {
-  margin: 0.8rem 0;
-  font-size: 1.3rem;
+  margin: 0.6rem 0;
+  font-size: 1.25rem;
 }
 
 .decade-list a {
@@ -151,7 +162,7 @@ form button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .photo-card {
@@ -175,13 +186,13 @@ form button {
 .photo-meta {
   font-size: 0.75rem;
   color: #666;
-  padding: 0.5rem 0.7rem 0 0.7rem;
+  padding: 0.5rem 0.7rem 0;
 }
 
 .photo-caption {
   font-size: 0.9rem;
   color: #222;
-  padding: 0.3rem 0.7rem 0.8rem 0.7rem;
+  padding: 0.3rem 0.7rem 0.8rem;
   line-height: 1.35;
 }
 
@@ -209,7 +220,6 @@ form button {
   max-width: 95%;
   max-height: 80vh;
   object-fit: contain;
-  background: #000;
 }
 
 .lightbox-caption {
@@ -230,78 +240,6 @@ form button {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-/* =========================
-   FEATURED ITEM (HOME)
-   ========================= */
-
-.featured {
-  margin-top: 2.5rem;
-  text-align: left;
-}
-
-.featured h2 {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.featured-card {
-  position: relative;
-  display: block;
-
-  padding: 1.1rem 1.2rem;
-  border-radius: 14px;
-
-  background: linear-gradient(
-    135deg,
-    rgba(155, 28, 28, 0.08),
-    rgba(155, 28, 28, 0.02)
-  );
-
-  border: 1px solid rgba(155, 28, 28, 0.25);
-
-  text-decoration: none;
-  color: #111;
-
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.featured-card:active {
-  transform: scale(0.98);
-}
-
-.featured-tag {
-  position: absolute;
-  top: -10px;
-  left: 14px;
-
-  background: #9b1c1c;
-  color: #fff;
-
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 8px;
-}
-
-.featured-content strong {
-  display: block;
-  font-size: 1rem;
-  margin-bottom: 0.35rem;
-}
-
-.featured-content p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #333;
-}
-
-.featured-meta {
-  display: block;
-  margin-top: 0.4rem;
-  font-size: 0.75rem;
-  color: #666;
 }
 
 /* =========================
@@ -328,7 +266,6 @@ form button {
   align-items: center;
 
   z-index: 1000;
-
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -360,4 +297,108 @@ form button {
 
 .bottom-nav a.active {
   color: #9b1c1c;
+}
+
+/* =========================
+   HOME PAGE POLISH
+   ========================= */
+
+.home-mission {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.featured {
+  margin-top: 1.5rem;
+}
+
+.featured-card {
+  display: block;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: #f7f7f7;
+  border: 1px solid #e2e2e2;
+  text-decoration: none;
+  color: #111;
+}
+
+.featured-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #9b1c1c;
+  margin-bottom: 0.25rem;
+}
+
+.featured-content strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.featured-content p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.featured-meta {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.home-actions {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.home-actions h2 {
+  text-align: center;
+}
+
+.home-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.home-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  text-decoration: none;
+  color: #111;
+}
+
+.home-card:active {
+  transform: scale(0.98);
+}
+
+.home-card .icon {
+  font-size: 1.4rem;
+}
+
+.home-card strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+}
+
+.home-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.home-note {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #444;
+  text-align: center;
 }
