@@ -40,9 +40,11 @@
 
   photos.forEach(filename => {
     const itemId = filename.replace(".jpg", "");
+    const cacheBuster = Date.now();
 
     const link = document.createElement("a");
-    link.href = `/wmrn-archive-app/item.html?item=${encodeURIComponent(itemId)}&file=${encodeURIComponent(filename)}`;
+    link.href =
+      `/wmrn-archive-app/item.html?item=${encodeURIComponent(itemId)}&file=${encodeURIComponent(filename)}&v=${cacheBuster}`;
     link.className = "photo-card";
     link.setAttribute("aria-label", "View archival record");
 
