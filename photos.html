@@ -31,41 +31,22 @@
 
 </main>
 
-<!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox" aria-hidden="true">
-  <button class="lightbox-close" aria-label="Close photo">&times;</button>
-  <img id="lightboxImage" alt="">
-  <p id="lightboxCaption" class="lightbox-caption"></p>
-</div>
-
 <!-- LOAD PHOTO LIST -->
 <script src="/wmrn-archive-app/photos.js"></script>
 
-<!-- RENDER + LIGHTBOX -->
+<!-- RENDER PHOTO GRID -->
 <script>
   const grid = document.getElementById("photoGrid");
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImage = document.getElementById("lightboxImage");
-  const lightboxCaption = document.getElementById("lightboxCaption");
-  const closeBtn = document.querySelector(".lightbox-close");
 
   photos.forEach(filename => {
-    const card = document.createElement("div");
-    card.className = "photo-card";
+    const link = document.createElement("a");
+    link.href = `/wmrn-archive-app/item.html?item=WMRN-2026-012&file=${encodeURIComponent(filename)}`;
+    link.className = "photo-card";
+    link.setAttribute("aria-label", "View archival record");
 
     const img = document.createElement("img");
     img.src = `/wmrn-archive-app/Photos/${filename}`;
     img.alt = filename.replace(/_/g, " ");
-
-    img.addEventListener("click", () => {
-      lightboxImage.src = img.src;
-      lightboxImage.alt = img.alt;
-      lightboxCaption.textContent = filename
-        .replace(".jpg", "")
-        .replace(/_/g, " ");
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden", "false");
-    });
 
     const meta = document.createElement("p");
     meta.className = "photo-meta";
@@ -77,22 +58,11 @@
       .replace(".jpg", "")
       .replace(/_/g, " ");
 
-    card.appendChild(img);
-    card.appendChild(meta);
-    card.appendChild(caption);
-    grid.appendChild(card);
-  });
+    link.appendChild(img);
+    link.appendChild(meta);
+    link.appendChild(caption);
 
-  function closeLightbox() {
-    lightbox.classList.remove("open");
-    lightbox.setAttribute("aria-hidden", "true");
-    lightboxImage.src = "";
-  }
-
-  closeBtn.addEventListener("click", closeLightbox);
-
-  lightbox.addEventListener("click", e => {
-    if (e.target === lightbox) closeLightbox();
+    grid.appendChild(link);
   });
 </script>
 
