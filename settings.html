@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Settings – WMRN Archive</title>
+
+<link rel="stylesheet" href="/wmrn-archive-app/styles.css">
+<meta name="theme-color" content="#9b1c1c">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="WMRN Archive">
+<link rel="apple-touch-icon" href="/wmrn-archive-app/icons/icon-192.png">
+</head>
+
+<body>
+
+<header>
+  <h1>Settings</h1>
+  <p class="tagline">App preferences and archive information</p>
+</header>
+
+<main>
+
+  <!-- APP INFO -->
+  <section class="home-actions">
+    <h2>App Information</h2>
+
+    <div class="home-card">
+      <div>
+        <strong>WMRN Radio History Archive</strong>
+        <p>Progressive Web App</p>
+        <p style="font-size:0.8rem; color:#666;">Version 1.0 · Hosted on GitHub Pages</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEHAVIOR -->
+  <section class="home-actions">
+    <h2>App Behavior</h2>
+
+    <div class="home-card">
+      <div>
+        <strong>Swipe Navigation</strong>
+        <p>Swipe left or right to move between sections</p>
+        <p style="font-size:0.8rem; color:#666;">Currently always enabled</p>
+      </div>
+    </div>
+
+    <div class="home-card">
+      <div>
+        <strong>Haptic Feedback</strong>
+        <p>Light vibration when tapping navigation</p>
+        <p style="font-size:0.8rem; color:#666;">Uses system settings</p>
+      </div>
+    </div>
+
+    <div class="home-card">
+      <div>
+        <strong>Reduced Motion</strong>
+        <p>Respects your device’s accessibility settings</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHIVE NOTES -->
+  <section class="home-actions">
+    <h2>About the Archive</h2>
+
+    <p style="text-align:left; font-size:0.95rem; line-height:1.5;">
+      This archive documents the people, places, programs, and experiences connected
+      to WMRN Radio. Materials are added as they are discovered, verified, and preserved.
+    </p>
+
+    <p style="text-align:left; font-size:0.9rem; color:#555;">
+      Not all materials are publicly available. Some items may be restricted due to
+      condition, rights, or donor preferences.
+    </p>
+  </section>
+
+  <!-- PRIVACY -->
+  <section class="home-actions">
+    <h2>Privacy & Data</h2>
+
+    <ul style="text-align:left; font-size:0.95rem; line-height:1.5; padding-left:1.2rem;">
+      <li>No analytics or tracking</li>
+      <li>No cookies</li>
+      <li>No user accounts</li>
+      <li>Submitted information is reviewed manually</li>
+    </ul>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="home-actions">
+    <h2>Contact & Credits</h2>
+
+    <p style="text-align:left; font-size:0.95rem;">
+      Maintained by the WMRN Radio History Archive.
+    </p>
+
+    <p style="text-align:left; font-size:0.9rem;">
+      For corrections, questions, or contributions, please use the
+      <a href="/wmrn-archive-app/submit.html">Submit</a> page.
+    </p>
+  </section>
+
+</main>
+
+<!-- FLOATING BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
+  <a href="/wmrn-archive-app/index.html">
+    <span class="icon">🏠</span>
+    <span>Home</span>
+  </a>
+  <a href="/wmrn-archive-app/decades.html">
+    <span class="icon">📆</span>
+    <span>Decades</span>
+  </a>
+  <a href="/wmrn-archive-app/photos.html">
+    <span class="icon">📷</span>
+    <span>Photos</span>
+  </a>
+  <a href="/wmrn-archive-app/audio.html">
+    <span class="icon">🎙️</span>
+    <span>Audio</span>
+  </a>
+  <a href="/wmrn-archive-app/settings.html">
+    <span class="icon">⚙️</span>
+    <span>Settings</span>
+  </a>
+</nav>
+
+<script>
+  const navLinks = document.querySelectorAll(".bottom-nav a");
+  const currentPath = window.location.pathname;
+
+  navLinks.forEach(link => {
+    if (currentPath.includes(link.getAttribute("href"))) {
+      link.classList.add("active");
+    }
+  });
+</script>
+
+</body>
+</html>
