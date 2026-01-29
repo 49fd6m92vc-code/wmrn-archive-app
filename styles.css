@@ -268,7 +268,7 @@ form button {
 }
 
 /* =========================
-   EDGE-TO-EDGE BOTTOM NAV
+   BOTTOM NAV – EDGE TO EDGE (FACEBOOK STYLE)
    ========================= */
 
 .bottom-nav {
@@ -285,18 +285,20 @@ form button {
   -webkit-backdrop-filter: blur(18px);
 
   border-top: 1px solid var(--border);
-  border-radius: 16px 16px 0 0;
+  border-radius: 0;
 
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-around;
 
   z-index: 1000;
 }
 
 .bottom-nav a {
   flex: 1;
+  min-width: 0;
   text-align: center;
+
   font-size: 0.7rem;
   font-weight: 700;
   color: var(--muted);
@@ -304,11 +306,15 @@ form button {
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+
+  gap: 2px;
 }
 
 .bottom-nav a .icon {
   font-size: 1.1rem;
+  line-height: 1;
 }
 
 .bottom-nav a.active {
