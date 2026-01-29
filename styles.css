@@ -589,3 +589,48 @@ body.theme-dark .featured-card,
 .featured-content {
   margin-top: 0.5rem;
 }
+
+/* =========================
+   SETTINGS PAGE LAYOUT FIX
+   ========================= */
+
+.home-actions .home-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Left text stack */
+.home-actions .home-card > div {
+  flex: 1;
+  text-align: left;
+  padding-right: 1rem;
+}
+
+/* Theme selector */
+.home-actions select {
+  appearance: none;
+  -webkit-appearance: none;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+
+  background: var(--card-bg);
+  color: var(--text);
+
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+/* Dark mode select harmony */
+body.theme-dark .home-actions select,
+@media (prefers-color-scheme: dark) {
+  body:not(.theme-light):not(.theme-dark) .home-actions select {
+    background: var(--card-bg);
+    color: var(--text);
+    border-color: var(--border);
+  }
+}
