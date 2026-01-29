@@ -31,13 +31,46 @@
   </ul>
 </main>
 
-<nav class="bottom-nav">
-  <a href="/wmrn-archive-app/index.html" data-page="home">Home</a>
-  <a href="/wmrn-archive-app/decades.html" data-page="decades">Decades</a>
-  <a href="/wmrn-archive-app/photos.html" data-page="photos">Photos</a>
-  <a href="/wmrn-archive-app/audio.html" data-page="audio">Audio</a>
-  <a href="/wmrn-archive-app/submit.html" data-page="submit">Submit</a>
+<nav class="bottom-nav" id="bottomNav">
+  <a href="/wmrn-archive-app/index.html">
+    <span class="icon">🏠</span>
+    <span>Home</span>
+  </a>
+
+  <a href="/wmrn-archive-app/decades.html">
+    <span class="icon">📆</span>
+    <span>Decades</span>
+  </a>
+
+  <a href="/wmrn-archive-app/photos.html">
+    <span class="icon">📷</span>
+    <span>Photos</span>
+  </a>
+
+  <a href="/wmrn-archive-app/audio.html">
+    <span class="icon">🎙️</span>
+    <span>Audio</span>
+  </a>
+
+  <a href="/wmrn-archive-app/submit.html">
+    <span class="icon">✍️</span>
+    <span>Submit</span>
+  </a>
 </nav>
+
+<script>
+  let lastScrollY = window.scrollY;
+  const bottomNav = document.getElementById("bottomNav");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > lastScrollY && window.scrollY > 100) {
+      bottomNav.classList.add("hidden");
+    } else {
+      bottomNav.classList.remove("hidden");
+    }
+    lastScrollY = window.scrollY;
+  });
+</script>
   
 </body>
 </html>
