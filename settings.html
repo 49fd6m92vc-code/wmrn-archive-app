@@ -12,6 +12,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="WMRN Archive">
 <link rel="apple-touch-icon" href="/wmrn-archive-app/icons/icon-192.png">
+
+<!-- GLOBAL APP LOGIC -->
+<script src="/wmrn-archive-app/app.js" defer></script>
 </head>
 
 <body>
@@ -42,12 +45,18 @@
   <section class="home-actions">
     <h2>Appearance & Behavior</h2>
 
-    <div class="home-card toggle">
+    <!-- THEME SELECTOR -->
+    <div class="home-card">
       <div>
-        <strong>Dark Mode</strong>
-        <p>Use a darker color scheme</p>
+        <strong>Theme</strong>
+        <p>Choose how the app appears</p>
       </div>
-      <input type="checkbox" id="toggleDark">
+
+      <select id="themeSelect" aria-label="Theme selection">
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
     </div>
 
     <div class="home-card toggle">
@@ -148,50 +157,31 @@
 
 <!-- SETTINGS LOGIC -->
 <script>
-  /* =========================
-     LOAD SAVED SETTINGS
-     ========================= */
-
-  const darkToggle = document.getElementById("toggleDark");
+  const themeSelect = document.getElementById("themeSelect");
   const swipeToggle = document.getElementById("toggleSwipe");
   const hapticToggle = document.getElementById("toggleHaptics");
 
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  /* Load saved settings */
+  const savedTheme = localStorage.getItem("theme") || "system";
+  const swipeEnabled = localStorage.getItem("swipeNav") !== "off";
+  const hapticsEnabled = localStorage.getItem("haptics") !== "off";
 
-  const darkModeEnabled =
-    localStorage.getItem("darkMode") !== null
-      ? localStorage.getItem("darkMode") === "true"
-      : prefersDark;
-
-  const swipeEnabled =
-    localStorage.getItem("swipeNav") !== "false";
-
-  const hapticsEnabled =
-    localStorage.getItem("haptics") !== "false";
-
-  /* Apply initial state */
-  document.body.classList.toggle("dark", darkModeEnabled);
-
-  darkToggle.checked = darkModeEnabled;
+  themeSelect.value = savedTheme;
   swipeToggle.checked = swipeEnabled;
   hapticToggle.checked = hapticsEnabled;
 
-  /* =========================
-     TOGGLE HANDLERS
-     ========================= */
-
-  darkToggle.addEventListener("change", () => {
-    const enabled = darkToggle.checked;
-    document.body.classList.toggle("dark", enabled);
-    localStorage.setItem("darkMode", enabled);
+  /* Theme change */
+  themeSelect.addEventListener("change", () => {
+    localStorage.setItem("theme", themeSelect.value);
+    location.reload(); // re-apply via app.js
   });
 
   swipeToggle.addEventListener("change", () => {
-    localStorage.setItem("swipeNav", swipeToggle.checked);
+    localStorage.setItem("swipeNav", swipeToggle.checked ? "on" : "off");
   });
 
   hapticToggle.addEventListener("change", () => {
-    localStorage.setItem("haptics", hapticToggle.checked);
+    localStorage.setItem("haptics", hapticToggle.checked ? "on" : "off");
   });
 </script>
 
