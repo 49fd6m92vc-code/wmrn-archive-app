@@ -14,6 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="WMRN Archive">
 <link rel="apple-touch-icon" href="/wmrn-archive-app/icons/icon-192.png">
 
+<!-- GLOBAL APP LOGIC (THEME, ETC.) -->
 <script src="/wmrn-archive-app/app.js" defer></script>
 </head>
 
@@ -38,57 +39,61 @@
     of this community. This archive exists to ensure that history is not lost.
   </p>
 
+  <!-- FEATURED -->
   <section class="featured">
-  <h2>Featured from the Archive</h2>
+    <h2>Featured from the Archive</h2>
 
-  <a id="featuredCard" class="featured-card" href="#">
-    <div class="featured-tag">Featured</div>
+    <a id="featuredCard" class="featured-card" href="#">
+      <span class="featured-tag">Featured</span>
 
-    <div class="featured-content">
-      <strong id="featuredTitle"></strong>
-      <p id="featuredDescription"></p>
-      <span class="featured-meta" id="featuredMeta"></span>
-    </div>
-  </a>
-</section>
+      <div class="featured-content">
+        <strong id="featuredTitle"></strong>
+        <p id="featuredDescription"></p>
+        <span class="featured-meta" id="featuredMeta"></span>
+      </div>
+    </a>
+  </section>
 
+  <!-- EXPLORE -->
   <section class="home-actions">
-  <h2>Explore the Archive</h2>
+    <h2>Explore the Archive</h2>
 
-  <div class="home-cards">
-    <a class="home-card" href="/wmrn-archive-app/decades.html">
-      <span class="icon">📆</span>
-      <div>
-        <strong>Browse by Decade</strong>
-        <p>Explore WMRN history across the decades.</p>
-      </div>
-    </a>
+    <div class="home-cards">
 
-    <a class="home-card" href="/wmrn-archive-app/photos.html">
-      <span class="icon">📷</span>
-      <div>
-        <strong>Historic Photos</strong>
-        <p>Studios, staff, events, and everyday life.</p>
-      </div>
-    </a>
+      <a class="home-card" href="/wmrn-archive-app/decades.html">
+        <span class="icon">📆</span>
+        <div>
+          <strong>Browse by Decade</strong>
+          <p>Explore WMRN history across the decades.</p>
+        </div>
+      </a>
 
-    <a class="home-card" href="/wmrn-archive-app/audio.html">
-      <span class="icon">🎙️</span>
-      <div>
-        <strong>Audio Recordings</strong>
-        <p>Preserved broadcasts and archival audio.</p>
-      </div>
-    </a>
+      <a class="home-card" href="/wmrn-archive-app/photos.html">
+        <span class="icon">📷</span>
+        <div>
+          <strong>Historic Photos</strong>
+          <p>Studios, staff, events, and everyday life.</p>
+        </div>
+      </a>
 
-    <a class="home-card" href="/wmrn-archive-app/submit.html">
-      <span class="icon">✍️</span>
-      <div>
-        <strong>Contribute</strong>
-        <p>Share materials, memories, or information.</p>
-      </div>
-    </a>
-  </div>
-</section>
+      <a class="home-card" href="/wmrn-archive-app/audio.html">
+        <span class="icon">🎙️</span>
+        <div>
+          <strong>Audio Recordings</strong>
+          <p>Preserved broadcasts and archival audio.</p>
+        </div>
+      </a>
+
+      <a class="home-card" href="/wmrn-archive-app/submit.html">
+        <span class="icon">✍️</span>
+        <div>
+          <strong>Contribute</strong>
+          <p>Share materials, memories, or information.</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
 
   <p class="home-note">
     This is a living archive. New materials are added as recordings, photographs,
@@ -98,7 +103,7 @@
 </main>
 
 <!-- FLOATING BOTTOM NAV -->
-<nav class="bottom-nav" id="bottomNav">
+<nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
   <a href="/wmrn-archive-app/index.html">
     <span class="icon">🏠</span>
     <span>Home</span>
@@ -119,13 +124,13 @@
     <span class="icon">✍️</span>
     <span>Submit</span>
   </a>
-<a href="/wmrn-archive-app/settings.html">
+  <a href="/wmrn-archive-app/settings.html">
     <span class="icon">⚙️</span>
     <span>Settings</span>
   </a>
 </nav>
 
-<!-- NAV BEHAVIOR: AUTO-HIGHLIGHT + HAPTICS + SWIPE -->
+<!-- NAV BEHAVIOR: ACTIVE TAB + HAPTICS + SWIPE -->
 <script>
   const navLinks = document.querySelectorAll(".bottom-nav a");
   const currentPath = window.location.pathname;
@@ -137,7 +142,7 @@
   });
 
   function hapticTap() {
-    if (navigator.vibrate) {
+    if (navigator.vibrate && localStorage.getItem("haptics") !== "off") {
       navigator.vibrate(10);
     }
   }
@@ -151,7 +156,8 @@
     "/wmrn-archive-app/decades.html",
     "/wmrn-archive-app/photos.html",
     "/wmrn-archive-app/audio.html",
-    "/wmrn-archive-app/submit.html"
+    "/wmrn-archive-app/submit.html",
+    "/wmrn-archive-app/settings.html"
   ];
 
   let startX = 0;
@@ -159,6 +165,7 @@
   let isSwiping = false;
 
   window.addEventListener("touchstart", e => {
+    if (localStorage.getItem("swipeNav") === "off") return;
     const touch = e.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
@@ -167,101 +174,60 @@
 
   window.addEventListener("touchmove", e => {
     if (!isSwiping) return;
-
     const touch = e.touches[0];
-    const diffX = Math.abs(touch.clientX - startX);
-    const diffY = Math.abs(touch.clientY - startY);
-
-    if (diffY > diffX) {
+    if (Math.abs(touch.clientY - startY) > Math.abs(touch.clientX - startX)) {
       isSwiping = false;
     }
   }, { passive: true });
 
   window.addEventListener("touchend", e => {
     if (!isSwiping) return;
+    const diffX = e.changedTouches[0].clientX - startX;
+    if (Math.abs(diffX) < 90) return;
 
-    const touch = e.changedTouches[0];
-    const diffX = touch.clientX - startX;
-
-    if (Math.abs(diffX) < 90) {
-      isSwiping = false;
-      return;
-    }
-
-    const index = pages.findIndex(p =>
-      currentPath.includes(p)
-    );
-
-    if (diffX < 0 && index < pages.length - 1) {
-      window.location.href = pages[index + 1];
-    }
-
-    if (diffX > 0 && index > 0) {
-      window.location.href = pages[index - 1];
-    }
-
-    isSwiping = false;
+    const index = pages.findIndex(p => currentPath.includes(p));
+    if (diffX < 0 && index < pages.length - 1) location.href = pages[index + 1];
+    if (diffX > 0 && index > 0) location.href = pages[index - 1];
   }, { passive: true });
 </script>
 
+<!-- FEATURED ROTATION -->
 <script>
-  /* =========================
-     FEATURED ITEM ROTATION
-     ========================= */
-
   const featuredItems = [
-  {
-    title: "1979 Peanut Push – Photo Collection",
-    description: "Photographs from the annual Peanut Push awards ceremony, including Charlie Evers and WMRN staff.",
-    meta: "Photos · 1979 · Accession WMRN-2026-012",
-    link: "/wmrn-archive-app/photos.html"
-  },
-  {
-    title: "Paul Van House in Studio",
-    description: "On-air moments inside the WMRN studios during the 1970s.",
-    meta: "Photos · 1970s · Accession WMRN-2026-012",
-    link: "/wmrn-archive-app/photos.html"
-  },
-  {
-    title: "WMRN Control Room",
-    description: "AM control room equipment and layout from the 1970s.",
-    meta: "Photos · 1970s · Accession WMRN-2026-012",
-    link: "/wmrn-archive-app/photos.html"
-  },
-  {
-    title: "Help Us Preserve More",
-    description: "Do you have recordings, photos, or memories connected to WMRN?",
-    meta: "Contribute · Community Archive",
-    link: "/wmrn-archive-app/submit.html"
-  }
-];
+    {
+      title: "1979 Peanut Push – Photo Collection",
+      description: "Photographs from the annual Peanut Push awards ceremony.",
+      meta: "Photos · 1979 · Accession WMRN-2026-012",
+      link: "/wmrn-archive-app/photos.html"
+    },
+    {
+      title: "Paul Van House in Studio",
+      description: "On-air moments inside the WMRN studios during the 1970s.",
+      meta: "Photos · 1970s · Accession WMRN-2026-012",
+      link: "/wmrn-archive-app/photos.html"
+    },
+    {
+      title: "Help Us Preserve More",
+      description: "Do you have recordings, photos, or memories connected to WMRN?",
+      meta: "Contribute · Community Archive",
+      link: "/wmrn-archive-app/submit.html"
+    }
+  ];
 
   let featuredIndex = 0;
 
-  const featuredCard = document.getElementById("featuredCard");
-  const featuredTitle = document.getElementById("featuredTitle");
-  const featuredDescription = document.getElementById("featuredDescription");
-  const featuredMeta = document.getElementById("featuredMeta");
-
   function updateFeatured() {
     const item = featuredItems[featuredIndex];
-
     featuredTitle.textContent = item.title;
     featuredDescription.textContent = item.description;
     featuredMeta.textContent = item.meta;
     featuredCard.href = item.link;
-
     featuredIndex = (featuredIndex + 1) % featuredItems.length;
   }
 
   updateFeatured();
   setInterval(updateFeatured, 7000);
 </script>
-  <script src="/wmrn-archive-app/app.js" defer></script>
-  <script>
-  if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark");
-  }
-</script>
+
 </body>
 </html>
