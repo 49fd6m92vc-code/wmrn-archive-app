@@ -143,5 +143,49 @@
   });
 </script>
 
+<script>
+  /* =========================
+     LOAD SAVED SETTINGS
+     ========================= */
+
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const settings = {
+    dark: localStorage.getItem("darkMode") ?? (prefersDark ? "on" : "off"),
+    swipe: localStorage.getItem("swipeNav") ?? "on",
+    haptics: localStorage.getItem("haptics") ?? "on"
+  };
+
+  const darkToggle = document.getElementById("toggleDark");
+  const swipeToggle = document.getElementById("toggleSwipe");
+  const hapticToggle = document.getElementById("toggleHaptics");
+
+  darkToggle.checked = settings.dark === "on";
+  swipeToggle.checked = settings.swipe === "on";
+  hapticToggle.checked = settings.haptics === "on";
+
+  if (settings.dark === "on") {
+    document.body.classList.add("dark");
+  }
+
+  /* =========================
+     TOGGLE HANDLERS
+     ========================= */
+
+  darkToggle.addEventListener("change", () => {
+    const enabled = darkToggle.checked;
+    document.body.classList.toggle("dark", enabled);
+    localStorage.setItem("darkMode", enabled ? "on" : "off");
+  });
+
+  swipeToggle.addEventListener("change", () => {
+    localStorage.setItem("swipeNav", swipeToggle.checked ? "on" : "off");
+  });
+
+  hapticToggle.addEventListener("change", () => {
+    localStorage.setItem("haptics", hapticToggle.checked ? "on" : "off");
+  });
+</script>
+  
 </body>
 </html>
