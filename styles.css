@@ -1,5 +1,9 @@
-/* =========================
+The latest code screwed up the settings layout again… here’s the correct code, ONLY FIX THE NAVIGATION BAR:
+
+“/* =========================
    THEME TOKENS (DEFAULT = LIGHT)
+   System mode is handled via prefers-color-scheme below.
+   Manual overrides use: body.theme-light / body.theme-dark
    ========================= */
 
 :root {
@@ -15,22 +19,26 @@
 
   --accent: #9b1c1c;
 
-  --nav-glass: rgba(255, 255, 255, 0.85);
-  --nav-glass-dark: rgba(30, 30, 34, 0.9);
+  --nav-glass: rgba(255, 255, 255, 0.75);
+  --nav-glass-dark: rgba(30, 30, 34, 0.75);
 
   --shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
 /* =========================
-   ACCESSIBILITY
+   ACCESSIBILITY HELPERS
    ========================= */
 
 .visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* =========================
@@ -73,6 +81,31 @@ h2 {
 }
 
 /* =========================
+   TOP NAV (DESKTOP FALLBACK)
+   ========================= */
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  nav:not(.bottom-nav) {
+    display: none;
+  }
+}
+
+/* =========================
    MAIN CONTENT
    ========================= */
 
@@ -105,6 +138,20 @@ audio {
   text-align: left;
 }
 
+.audio-card h3 {
+  margin: 0 0 0.5rem;
+}
+
+.audio-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.audio-description {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
 /* =========================
    FORMS
    ========================= */
@@ -116,6 +163,7 @@ form button {
   margin-top: 1rem;
   padding: 0.6rem;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
 form input,
@@ -141,11 +189,22 @@ form button {
 .decade-list {
   list-style: none;
   padding: 0;
+  margin-top: 1.5rem;
 }
 
 .decade-list li {
   margin: 0.6rem 0;
   font-size: 1.25rem;
+}
+
+.decade-list a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.decade-list a:hover {
+  color: var(--accent);
 }
 
 /* =========================
@@ -166,105 +225,61 @@ form button {
   text-align: left;
 }
 
-/* =========================
-   FEATURED SECTION (SAFE)
-   ========================= */
-
-.featured {
-  margin-top: 1.5rem;
+.photo-card img {
+  width: 100%;
+  display: block;
+  cursor: pointer;
 }
 
-.featured-card {
-  position: relative;
-  padding: 1.2rem;
-  border-radius: 14px;
-  background: rgba(155, 28, 28, 0.08);
-  border: 1px solid rgba(155, 28, 28, 0.25);
-  text-align: left;
-}
-
-.featured-tag {
-  position: absolute;
-  top: -10px;
-  left: 16px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: 999px;
-}
-
-.featured-content {
-  margin-top: 0.5rem;
-}
-
-.featured-meta {
+.photo-meta {
   font-size: 0.75rem;
   color: var(--muted);
+  padding: 0.5rem 0.7rem 0;
+}
+
+.photo-caption {
+  font-size: 0.9rem;
+  padding: 0.3rem 0.7rem 0.8rem;
 }
 
 /* =========================
-   HOME ACTION CARDS
+   LIGHTBOX
    ========================= */
 
-.home-actions {
-  margin-top: 2rem;
-}
-
-.home-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.home-card {
-  display: flex;
-  gap: 0.9rem;
-  padding: 0.9rem 1rem;
-  border-radius: 12px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  color: var(--text);
-  text-decoration: none;
-}
-
-/* =========================
-   SETTINGS TOGGLES
-   ========================= */
-
-.home-card.toggle {
-  justify-content: space-between;
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
 }
 
-.home-card.toggle input {
-  width: 42px;
-  height: 24px;
-  appearance: none;
-  background: #ccc;
-  border-radius: 20px;
-  position: relative;
+.lightbox.open {
+  display: flex;
 }
 
-.home-card.toggle input::after {
-  content: "";
-  width: 18px;
-  height: 18px;
-  background: #fff;
+.lightbox img {
+  max-width: 95%;
+  max-height: 80vh;
+}
+
+.lightbox-caption {
+  color: #eee;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.lightbox-close {
   position: absolute;
-  top: 3px;
-  left: 3px;
-  border-radius: 50%;
-  transition: transform 0.2s ease;
-}
-
-.home-card.toggle input:checked {
-  background: var(--accent);
-}
-
-.home-card.toggle input:checked::after {
-  transform: translateX(18px);
+  top: 0.75rem;
+  right: 1rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #fff;
 }
 
 /* =========================
@@ -322,7 +337,133 @@ form button {
 }
 
 /* =========================
-   DARK MODE
+   HOME PAGE
+   ========================= */
+
+.home-mission {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.featured-card {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: var(--card-bg-soft);
+  border: 1px solid var(--border-soft);
+}
+
+.home-actions {
+  margin-top: 2rem;
+}
+
+.home-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.home-card {
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+}
+
+.home-card.toggle {
+  justify-content: space-between;
+}
+
+/* =========================
+   FEATURED CARD (FIXED + STYLED)
+   ========================= */
+
+.featured {
+  margin-top: 1.5rem;
+}
+
+.featured-card {
+  position: relative;
+  display: block;
+  padding: 1.2rem;
+  margin-top: 0.75rem;
+  border-radius: 14px;
+  background: var(--featured-bg);
+  border: 1px solid var(--featured-border);
+  text-decoration: none;
+  color: var(--text);
+  text-align: left;
+}
+
+.featured-tag {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+}
+
+.featured-content strong {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 1rem;
+}
+
+.featured-content p {
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+  opacity: 0.9;
+}
+
+.featured-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* =========================
+   TOGGLES
+   ========================= */
+
+.home-card.toggle input {
+  width: 42px;
+  height: 24px;
+  appearance: none;
+  background: #ccc;
+  border-radius: 20px;
+  position: relative;
+}
+
+.home-card.toggle input::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.home-card.toggle input:checked {
+  background: var(--accent);
+}
+
+.home-card.toggle input:checked::after {
+  transform: translateX(18px);
+}
+
+/* =========================
+   SYSTEM DARK MODE
    ========================= */
 
 @media (prefers-color-scheme: dark) {
@@ -335,10 +476,174 @@ form button {
     --border: #2a2a2f;
     --border-soft: #2a2a2f;
     --nav-glass: var(--nav-glass-dark);
+    --shadow: 0 12px 30px rgba(0,0,0,0.35);
   }
+}
 
+/* =========================
+   MANUAL OVERRIDES
+   ========================= */
+
+body.theme-dark {
+  --bg: #0f0f12;
+  --text: #f2f2f2;
+  --muted: #a9a9a9;
+  --card-bg: #1a1a1f;
+  --card-bg-soft: #1a1a1f;
+  --border: #2a2a2f;
+  --border-soft: #2a2a2f;
+  --nav-glass: var(--nav-glass-dark);
+  --shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+body.theme-light {
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #666666;
+  --card-bg: #ffffff;
+  --card-bg-soft: #f7f7f7;
+  --border: #dddddd;
+  --border-soft: #e2e2e2;
+  --nav-glass: rgba(255,255,255,0.75);
+  --shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+/* =========================
+   FIX: FEATURED CARD LAYOUT
+   ========================= */
+
+.featured {
+  margin-top: 1.5rem;
+}
+
+.featured-card {
+  display: block;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: var(--card-bg-soft);
+  border: 1px solid var(--border-soft);
+  text-decoration: none;
+  color: var(--text);
+  text-align: left;
+}
+
+.featured-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.featured-content strong {
+  display: block;
+  font-size: 1rem;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.25;
+}
+
+.featured-content p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.85;
+  line-height: 1.35;
+}
+
+.featured-meta {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* =========================
+   FEATURED CARD – PALE RED + RED BUBBLE
+   (ISOLATED, SAFE FIX)
+   ========================= */
+
+/* Featured card base */
+.featured-card {
+  position: relative;
+  background: rgba(155, 28, 28, 0.08); /* pale red tint */
+  border: 1px solid rgba(155, 28, 28, 0.25);
+}
+
+/* Dark mode adjustment */
+body.theme-dark .featured-card,
+@media (prefers-color-scheme: dark) {
   body:not(.theme-light):not(.theme-dark) .featured-card {
     background: rgba(155, 28, 28, 0.18);
     border-color: rgba(155, 28, 28, 0.35);
   }
 }
+
+/* Featured pill */
+.featured-tag {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+
+  background: var(--accent);
+  color: #ffffff;
+
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Ensure spacing below pill */
+.featured-content {
+  margin-top: 0.5rem;
+}
+
+/* =========================
+   SETTINGS PAGE LAYOUT FIX
+   ========================= */
+
+.home-actions .home-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Left text stack */
+.home-actions .home-card > div {
+  flex: 1;
+  text-align: left;
+  padding-right: 1rem;
+}
+
+/* Theme selector */
+.home-actions select {
+  appearance: none;
+  -webkit-appearance: none;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+
+  background: var(--card-bg);
+  color: var(--text);
+
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+/* Dark mode select harmony */
+body.theme-dark .home-actions select,
+@media (prefers-color-scheme: dark) {
+  body:not(.theme-light):not(.theme-dark) .home-actions select {
+    background: var(--card-bg);
+    color: var(--text);
+    border-color: var(--border);
+  }
+}”
