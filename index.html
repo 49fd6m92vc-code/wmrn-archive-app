@@ -20,84 +20,75 @@
 <body>
 
 <header>
-  <img class="logo" src="/wmrn-archive-app/icons/logo.png" alt="WMRN Radio History Archive logo">
+  <img class="logo" src="/wmrn-archive-app/icons/logo.png" alt="WMRN Logo">
   <h1>WMRN Radio History Archive</h1>
   <p class="tagline">Preserving the voices, people, and legacy of WMRN Radio.</p>
 </header>
 
 <main>
 
-  <!-- INTRODUCTION -->
-  <section aria-labelledby="intro-heading">
-    <h2 id="intro-heading" class="visually-hidden">About the Archive</h2>
+  <p>
+    Welcome to the WMRN Radio History Archive. This project documents and preserves
+    recordings, photographs, documents, and personal memories connected to WMRN Radio
+    and its role in Marion, Ohio and the surrounding region.
+  </p>
 
-    <p>
-      Welcome to the WMRN Radio History Archive. This project documents and preserves
-      recordings, photographs, documents, and personal memories connected to WMRN Radio
-      and its role in Marion, Ohio and the surrounding region.
-    </p>
+  <p class="home-mission">
+    For generations, WMRN has helped shape the sound, stories, and shared experience
+    of this community. This archive exists to ensure that history is not lost.
+  </p>
 
-    <p class="home-mission">
-      For generations, WMRN has helped shape the sound, stories, and shared experience
-      of this community. This archive exists to ensure that history is not lost.
-    </p>
-  </section>
+  <section class="featured">
+  <h2>Featured from the Archive</h2>
 
-  <!-- FEATURED ITEM -->
-  <section class="featured" aria-labelledby="featured-heading">
-    <h2 id="featured-heading">Featured from the Archive</h2>
+  <a id="featuredCard" class="featured-card" href="#">
+    <div class="featured-tag">Featured</div>
 
-    <a id="featuredCard" class="featured-card" href="#">
-      <span class="featured-tag">Featured</span>
+    <div class="featured-content">
+      <strong id="featuredTitle"></strong>
+      <p id="featuredDescription"></p>
+      <span class="featured-meta" id="featuredMeta"></span>
+    </div>
+  </a>
+</section>
 
-      <div class="featured-content">
-        <strong id="featuredTitle"></strong>
-        <p id="featuredDescription"></p>
-        <span class="featured-meta" id="featuredMeta"></span>
+  <section class="home-actions">
+  <h2>Explore the Archive</h2>
+
+  <div class="home-cards">
+    <a class="home-card" href="/wmrn-archive-app/decades.html">
+      <span class="icon">📆</span>
+      <div>
+        <strong>Browse by Decade</strong>
+        <p>Explore WMRN history across the decades.</p>
       </div>
     </a>
-  </section>
 
-  <!-- EXPLORE -->
-  <section class="home-actions" aria-labelledby="explore-heading">
-    <h2 id="explore-heading">Explore the Archive</h2>
+    <a class="home-card" href="/wmrn-archive-app/photos.html">
+      <span class="icon">📷</span>
+      <div>
+        <strong>Historic Photos</strong>
+        <p>Studios, staff, events, and everyday life.</p>
+      </div>
+    </a>
 
-    <div class="home-cards">
+    <a class="home-card" href="/wmrn-archive-app/audio.html">
+      <span class="icon">🎙️</span>
+      <div>
+        <strong>Audio Recordings</strong>
+        <p>Preserved broadcasts and archival audio.</p>
+      </div>
+    </a>
 
-      <a class="home-card" href="/wmrn-archive-app/decades.html">
-        <span class="icon">📆</span>
-        <div>
-          <strong>Browse by Decade</strong>
-          <p>Explore WMRN history across the decades.</p>
-        </div>
-      </a>
-
-      <a class="home-card" href="/wmrn-archive-app/photos.html">
-        <span class="icon">📷</span>
-        <div>
-          <strong>Historic Photos</strong>
-          <p>Studios, staff, events, and everyday life.</p>
-        </div>
-      </a>
-
-      <a class="home-card" href="/wmrn-archive-app/audio.html">
-        <span class="icon">🎙️</span>
-        <div>
-          <strong>Audio Recordings</strong>
-          <p>Preserved broadcasts and archival audio.</p>
-        </div>
-      </a>
-
-      <a class="home-card" href="/wmrn-archive-app/submit.html">
-        <span class="icon">✍️</span>
-        <div>
-          <strong>Contribute</strong>
-          <p>Share materials, memories, or information.</p>
-        </div>
-      </a>
-
-    </div>
-  </section>
+    <a class="home-card" href="/wmrn-archive-app/submit.html">
+      <span class="icon">✍️</span>
+      <div>
+        <strong>Contribute</strong>
+        <p>Share materials, memories, or information.</p>
+      </div>
+    </a>
+  </div>
+</section>
 
   <p class="home-note">
     This is a living archive. New materials are added as recordings, photographs,
@@ -107,7 +98,7 @@
 </main>
 
 <!-- FLOATING BOTTOM NAV -->
-<nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
+<nav class="bottom-nav" id="bottomNav">
   <a href="/wmrn-archive-app/index.html">
     <span class="icon">🏠</span>
     <span>Home</span>
@@ -193,7 +184,9 @@
       return;
     }
 
-    const index = pages.findIndex(p => currentPath.includes(p));
+    const index = pages.findIndex(p =>
+      currentPath.includes(p)
+    );
 
     if (diffX < 0 && index < pages.length - 1) {
       window.location.href = pages[index + 1];
@@ -207,8 +200,11 @@
   }, { passive: true });
 </script>
 
-<!-- FEATURED ITEM ROTATION -->
 <script>
+  /* =========================
+     FEATURED ITEM ROTATION
+     ========================= */
+
   const featuredItems = [
     {
       title: "1979 Peanut Push Broadcast",
@@ -257,6 +253,6 @@
   updateFeatured();
   setInterval(updateFeatured, 7000);
 </script>
-
+  
 </body>
 </html>
