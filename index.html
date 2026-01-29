@@ -200,5 +200,59 @@
   }, { passive: true });
 </script>
 
+<script>
+  /* =========================
+     FEATURED ITEM ROTATION
+     ========================= */
+
+  const featuredItems = [
+    {
+      title: "1979 Peanut Push Broadcast",
+      description: "Highlights from the annual Peanut Push awards ceremony.",
+      meta: "Audio · 1979 · Accession WMRN-2026-012",
+      link: "/wmrn-archive-app/audio.html"
+    },
+    {
+      title: "Paul Van House in Studio",
+      description: "On-air moments inside the WMRN studios during the 1970s.",
+      meta: "Photo · 1970s · Accession WMRN-2026-012",
+      link: "/wmrn-archive-app/photos.html"
+    },
+    {
+      title: "WMRN Control Room",
+      description: "AM control room equipment and layout from the 1970s.",
+      meta: "Photo · 1970s · Accession WMRN-2026-012",
+      link: "/wmrn-archive-app/photos.html"
+    },
+    {
+      title: "Help Us Preserve More",
+      description: "Do you have recordings, photos, or memories to share?",
+      meta: "Contribute · Community Archive",
+      link: "/wmrn-archive-app/submit.html"
+    }
+  ];
+
+  let featuredIndex = 0;
+
+  const featuredCard = document.getElementById("featuredCard");
+  const featuredTitle = document.getElementById("featuredTitle");
+  const featuredDescription = document.getElementById("featuredDescription");
+  const featuredMeta = document.getElementById("featuredMeta");
+
+  function updateFeatured() {
+    const item = featuredItems[featuredIndex];
+
+    featuredTitle.textContent = item.title;
+    featuredDescription.textContent = item.description;
+    featuredMeta.textContent = item.meta;
+    featuredCard.href = item.link;
+
+    featuredIndex = (featuredIndex + 1) % featuredItems.length;
+  }
+
+  updateFeatured();
+  setInterval(updateFeatured, 7000);
+</script>
+  
 </body>
 </html>
