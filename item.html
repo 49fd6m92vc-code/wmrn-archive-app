@@ -25,14 +25,23 @@
     <p class="muted" id="itemSubtitle"></p>
   </header>
 
-  <!-- ARCHIVE ITEM MEDIA (HERO IMAGE) -->
+  <!-- ARCHIVE ITEM MEDIA -->
   <section class="archive-media">
-    <img
-      id="itemImage"
-      src=""
-      alt=""
-      loading="lazy"
-    >
+    <div class="archive-image-wrapper">
+      <img
+        id="itemImage"
+        src=""
+        alt=""
+        loading="lazy"
+        style="
+          display: block;
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          border-radius: 12px;
+        "
+      >
+    </div>
 
     <p class="muted" id="itemCaption"></p>
   </section>
@@ -49,9 +58,7 @@
   <!-- DESCRIPTION -->
   <section class="archive-description">
     <h2>Description</h2>
-    <p id="itemDescription">
-      —
-    </p>
+    <p id="itemDescription">—</p>
   </section>
 
   <!-- CONTEXT & NOTES -->
@@ -66,7 +73,7 @@
   <section class="archive-rights">
     <h3>Rights &amp; Credit</h3>
 
-    <p id="itemRights">
+    <p>
       Courtesy of Paul Van House. Preserved as part of the WMRN Radio History Archive.
     </p>
 
@@ -99,15 +106,12 @@
 <!-- ITEM PARAM LOGIC -->
 <script>
   const params = new URLSearchParams(window.location.search);
-
   const file = params.get("file");
   const accession = params.get("item");
 
   if (file) {
     const imagePath = `/wmrn-archive-app/Photos/${file}`;
-    const readableName = file
-      .replace(".jpg", "")
-      .replace(/_/g, " ");
+    const readableName = file.replace(".jpg", "").replace(/_/g, " ");
 
     document.getElementById("itemImage").src = imagePath;
     document.getElementById("itemImage").alt = readableName;
