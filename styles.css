@@ -333,6 +333,56 @@ form button {
 }
 
 /* =========================
+   HOME PAGE LINK FIXES
+   (RESTORE PREVIOUS STATE)
+   ========================= */
+
+/* Ensure home cards never inherit default link styles */
+.home-card,
+.home-card * {
+  text-decoration: none;
+}
+
+/* Home card title */
+.home-card strong {
+  color: var(--text);
+}
+
+/* Home card description */
+.home-card p {
+  color: var(--muted);
+}
+
+/* Prevent browser blue links */
+.home-card a,
+.home-card a:visited {
+  color: inherit;
+}
+
+/* Touch feedback only, no color shift */
+.home-card:hover {
+  border-color: var(--border-soft);
+}
+
+/* =========================
+   DARK MODE HOME CARD FIX
+   ========================= */
+
+body.theme-dark .home-card strong,
+@media (prefers-color-scheme: dark) {
+  body:not(.theme-light):not(.theme-dark) .home-card strong {
+    color: #ffffff;
+  }
+}
+
+body.theme-dark .home-card p,
+@media (prefers-color-scheme: dark) {
+  body:not(.theme-light):not(.theme-dark) .home-card p {
+    color: #a9a9a9;
+  }
+}
+
+/* =========================
    DARK MODE
    ========================= */
 
