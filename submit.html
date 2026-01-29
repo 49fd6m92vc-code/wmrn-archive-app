@@ -2,33 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-<title>Submit – WMRN Archive</title>
+<title>Submit to the Archive – WMRN</title>
+
 <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
+<meta name="theme-color" content="#9b1c1c">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="WMRN Archive">
+<link rel="apple-touch-icon" href="/wmrn-archive-app/icons/icon-192.png">
 </head>
 
 <body>
 
-<main>
+<header>
   <h1>Submit to the Archive</h1>
-
-  <form action="mailto:archive@wmrnhistory.com" method="post" enctype="text/plain">
-    <input type="text" name="name" placeholder="Your Name">
-    <input type="email" name="email" placeholder="Your Email">
-    <textarea name="message" placeholder="Tell us about the item or memory"></textarea>
-    <button type="submit">Submit</button>
-  </form>
-</main>
-
-<!-- PAGE CONTENT ABOVE -->
+  <p class="tagline">Help preserve the history of WMRN Radio.</p>
+</header>
 
 <main>
-  <!-- page-specific content -->
+
+  <!-- INTRO -->
+  <section>
+    <p>
+      The WMRN Radio History Archive collects recordings, photographs, documents,
+      memorabilia, and personal memories connected to WMRN Radio and its people.
+    </p>
+
+    <p class="home-mission">
+      You do not need to have everything perfectly documented. Even small details,
+      partial items, or personal recollections can help fill important gaps.
+    </p>
+  </section>
+
+  <!-- WHAT WE'RE LOOKING FOR -->
+  <section class="home-actions">
+    <h2>What You Can Share</h2>
+
+    <ul style="text-align:left; font-size:0.95rem; line-height:1.5; padding-left:1.2rem;">
+      <li>📻 Audio recordings (broadcasts, airchecks, interviews)</li>
+      <li>📷 Photographs (studios, staff, events, everyday station life)</li>
+      <li>📄 Documents (scripts, memos, schedules, letters)</li>
+      <li>🎙️ Equipment or memorabilia</li>
+      <li>🧠 Personal memories or stories</li>
+    </ul>
+  </section>
+
+  <!-- FORM -->
+  <section class="home-actions">
+    <h2>Tell Us What You Have</h2>
+
+    <form>
+
+      <input
+        type="text"
+        name="name"
+        placeholder="Your name"
+        aria-label="Your name"
+        required
+      >
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Your email address"
+        aria-label="Your email address"
+        required
+      >
+
+      <input
+        type="text"
+        name="connection"
+        placeholder="Your connection to WMRN (staff, listener, family, etc.)"
+        aria-label="Your connection to WMRN"
+      >
+
+      <input
+        type="text"
+        name="timeframe"
+        placeholder="Approximate year(s) or decade (if known)"
+        aria-label="Approximate timeframe"
+      >
+
+      <textarea
+        name="description"
+        rows="5"
+        placeholder="Describe the item, recording, photo, or memory you’re sharing. Include names, dates, programs, or stories if you remember them."
+        aria-label="Description of item or memory"
+        required
+      ></textarea>
+
+      <p style="font-size:0.85rem; color:#555; text-align:left; margin-top:0.75rem;">
+        ⚠️ Please do not upload files yet. After you submit this form, we will
+        follow up with instructions for sharing materials safely.
+      </p>
+
+      <button type="submit" style="margin-top:1.25rem;">
+        Submit to the Archive
+      </button>
+
+    </form>
+  </section>
+
+  <p class="home-note">
+    Submissions are reviewed by the archive team. Not all materials may be displayed
+    publicly, but every contribution helps preserve WMRN’s history.
+  </p>
+
 </main>
 
 <!-- FLOATING BOTTOM NAV -->
-<nav class="bottom-nav" id="bottomNav">
+<nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
   <a href="/wmrn-archive-app/index.html">
     <span class="icon">🏠</span>
     <span>Home</span>
@@ -51,11 +136,7 @@
   </a>
 </nav>
 
-<!-- NAV BEHAVIOR: AUTO-HIGHLIGHT + HAPTICS + SWIPE -->
 <script>
-  /* =========================
-     AUTO-HIGHLIGHT ACTIVE TAB
-     ========================= */
   const navLinks = document.querySelectorAll(".bottom-nav a");
   const currentPath = window.location.pathname;
 
@@ -64,83 +145,6 @@
       link.classList.add("active");
     }
   });
-
-  /* =========================
-     HAPTIC FEEDBACK ON TAP
-     ========================= */
-  function hapticTap() {
-    if (navigator.vibrate) {
-      navigator.vibrate(10);
-    }
-  }
-
-  navLinks.forEach(link => {
-    link.addEventListener("click", hapticTap);
-  });
-
-  /* =========================
-     SWIPE NAVIGATION (FIXED)
-     ========================= */
-  const pages = [
-    "/wmrn-archive-app/index.html",
-    "/wmrn-archive-app/decades.html",
-    "/wmrn-archive-app/photos.html",
-    "/wmrn-archive-app/audio.html",
-    "/wmrn-archive-app/submit.html"
-  ];
-
-  let startX = 0;
-  let startY = 0;
-  let isSwiping = false;
-
-  window.addEventListener("touchstart", e => {
-    const touch = e.touches[0];
-    startX = touch.clientX;
-    startY = touch.clientY;
-    isSwiping = true;
-  }, { passive: true });
-
-  window.addEventListener("touchmove", e => {
-    if (!isSwiping) return;
-
-    const touch = e.touches[0];
-    const diffX = Math.abs(touch.clientX - startX);
-    const diffY = Math.abs(touch.clientY - startY);
-
-    /* Cancel swipe if vertical scrolling dominates */
-    if (diffY > diffX) {
-      isSwiping = false;
-    }
-  }, { passive: true });
-
-  window.addEventListener("touchend", e => {
-    if (!isSwiping) return;
-
-    const touch = e.changedTouches[0];
-    const diffX = touch.clientX - startX;
-
-    /* Require intentional horizontal swipe */
-    if (Math.abs(diffX) < 90) {
-      isSwiping = false;
-      return;
-    }
-
-    const index = pages.findIndex(p =>
-      currentPath.includes(p)
-    );
-
-    if (diffX < 0 && index < pages.length - 1) {
-      /* Swipe left → next page */
-      window.location.href = pages[index + 1];
-    }
-
-    if (diffX > 0 && index > 0) {
-      /* Swipe right → previous page */
-      window.location.href = pages[index - 1];
-    }
-
-    isSwiping = false;
-  }, { passive: true });
 </script>
 
 </body>
