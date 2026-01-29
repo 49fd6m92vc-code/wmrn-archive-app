@@ -6,11 +6,11 @@
 
   <title>Photos – WMRN Archive</title>
 
-  <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
+  <link rel="stylesheet" href="styles.css">
   <meta name="theme-color" content="#9b1c1c">
 
   <!-- GLOBAL APP LOGIC -->
-  <script src="/wmrn-archive-app/app.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 
 <body>
@@ -26,13 +26,12 @@
     Paul Van House.
   </p>
 
-  <!-- JS FILLS THIS -->
   <section id="photoGrid" class="photo-grid"></section>
 
 </main>
 
 <!-- LOAD PHOTO LIST -->
-<script src="/wmrn-archive-app/photos.js"></script>
+<script src="photos.js"></script>
 
 <!-- RENDER PHOTO GRID -->
 <script>
@@ -40,16 +39,13 @@
 
   photos.forEach(filename => {
     const itemId = filename.replace(".jpg", "");
-    const cacheBuster = Date.now();
 
     const link = document.createElement("a");
-    link.href =
-      `/wmrn-archive-app/item.html?item=${encodeURIComponent(itemId)}&file=${encodeURIComponent(filename)}&v=${cacheBuster}`;
+    link.href = `item.html?item=${encodeURIComponent(itemId)}&file=${encodeURIComponent(filename)}`;
     link.className = "photo-card";
-    link.setAttribute("aria-label", "View archival record");
 
     const img = document.createElement("img");
-    img.src = `/wmrn-archive-app/Photos/${filename}`;
+    img.src = `Photos/${filename}`;
     img.alt = itemId.replace(/_/g, " ");
     img.loading = "lazy";
 
@@ -71,35 +67,13 @@
 
 <!-- FLOATING BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
-  <a href="/wmrn-archive-app/index.html"><span class="icon">🏠</span><span>Home</span></a>
-  <a href="/wmrn-archive-app/decades.html"><span class="icon">📆</span><span>Decades</span></a>
-  <a href="/wmrn-archive-app/photos.html"><span class="icon">📷</span><span>Photos</span></a>
-  <a href="/wmrn-archive-app/audio.html"><span class="icon">🎙️</span><span>Audio</span></a>
-  <a href="/wmrn-archive-app/submit.html"><span class="icon">✍️</span><span>Submit</span></a>
-  <a href="/wmrn-archive-app/settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
+  <a href="index.html"><span class="icon">🏠</span><span>Home</span></a>
+  <a href="decades.html"><span class="icon">📆</span><span>Decades</span></a>
+  <a href="photos.html"><span class="icon">📷</span><span>Photos</span></a>
+  <a href="audio.html"><span class="icon">🎙️</span><span>Audio</span></a>
+  <a href="submit.html"><span class="icon">✍️</span><span>Submit</span></a>
+  <a href="settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
 </nav>
-
-<!-- NAV BEHAVIOR -->
-<script>
-  const navLinks = document.querySelectorAll(".bottom-nav a");
-  const currentPath = window.location.pathname;
-
-  navLinks.forEach(link => {
-    if (currentPath.includes(link.getAttribute("href"))) {
-      link.classList.add("active");
-    }
-  });
-
-  function hapticTap() {
-    if (navigator.vibrate && localStorage.getItem("haptics") !== "off") {
-      navigator.vibrate(10);
-    }
-  }
-
-  navLinks.forEach(link => {
-    link.addEventListener("click", hapticTap);
-  });
-</script>
 
 </body>
 </html>
