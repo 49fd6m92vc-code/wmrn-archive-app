@@ -576,3 +576,15 @@ body.dark .bottom-nav a {
 body.dark .bottom-nav a.active {
   color: #ff4d4d;
 }
+
+/* =========================
+   DARK MODE – DECADES FIX
+   ========================= */
+
+body.dark .decade-list a {
+  color: #f1f1f1;
+}
+
+body.dark .decade-list a:hover {
+  color: #9b1c1c;
+}
