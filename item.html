@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <title>WMRN AM Control Room — 1970s</title>
+  <title>Archive Item – WMRN</title>
 
   <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
   <meta name="theme-color" content="#9b1c1c">
@@ -18,33 +18,29 @@
 <body>
 
 <main>
-<article class="archive-item">
 
-  <!-- TITLE -->
+  <!-- ITEM TITLE -->
   <header>
-    <h1>WMRN AM Control Room — 1970s</h1>
-    <p class="muted">
-      Photograph · North Main Street studios
-    </p>
+    <h1 id="itemTitle">WMRN Archive Item</h1>
+    <p class="muted" id="itemSubtitle"></p>
   </header>
 
-  <!-- IMAGE -->
+  <!-- ARCHIVE ITEM MEDIA -->
   <section class="archive-media">
-    <figure style="max-width: 720px; margin: 0 auto;">
+    <figure>
       <img
-        src="/wmrn-archive-app/Photos/WMRN-2026-012_1970s_AM-Control-Room_01.jpg"
-        alt="AM control room at WMRN Radio with broadcast consoles and reel-to-reel tape machines"
-        style="width: 100%; height: auto; display: block; border-radius: 12px;"
+        id="itemImage"
+        src=""
+        alt=""
+        loading="lazy"
       >
-      <figcaption class="muted">
-        Interior view of the WMRN AM control room during the 1970s
-      </figcaption>
+      <figcaption class="muted" id="itemCaption"></figcaption>
     </figure>
   </section>
 
-  <!-- METADATA -->
+  <!-- METADATA RECORD -->
   <section class="archive-meta">
-    <p><strong>Accession:</strong> WMRN-2026-012</p>
+    <p><strong>Accession:</strong> <span id="itemAccession"></span></p>
     <p><strong>Date:</strong> Circa 1970s</p>
     <p><strong>Format:</strong> Photograph</p>
     <p><strong>Decade:</strong> 1970s</p>
@@ -56,13 +52,19 @@
     <h2>Description</h2>
 
     <p>
-      This photograph depicts the AM control room at WMRN Radio during the 1970s.
+      This photograph shows the AM control room at WMRN Radio during the 1970s.
       Visible are reel-to-reel tape machines, broadcast consoles, and monitoring
       equipment typical of mid-20th-century radio operations.
     </p>
+
+    <p>
+      Images from this era document a period when WMRN operated as a dual AM/FM
+      broadcaster and played a central role in Marion’s local news, sports, and
+      community programming.
+    </p>
   </section>
 
-  <!-- CONTEXT -->
+  <!-- CONTEXT & NOTES -->
   <section class="archive-context">
     <h3>Context &amp; Notes</h3>
 
@@ -70,12 +72,8 @@
       <li>Likely photographed inside the North Main Street studio facilities</li>
       <li>Equipment reflects pre-digital broadcast workflows</li>
       <li>
-        Assigned to the 1970s based on equipment type and staff recollection;
-        exact date unknown
-      </li>
-      <li>
-        Represents a period when WMRN operated as a dual AM/FM broadcaster and
-        served as a primary source of local news, sports, and community programming
+        Exact date unknown; assigned to the 1970s based on equipment and staff
+        recollection
       </li>
     </ul>
   </section>
@@ -85,22 +83,25 @@
     <h3>Rights &amp; Credit</h3>
 
     <p>
-      Courtesy of Paul Van House. Preserved as part of the WMRN Radio History Archive.
+      Courtesy of Paul Van House. Preserved as part of the WMRN Radio History
+      Archive.
     </p>
 
     <p class="muted">
-      Some materials may be restricted due to condition, rights, or donor preferences.
+      Some materials may be restricted due to condition, rights, or donor
+      preferences.
     </p>
   </section>
 
-  <!-- NAV -->
-  <nav class="archive-navigation">
-    <a href="/wmrn-archive-app/decades.html">← Back to Decades</a>
-    &nbsp;&nbsp;
-    <a href="/wmrn-archive-app/photos.html">View More Photos →</a>
-  </nav>
+  <!-- NAVIGATION CONTEXT -->
+  <section class="archive-navigation">
+    <p>
+      <a href="/wmrn-archive-app/decades.html">← Back to Decades</a>
+      &nbsp;&nbsp;
+      <a href="/wmrn-archive-app/photos.html">View More Photos →</a>
+    </p>
+  </section>
 
-</article>
 </main>
 
 <!-- FLOATING BOTTOM NAV -->
@@ -112,6 +113,32 @@
   <a href="/wmrn-archive-app/submit.html"><span class="icon">✍️</span><span>Submit</span></a>
   <a href="/wmrn-archive-app/settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
 </nav>
+
+<!-- ITEM PARAM LOGIC -->
+<script>
+  const params = new URLSearchParams(window.location.search);
+
+  const accession = params.get("item");
+  const file = params.get("file");
+
+  if (file) {
+    const imagePath = `/wmrn-archive-app/Photos/${file}`;
+    const readableName = file
+      .replace(".jpg", "")
+      .replace(/_/g, " ");
+
+    document.getElementById("itemImage").src = imagePath;
+    document.getElementById("itemImage").alt = readableName;
+    document.getElementById("itemCaption").textContent = readableName;
+    document.getElementById("itemTitle").textContent = readableName;
+    document.getElementById("itemSubtitle").textContent =
+      "Photograph, AM Control Room, North Main Street studios";
+  }
+
+  if (accession) {
+    document.getElementById("itemAccession").textContent = accession;
+  }
+</script>
 
 </body>
 </html>
