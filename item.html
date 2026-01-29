@@ -12,74 +12,57 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="WMRN Archive">
 
-  <!-- GLOBAL APP LOGIC -->
   <script src="/wmrn-archive-app/app.js" defer></script>
-
-  <!-- ARCHIVE ITEM DATA (THIS WAS MISSING) -->
-  <script src="/wmrn-archive-app/archive-items.js" defer></script>
 </head>
 
 <body>
 
 <main>
 
-  <!-- ITEM TITLE -->
   <header>
     <h1 id="itemTitle">Archive Item</h1>
     <p class="muted" id="itemSubtitle"></p>
   </header>
 
-  <!-- ARCHIVE ITEM MEDIA -->
-  <section class="archive-media" id="mediaSection" hidden>
+  <section class="archive-media">
     <figure>
-      <img
-        id="itemImage"
-        src=""
-        alt=""
-        loading="lazy"
-      >
+      <img id="itemImage" alt="" loading="lazy">
       <figcaption class="muted" id="itemCaption"></figcaption>
     </figure>
   </section>
 
-  <!-- METADATA RECORD -->
-  <section class="archive-meta" id="metaSection" hidden>
+  <section class="archive-meta">
     <p><strong>Accession:</strong> <span id="itemAccession"></span></p>
-    <p><strong>Date:</strong> <span id="itemDate"></span></p>
-    <p><strong>Format:</strong> <span id="itemFormat"></span></p>
-    <p><strong>Decade:</strong> <span id="itemDecade"></span></p>
-    <p><strong>Collection:</strong> <span id="itemCollection"></span></p>
+    <p><strong>Date:</strong> <span id="itemDate">Circa 1970s</span></p>
+    <p><strong>Format:</strong> <span id="itemFormat">Photograph</span></p>
+    <p><strong>Decade:</strong> <span id="itemDecade">1970s</span></p>
+    <p><strong>Collection:</strong> <span id="itemCollection">Paul Van House Photo Collection</span></p>
   </section>
 
-  <!-- DESCRIPTION -->
-  <section class="archive-description" id="descriptionSection" hidden>
+  <section class="archive-description">
     <h2>Description</h2>
-    <p id="itemDescription"></p>
+    <p id="itemDescription">
+      This photograph shows the AM control room at WMRN Radio during the 1970s.
+    </p>
   </section>
 
-  <!-- CONTEXT & NOTES -->
-  <section class="archive-context" id="contextSection" hidden>
+  <section class="archive-context">
     <h3>Context &amp; Notes</h3>
-    <ul id="itemNotes"></ul>
+    <ul>
+      <li>Likely photographed inside the North Main Street studio facilities</li>
+      <li>Equipment reflects pre-digital broadcast workflows</li>
+      <li>Exact date unknown; assigned by decade</li>
+    </ul>
   </section>
 
-  <!-- RIGHTS -->
-  <section class="archive-rights" id="rightsSection" hidden>
+  <section class="archive-rights">
     <h3>Rights &amp; Credit</h3>
-    <p id="itemRights"></p>
+    <p>Courtesy of Paul Van House. Preserved as part of the WMRN Radio History Archive.</p>
     <p class="muted">
       Some materials may be restricted due to condition, rights, or donor preferences.
     </p>
   </section>
 
-  <!-- FALLBACK MESSAGE -->
-  <section id="errorSection">
-    <p class="muted">
-      No archive item selected. Please return to the archive and choose an item.
-    </p>
-  </section>
-
-  <!-- NAVIGATION CONTEXT -->
   <section class="archive-navigation">
     <p>
       <a href="/wmrn-archive-app/decades.html">← Back to Decades</a>
@@ -90,7 +73,6 @@
 
 </main>
 
-<!-- FLOATING BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
   <a href="/wmrn-archive-app/index.html"><span class="icon">🏠</span><span>Home</span></a>
   <a href="/wmrn-archive-app/decades.html"><span class="icon">📆</span><span>Decades</span></a>
@@ -100,44 +82,32 @@
   <a href="/wmrn-archive-app/settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
 </nav>
 
-<!-- ITEM LOADER -->
 <script>
+document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
-  const itemId = params.get("item");
 
-  if (itemId && window.archiveItems && archiveItems[itemId]) {
-    const item = archiveItems[itemId];
+  const file = params.get("file");
+  const item = params.get("item");
 
-    document.getElementById("errorSection").hidden = true;
-
-    document.getElementById("itemTitle").textContent = item.title;
-    document.getElementById("itemSubtitle").textContent = item.subtitle;
-
-    document.getElementById("itemImage").src = `/wmrn-archive-app/Photos/${item.image}`;
-    document.getElementById("itemImage").alt = item.title;
-    document.getElementById("itemCaption").textContent = item.caption;
-
-    document.getElementById("itemAccession").textContent = item.accession;
-    document.getElementById("itemDate").textContent = item.date;
-    document.getElementById("itemFormat").textContent = item.format;
-    document.getElementById("itemDecade").textContent = item.decade;
-    document.getElementById("itemCollection").textContent = item.collection;
-    document.getElementById("itemDescription").textContent = item.description;
-    document.getElementById("itemRights").textContent = item.rights;
-
-    const notesList = document.getElementById("itemNotes");
-    item.notes.forEach(note => {
-      const li = document.createElement("li");
-      li.textContent = note;
-      notesList.appendChild(li);
-    });
-
-    document.getElementById("mediaSection").hidden = false;
-    document.getElementById("metaSection").hidden = false;
-    document.getElementById("descriptionSection").hidden = false;
-    document.getElementById("contextSection").hidden = false;
-    document.getElementById("rightsSection").hidden = false;
+  if (!file || !item) {
+    document.getElementById("itemTitle").textContent = "No archive item selected";
+    return;
   }
+
+  const imagePath = `/wmrn-archive-app/Photos/${file}`;
+  const readable = item.replace(/_/g, " ");
+
+  document.getElementById("itemTitle").textContent = readable;
+  document.getElementById("itemSubtitle").textContent =
+    "Photograph, AM Control Room, North Main Street studios";
+
+  const img = document.getElementById("itemImage");
+  img.src = imagePath;
+  img.alt = readable;
+
+  document.getElementById("itemCaption").textContent = readable;
+  document.getElementById("itemAccession").textContent = "WMRN-2026-012";
+});
 </script>
 
 </body>
