@@ -110,3 +110,27 @@ form button {
 .decade-list a:hover {
   color: #9b1c1c;
 }
+
+.audio-entry {
+  border-top: 1px solid #ddd;
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.audio-entry h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.audio-meta {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.6rem;
+}
+
+.audio-description {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.8rem;
+}
