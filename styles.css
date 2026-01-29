@@ -1,3 +1,5 @@
+/* Base layout */
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -27,6 +29,8 @@ h1 {
   margin: 0 auto;
 }
 
+/* Navigation */
+
 nav {
   display: flex;
   justify-content: center;
@@ -42,16 +46,48 @@ nav a {
   font-weight: 600;
 }
 
+/* Main content wrapper */
+
 main {
   padding: 2rem 1rem;
-  max-width: 600px;
+  max-width: 720px;
   margin: 0 auto;
+  text-align: center;
 }
+
+/* Audio */
 
 audio {
   width: 100%;
   margin-top: 1rem;
 }
+
+.audio-card {
+  border: 1px solid #ddd;
+  padding: 1.2rem;
+  margin-top: 1.5rem;
+  border-radius: 6px;
+  text-align: left;
+}
+
+.audio-card h3 {
+  margin-top: 0;
+  font-size: 1.15rem;
+}
+
+.audio-meta {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.audio-description {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.8rem;
+}
+
+/* Forms */
 
 form input,
 form textarea,
@@ -62,33 +98,7 @@ form button {
   font-size: 1rem;
 }
 
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.photo-card {
-  text-align: center;
-}
-
-.photo-placeholder {
-  background: #f0f0f0;
-  border: 1px solid #ccc;
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  color: #777;
-}
-
-.caption {
-  font-size: 0.85rem;
-  color: #444;
-  margin-top: 0.4rem;
-}
+/* Decades */
 
 .decade-list {
   list-style: none;
@@ -111,26 +121,41 @@ form button {
   color: #9b1c1c;
 }
 
-.audio-entry {
-  border-top: 1px solid #ddd;
-  padding-top: 1.5rem;
+/* Photos – FIXED */
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
   margin-top: 2rem;
+}
+
+.photo-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
   text-align: left;
 }
 
-.audio-entry h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
+.photo-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #f4f4f4;
 }
 
-.audio-meta {
-  font-size: 0.85rem;
+.photo-meta {
+  font-size: 0.75rem;
   color: #666;
-  margin-bottom: 0.6rem;
+  padding: 0.5rem 0.7rem 0 0.7rem;
 }
 
-.audio-description {
-  font-size: 0.95rem;
-  color: #333;
-  margin-bottom: 0.8rem;
+.photo-caption {
+  font-size: 0.9rem;
+  color: #222;
+  padding: 0.3rem 0.7rem 0.8rem 0.7rem;
+  line-height: 1.35;
 }
