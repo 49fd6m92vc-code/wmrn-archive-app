@@ -1,9 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Photos – WMRN Archive</title>
+
+  <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
+  <meta name="theme-color" content="#9b1c1c">
+</head>
+
+<body>
+
+<main class="photos-page">
+  <h1>Photo Archive</h1>
+
+  <p class="page-intro">
+    This section preserves photographs documenting the people, studios,
+    equipment, and daily life of WMRN Radio.
+  </p>
+
+  <section id="photoGrid" class="photo-grid">
+    <p class="muted">Loading photos…</p>
+  </section>
+</main>
+
+<!-- ✅ SCRIPT MUST BE LAST THING IN BODY -->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+(function () {
   const grid = document.getElementById("photoGrid");
 
   if (!grid) {
-    console.error("photoGrid not found");
+    document.body.innerHTML = "<p style='color:white'>photoGrid missing</p>";
     return;
   }
 
@@ -15,54 +42,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetch(apiURL)
     .then(res => {
-      if (!res.ok) {
-        throw new Error("GitHub API request failed");
-      }
+      if (!res.ok) throw new Error("GitHub API failed");
       return res.json();
     })
     .then(files => {
-      const images = files.filter(file =>
-        file.type === "file" &&
-        /\.(jpg|jpeg|png)$/i.test(file.name)
+      grid.innerHTML = "";
+
+      const images = files.filter(f =>
+        f.type === "file" && /\.(jpg|jpeg|png)$/i.test(f.name)
       );
 
-      if (images.length === 0) {
-        grid.innerHTML = "<p class='muted'>No photos found.</p>";
+      if (!images.length) {
+        grid.innerHTML = "<p class='muted'>No images found.</p>";
         return;
       }
 
       images.forEach(file => {
-        const filename = file.name;
-        const title = filename
-          .replace(/\.(jpg|jpeg|png)$/i, "")
-          .replace(/_/g, " ");
-
-        const link = document.createElement("a");
-        link.href = `/wmrn-archive-app/item.html?file=${encodeURIComponent(filename)}`;
-        link.className = "photo-card";
+        const card = document.createElement("a");
+        card.href = `/wmrn-archive-app/item.html?file=${encodeURIComponent(file.name)}`;
+        card.className = "photo-card";
 
         const img = document.createElement("img");
         img.src = file.download_url;
-        img.alt = title;
+        img.alt = file.name;
         img.loading = "lazy";
-
-        const meta = document.createElement("p");
-        meta.className = "photo-meta";
-        meta.textContent = "WMRN Radio History Archive";
 
         const caption = document.createElement("p");
         caption.className = "photo-caption";
-        caption.textContent = title;
+        caption.textContent = file.name.replace(/\.(jpg|png)$/i, "").replace(/_/g, " ");
 
-        link.appendChild(img);
-        link.appendChild(meta);
-        link.appendChild(caption);
-        grid.appendChild(link);
+        card.appendChild(img);
+        card.appendChild(caption);
+        grid.appendChild(card);
       });
     })
     .catch(err => {
       console.error(err);
-      grid.innerHTML = "<p class='muted'>Unable to load photos.</p>";
+      grid.innerHTML = "<p class='muted'>Failed to load photos.</p>";
     });
-});
+})();
 </script>
+
+</body>
+</html>
