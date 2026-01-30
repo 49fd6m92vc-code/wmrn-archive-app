@@ -22,7 +22,8 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("itemContainer");
-  const id = new URLSearchParams(window.location.search).get("id");
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
 
   if (!id) {
     container.innerHTML = "<h1>Archive Item</h1><p>No item specified.</p>";
@@ -35,7 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return res.json();
     })
     .then(items => {
-      const item = items.find(i => i.id === id);
+
+      // 🔒 HARDENED LOOKUP (exact OR filename-based fallback)
+      let item = items.find(i => i.id === id);
+
+      if (!item) {
+        item = items.find(i => i.image && i.image.replace(/\.(jpg|png)$/i, "") === id);
+      }
 
       if (!item) {
         container.innerHTML =
@@ -43,10 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // ✅ Update document title
+      document.title = `${item.title} – WMRN Archive`;
+
       container.innerHTML = `
         <header>
           <h1>${item.title}</h1>
-          <p class="muted">${item.subtitle || ""}</p>
+          ${item.subtitle ? `<p class="muted">${item.subtitle}</p>` : ""}
         </header>
 
         <section class="archive-media">
@@ -61,35 +71,41 @@ document.addEventListener("DOMContentLoaded", () => {
         </section>
 
         <section class="archive-meta">
-          <p><strong>Accession:</strong> ${item.accession || ""}</p>
-          <p><strong>Date:</strong> ${item.date || ""}</p>
-          <p><strong>Format:</strong> ${item.format || ""}</p>
-          <p><strong>Decade:</strong> ${item.decade || ""}</p>
-          <p><strong>Collection:</strong> ${item.collection || ""}</p>
+          ${item.accession ? `<p><strong>Accession:</strong> ${item.accession}</p>` : ""}
+          ${item.date ? `<p><strong>Date:</strong> ${item.date}</p>` : ""}
+          ${item.format ? `<p><strong>Format:</strong> ${item.format}</p>` : ""}
+          ${item.decade ? `<p><strong>Decade:</strong> ${item.decade}</p>` : ""}
+          ${item.collection ? `<p><strong>Collection:</strong> ${item.collection}</p>` : ""}
         </section>
 
-        <section class="archive-description">
-          <h2>Description</h2>
-          ${(item.description || []).map(p => `<p>${p}</p>`).join("")}
-        </section>
+        ${item.description && item.description.length ? `
+          <section class="archive-description">
+            <h2>Description</h2>
+            ${item.description.map(p => `<p>${p}</p>`).join("")}
+          </section>
+        ` : ""}
 
-        <section class="archive-context">
-          <h3>Context &amp; Notes</h3>
-          <ul>
-            ${(item.notes || []).map(n => `<li>${n}</li>`).join("")}
-          </ul>
-        </section>
+        ${item.notes && item.notes.length ? `
+          <section class="archive-context">
+            <h3>Context &amp; Notes</h3>
+            <ul>
+              ${item.notes.map(n => `<li>${n}</li>`).join("")}
+            </ul>
+          </section>
+        ` : ""}
 
-        <section class="archive-rights">
-          <h3>Rights &amp; Credit</h3>
-          <p>${item.rights || ""}</p>
-        </section>
+        ${item.rights ? `
+          <section class="archive-rights">
+            <h3>Rights &amp; Credit</h3>
+            <p>${item.rights}</p>
+          </section>
+        ` : ""}
 
         <section class="archive-navigation">
           <p>
-            <a href="/wmrn-archive-app/decades.html">← Back to Decades</a>
+            <a href="/wmrn-archive-app/photos.html">← Back to Photos</a>
             &nbsp;&nbsp;
-            <a href="/wmrn-archive-app/photos.html">View More Photos →</a>
+            <a href="/wmrn-archive-app/decades.html">Browse by Decade →</a>
           </p>
         </section>
       `;
@@ -106,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
   <a href="/wmrn-archive-app/index.html"><span class="icon">🏠</span><span>Home</span></a>
   <a href="/wmrn-archive-app/decades.html"><span class="icon">📆</span><span>Decades</span></a>
-  <a href="/wmrn-archive-app/photos.html"><span class="icon">📷</span><span>Photos</span></a>
+  <a href="/wmrn-archive-app/photos.html" class="active"><span class="icon">📷</span><span>Photos</span></a>
   <a href="/wmrn-archive-app/audio.html"><span class="icon">🎙️</span><span>Audio</span></a>
   <a href="/wmrn-archive-app/submit.html"><span class="icon">✍️</span><span>Submit</span></a>
   <a href="/wmrn-archive-app/settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
