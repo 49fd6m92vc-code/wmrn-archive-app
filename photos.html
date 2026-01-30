@@ -7,6 +7,9 @@
 
   <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
   <meta name="theme-color" content="#9b1c1c">
+
+  <!-- GLOBAL APP LOGIC (NAV, THEME, ETC) -->
+  <script src="/wmrn-archive-app/app.js" defer></script>
 </head>
 
 <body>
@@ -26,52 +29,57 @@
 
 </main>
 
-<!-- ✅ LOAD FROM JSON INDEX (REQUIRED) -->
+<!-- LOAD FROM JSON INDEX -->
 <script>
-fetch("/wmrn-archive-app/data/photos.json")
-  .then(res => {
-    if (!res.ok) throw new Error("Failed to load photos.json");
-    return res.json();
-  })
-  .then(items => {
-    const grid = document.getElementById("photoGrid");
-    grid.innerHTML = "";
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.getElementById("photoGrid");
 
-    if (!items.length) {
-      grid.innerHTML = "<p class='muted'>No photos available.</p>";
-      return;
-    }
+  fetch("/wmrn-archive-app/data/photos.json")
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to load photos.json");
+      return res.json();
+    })
+    .then(items => {
+      grid.innerHTML = "";
 
-    items.forEach(item => {
-      const card = document.createElement("a");
-      card.href = `/wmrn-archive-app/item.html?id=${encodeURIComponent(item.id)}`;
-      card.className = "photo-card";
-      card.setAttribute("aria-label", `View ${item.title}`);
+      if (!Array.isArray(items) || !items.length) {
+        grid.innerHTML = "<p class='muted'>No photos available.</p>";
+        return;
+      }
 
-      const img = document.createElement("img");
-      img.src = `/wmrn-archive-app/Photos/${item.image}`;
-      img.alt = item.title;
-      img.loading = "lazy";
+      items.forEach(item => {
+        if (!item.id || !item.image) return;
 
-      const meta = document.createElement("p");
-      meta.className = "photo-meta";
-      meta.textContent = item.accession;
+        const card = document.createElement("a");
+        card.href = `/wmrn-archive-app/item.html?id=${encodeURIComponent(item.id)}`;
+        card.className = "photo-card";
+        card.setAttribute("aria-label", `View ${item.title || "archive item"}`);
 
-      const caption = document.createElement("p");
-      caption.className = "photo-caption";
-      caption.textContent = item.title;
+        const img = document.createElement("img");
+        img.src = `/wmrn-archive-app/Photos/${item.image}`;
+        img.alt = item.title || item.id;
+        img.loading = "lazy";
 
-      card.appendChild(img);
-      card.appendChild(meta);
-      card.appendChild(caption);
-      grid.appendChild(card);
+        const meta = document.createElement("p");
+        meta.className = "photo-meta";
+        meta.textContent = item.accession || "";
+
+        const caption = document.createElement("p");
+        caption.className = "photo-caption";
+        caption.textContent = item.title || item.id;
+
+        card.appendChild(img);
+        card.appendChild(meta);
+        card.appendChild(caption);
+        grid.appendChild(card);
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      grid.innerHTML =
+        "<p class='muted'>Unable to load photo archive.</p>";
     });
-  })
-  .catch(err => {
-    console.error(err);
-    document.getElementById("photoGrid").innerHTML =
-      "<p class='muted'>Unable to load photo archive.</p>";
-  });
+});
 </script>
 
 <!-- FLOATING BOTTOM NAV -->
