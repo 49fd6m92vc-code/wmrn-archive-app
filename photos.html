@@ -1,32 +1,40 @@
 <script>
-const grid = document.getElementById("photoGrid");
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.getElementById("photoGrid");
 
-if (!grid) {
-  console.error("photoGrid not found");
-}
+  if (!grid) {
+    console.error("photoGrid not found");
+    return;
+  }
 
-// ✅ CORRECT VALUES
-const GITHUB_USER = "49fd6m92vc-code";
-const REPO_NAME = "wmrn-archive-app";
-const PHOTOS_PATH = "Photos";
+  const OWNER = "49fd6m92vc-code";
+  const REPO = "wmrn-archive-app";
+  const PATH = "Photos";
 
-fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${PHOTOS_PATH}`)
-  .then(res => {
-    if (!res.ok) {
-      throw new Error("GitHub API error: " + res.status);
-    }
-    return res.json();
-  })
-  .then(files => {
-    files
-      .filter(file =>
+  const apiURL = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`;
+
+  fetch(apiURL)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("GitHub API request failed");
+      }
+      return res.json();
+    })
+    .then(files => {
+      const images = files.filter(file =>
         file.type === "file" &&
         /\.(jpg|jpeg|png)$/i.test(file.name)
-      )
-      .forEach(file => {
+      );
+
+      if (images.length === 0) {
+        grid.innerHTML = "<p class='muted'>No photos found.</p>";
+        return;
+      }
+
+      images.forEach(file => {
         const filename = file.name;
-        const readable = filename
-          .replace(/\.[^.]+$/, "")
+        const title = filename
+          .replace(/\.(jpg|jpeg|png)$/i, "")
           .replace(/_/g, " ");
 
         const link = document.createElement("a");
@@ -35,7 +43,7 @@ fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${PHOTO
 
         const img = document.createElement("img");
         img.src = file.download_url;
-        img.alt = readable;
+        img.alt = title;
         img.loading = "lazy";
 
         const meta = document.createElement("p");
@@ -44,16 +52,17 @@ fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${PHOTO
 
         const caption = document.createElement("p");
         caption.className = "photo-caption";
-        caption.textContent = readable;
+        caption.textContent = title;
 
         link.appendChild(img);
         link.appendChild(meta);
         link.appendChild(caption);
         grid.appendChild(link);
       });
-  })
-  .catch(err => {
-    console.error(err);
-    grid.innerHTML = "<p class='muted'>Unable to load photos.</p>";
-  });
+    })
+    .catch(err => {
+      console.error(err);
+      grid.innerHTML = "<p class='muted'>Unable to load photos.</p>";
+    });
+});
 </script>
