@@ -1,41 +1,247 @@
 [
   {
-    "id": "WMRN-2026-012-AM-01",
-    "image": "WMRN-2026-012_1970s_AM-Control-Room_01.jpg",
-    "title": "WMRN AM Control Room",
-    "subtitle": "AM Control Room, North Main Street studios",
+    "id": "WMRN-2026-012_1970s_AM-Control-Room_01",
     "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1970s_AM-Control-Room_01.jpg",
+    "title": "AM Control Room",
+    "subtitle": "North Main Street studios",
     "date": "Circa 1970s",
     "decade": "1970s",
     "format": "Photograph",
     "collection": "Paul Van House Photo Collection",
     "description": [
-      "This photograph shows the AM control room at WMRN Radio during the 1970s.",
-      "Visible are reel-to-reel tape machines, broadcast consoles, and monitoring equipment typical of mid-20th-century radio operations."
+      "Photograph of the AM control room at WMRN Radio.",
+      "Shows reel-to-reel tape machines and broadcast consoles typical of the 1970s."
     ],
-    "notes": [
-      "Likely photographed inside the North Main Street studio facilities",
-      "Equipment reflects pre-digital broadcast workflows"
-    ],
+    "notes": [],
     "rights": "Courtesy of Paul Van House. Preserved as part of the WMRN Radio History Archive."
   },
+
   {
-    "id": "WMRN-2026-012-FM-01",
-    "image": "WMRN-2026-012_1970s_FM-Control-Room_01.jpg",
-    "title": "WMRN FM Control Room",
-    "subtitle": "FM Control Room, North Main Street studios",
+    "id": "WMRN-2026-012_1970s_FM-Control-Room_01",
     "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1970s_FM-Control-Room_01.jpg",
+    "title": "FM Control Room",
+    "subtitle": "North Main Street studios",
     "date": "Circa 1970s",
     "decade": "1970s",
     "format": "Photograph",
     "collection": "Paul Van House Photo Collection",
     "description": [
-      "This photograph shows the FM control room at WMRN Radio during the 1970s."
+      "Photograph of the FM control room at WMRN Radio.",
+      "Represents parallel AM/FM operations during the 1970s."
     ],
-    "notes": [
-      "North Main Street studios",
-      "Pre-digital broadcast equipment"
-    ],
+    "notes": [],
     "rights": "Courtesy of Paul Van House. Preserved as part of the WMRN Radio History Archive."
+  },
+
+  {
+    "id": "WMRN-2026-012_1970s_Paul-Van-House_In-Studio_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1970s_Paul-Van-House_In-Studio_01.jpg",
+    "title": "Paul Van House in Studio",
+    "subtitle": "WMRN Radio studios",
+    "date": "Circa 1970s",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1970s_Paul-Van-House_In-Studio_02",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1970s_Paul-Van-House_In-Studio_02.jpg",
+    "title": "Paul Van House in Studio",
+    "subtitle": "Alternate view",
+    "date": "Circa 1970s",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1970s_Paul-Van-House_In-Studio_03",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1970s_Paul-Van-House_In-Studio_03.jpg",
+    "title": "Paul Van House in Studio",
+    "subtitle": "Studio equipment and operations",
+    "date": "Circa 1970s",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1970s_Stereo-Marion-Studios_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1970s_Stereo-Marion-Studios_01.jpg",
+    "title": "Stereo Marion Studios",
+    "subtitle": "Interior studio view",
+    "date": "Circa 1970s",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1970s_WMRN-Antenna-Tower_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1970s_WMRN-Antenna-Tower_01.jpg",
+    "title": "WMRN Antenna Tower",
+    "subtitle": "Transmission facilities",
+    "date": "Circa 1970s",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1970s_WMRN-Remote-and-News-Van_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1970s_WMRN-Remote-and-News-Van_01.jpg",
+    "title": "WMRN Remote and News Van",
+    "subtitle": "Mobile broadcast unit",
+    "date": "Circa 1970s",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1978_Studios-After-Blizzard_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1978_Studios-After-Blizzard_01.jpg",
+    "title": "Studios After Blizzard",
+    "subtitle": "Winter storm damage",
+    "date": "1978",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1979_Peanut-Push_Awards-Ceremony_Charlie-Evers-at-Microphone_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1979_Peanut-Push_Awards-Ceremony_Charlie-Evers-at-Microphone_01.jpg",
+    "title": "Peanut Push Awards Ceremony",
+    "subtitle": "Charlie Evers at microphone",
+    "date": "1979",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1979_Peanut-Push_Bob-George_Larry-Mathiot_Susan-Westfall_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1979_Peanut-Push_Bob-George_Larry-Mathiot_Susan-Westfall_01.jpg",
+    "title": "Peanut Push Event",
+    "subtitle": "Bob George, Larry Mathiot, Susan Westfall",
+    "date": "1979",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1979_Peanut-Push_Group_Larry-Mathiot_Charlie-Evers_Randy-Roeder_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1979_Peanut-Push_Group_Larry-Mathiot_Charlie-Evers_Randy-Roeder_01.jpg",
+    "title": "Peanut Push Group Photo",
+    "subtitle": "Larry Mathiot, Charlie Evers, Randy Roeder",
+    "date": "1979",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1979_Peanut-Push_Larry-Mathiot_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1979_Peanut-Push_Larry-Mathiot_01.jpg",
+    "title": "Larry Mathiot",
+    "subtitle": "Peanut Push event",
+    "date": "1979",
+    "decade": "1970s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1980_Karen-Sharp-Wedding_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1980_Karen-Sharp-Wedding_Becky-Van-House_Paul-Michaels_Susan-Westfall_Jeff-Ruth_01.jpg",
+    "title": "Karen Sharp Wedding",
+    "subtitle": "WMRN staff gathering",
+    "date": "1980",
+    "decade": "1980s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_1980_Paul-Van-House_Dracula-Costume_Orbit_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_1980_Paul-Van-House_Dracula-Costume_Orbit_01.jpg",
+    "title": "Paul Van House in Dracula Costume",
+    "subtitle": "Orbit show promotion",
+    "date": "1980",
+    "decade": "1980s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
+  },
+
+  {
+    "id": "WMRN-2026-012_Orbit_Show_Susan-Westfall_Paul-Van-House_Studio-Costume_01",
+    "accession": "WMRN-2026-012",
+    "image": "WMRN-2026-012_Orbit_Show_Susan-Westfall_Paul-Van-House_Studio-Costume_01.jpg",
+    "title": "Orbit Show Studio Costume",
+    "subtitle": "Susan Westfall and Paul Van House",
+    "date": "Circa late 1970s–1980",
+    "decade": "1980s",
+    "format": "Photograph",
+    "collection": "Paul Van House Photo Collection",
+    "description": [],
+    "notes": [],
+    "rights": "Courtesy of Paul Van House."
   }
 ]
