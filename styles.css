@@ -1,8 +1,4 @@
-Ok, now things are broken with the changes made to styles.css… below is the CORRECT code ONLY FIX WHAT IS NECESSARY AND DO NOT BREAK ANYTHING ELSE!!!
-
-Make necessary changes and send back in full:
-
-“/* =========================
+/* =========================
    THEME TOKENS (DEFAULT = LIGHT)
    System mode is handled via prefers-color-scheme below.
    Manual overrides use: body.theme-light / body.theme-dark
@@ -723,4 +719,4 @@ body.theme-dark .home-actions select,
     color: var(--text);
     border-color: var(--border);
   }
-}”
+}
