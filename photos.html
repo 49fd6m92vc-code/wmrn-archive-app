@@ -12,6 +12,7 @@
 <body>
 
 <main class="photos-page">
+
   <h1>Photo Archive</h1>
 
   <p class="page-intro">
@@ -22,78 +23,66 @@
   <section id="photoGrid" class="photo-grid">
     <p class="muted">Loading photos…</p>
   </section>
+
 </main>
 
-<!-- ✅ SCRIPT MUST BE LAST THING IN BODY -->
+<!-- ✅ LOAD FROM JSON INDEX (REQUIRED) -->
 <script>
-(function () {
-  const grid = document.getElementById("photoGrid");
+fetch("/wmrn-archive-app/data/photos.json")
+  .then(res => {
+    if (!res.ok) throw new Error("Failed to load photos.json");
+    return res.json();
+  })
+  .then(items => {
+    const grid = document.getElementById("photoGrid");
+    grid.innerHTML = "";
 
-  if (!grid) {
-    document.body.innerHTML = "<p style='color:white'>photoGrid missing</p>";
-    return;
-  }
+    if (!items.length) {
+      grid.innerHTML = "<p class='muted'>No photos available.</p>";
+      return;
+    }
 
-  const OWNER = "49fd6m92vc-code";
-  const REPO = "wmrn-archive-app";
-  const PATH = "Photos";
+    items.forEach(item => {
+      const card = document.createElement("a");
+      card.href = `/wmrn-archive-app/item.html?id=${encodeURIComponent(item.id)}`;
+      card.className = "photo-card";
+      card.setAttribute("aria-label", `View ${item.title}`);
 
-  const apiURL = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`;
+      const img = document.createElement("img");
+      img.src = `/wmrn-archive-app/Photos/${item.image}`;
+      img.alt = item.title;
+      img.loading = "lazy";
 
-  fetch(apiURL)
-    .then(res => {
-      if (!res.ok) throw new Error("GitHub API failed");
-      return res.json();
-    })
-    .then(files => {
-      grid.innerHTML = "";
+      const meta = document.createElement("p");
+      meta.className = "photo-meta";
+      meta.textContent = item.accession;
 
-      const images = files.filter(f =>
-        f.type === "file" && /\.(jpg|jpeg|png)$/i.test(f.name)
-      );
+      const caption = document.createElement("p");
+      caption.className = "photo-caption";
+      caption.textContent = item.title;
 
-      if (!images.length) {
-        grid.innerHTML = "<p class='muted'>No images found.</p>";
-        return;
-      }
-
-      images.forEach(file => {
-        const card = document.createElement("a");
-        card.href = `/wmrn-archive-app/item.html?file=${encodeURIComponent(file.name)}`;
-        card.className = "photo-card";
-
-        const img = document.createElement("img");
-        img.src = file.download_url;
-        img.alt = file.name;
-        img.loading = "lazy";
-
-        const caption = document.createElement("p");
-        caption.className = "photo-caption";
-        caption.textContent = file.name.replace(/\.(jpg|png)$/i, "").replace(/_/g, " ");
-
-        card.appendChild(img);
-        card.appendChild(caption);
-        grid.appendChild(card);
-      });
-    })
-    .catch(err => {
-      console.error(err);
-      grid.innerHTML = "<p class='muted'>Failed to load photos.</p>";
+      card.appendChild(img);
+      card.appendChild(meta);
+      card.appendChild(caption);
+      grid.appendChild(card);
     });
-})();
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("photoGrid").innerHTML =
+      "<p class='muted'>Unable to load photo archive.</p>";
+  });
 </script>
 
-<nav class="bottom-nav">
-  <a href="/wmrn-archive-app/index.html">🏠 Home</a>
-  <a href="/wmrn-archive-app/decades.html">📆 Decades</a>
-  <a href="/wmrn-archive-app/photos.html">📷 Photos</a>
-  <a href="/wmrn-archive-app/audio.html">🎙️ Audio</a>
-  <a href="/wmrn-archive-app/submit.html">✍️ Submit</a>
-  <a href="/wmrn-archive-app/settings.html">⚙️ Settings</a>
+<!-- FLOATING BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
+  <a href="/wmrn-archive-app/index.html"><span class="icon">🏠</span><span>Home</span></a>
+  <a href="/wmrn-archive-app/decades.html"><span class="icon">📆</span><span>Decades</span></a>
+  <a href="/wmrn-archive-app/photos.html" class="active"><span class="icon">📷</span><span>Photos</span></a>
+  <a href="/wmrn-archive-app/audio.html"><span class="icon">🎙️</span><span>Audio</span></a>
+  <a href="/wmrn-archive-app/submit.html"><span class="icon">✍️</span><span>Submit</span></a>
+  <a href="/wmrn-archive-app/settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
 </nav>
-
-</body>
-</html>
 
 </body>
 </html>
