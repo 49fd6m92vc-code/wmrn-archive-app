@@ -9,52 +9,48 @@
   <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
   <meta name="theme-color" content="#9b1c1c">
 
-  <!-- GLOBAL APP LOGIC -->
   <script src="/wmrn-archive-app/app.js" defer></script>
 </head>
 
 <body>
 
 <main id="itemContainer">
-  <p class="muted">Loading item…</p>
+  <p class="muted">Loading archive item…</p>
 </main>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("itemContainer");
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const id = new URLSearchParams(window.location.search).get("id");
 
   if (!id) {
-    container.innerHTML = "<h1>Archive Item</h1><p>No item specified.</p>";
+    container.innerHTML = `
+      <h1>Archive Item</h1>
+      <p class="muted">No item specified.</p>
+      <p><a href="/wmrn-archive-app/photos.html">← Back to Photos</a></p>
+    `;
     return;
   }
 
   fetch("/wmrn-archive-app/data/photos.json")
     .then(res => {
-      if (!res.ok) throw new Error("Failed to load photos.json");
+      if (!res.ok) throw new Error("photos.json not found");
       return res.json();
     })
     .then(items => {
-
-      // 🔒 HARDENED LOOKUP (exact OR filename-based fallback)
-      let item = items.find(i => i.id === id);
+      const item = items.find(i => i.id === id);
 
       if (!item) {
-        item = items.find(i => i.image && i.image.replace(/\.(jpg|png)$/i, "") === id);
-      }
-
-      if (!item) {
-        container.innerHTML =
-          "<h1>Archive Item</h1><p>No item found.</p>";
+        container.innerHTML = `
+          <h1>Archive Item</h1>
+          <p class="muted">No item found.</p>
+          <p><a href="/wmrn-archive-app/photos.html">← Back to Photos</a></p>
+        `;
         return;
       }
 
-      // ✅ Update document title
-      document.title = `${item.title} – WMRN Archive`;
-
       container.innerHTML = `
-        <header>
+        <header class="archive-header">
           <h1>${item.title}</h1>
           ${item.subtitle ? `<p class="muted">${item.subtitle}</p>` : ""}
         </header>
@@ -66,63 +62,58 @@ document.addEventListener("DOMContentLoaded", () => {
               alt="${item.title}"
               loading="lazy"
             >
-            <figcaption class="muted">${item.title}</figcaption>
           </figure>
         </section>
 
         <section class="archive-meta">
-          ${item.accession ? `<p><strong>Accession:</strong> ${item.accession}</p>` : ""}
-          ${item.date ? `<p><strong>Date:</strong> ${item.date}</p>` : ""}
-          ${item.format ? `<p><strong>Format:</strong> ${item.format}</p>` : ""}
-          ${item.decade ? `<p><strong>Decade:</strong> ${item.decade}</p>` : ""}
-          ${item.collection ? `<p><strong>Collection:</strong> ${item.collection}</p>` : ""}
+          <p><strong>Accession:</strong> ${item.accession}</p>
+          <p><strong>Date:</strong> ${item.date}</p>
+          <p><strong>Format:</strong> ${item.format}</p>
+          <p><strong>Decade:</strong> ${item.decade}</p>
+          <p><strong>Collection:</strong> ${item.collection}</p>
         </section>
 
-        ${item.description && item.description.length ? `
-          <section class="archive-description">
-            <h2>Description</h2>
-            ${item.description.map(p => `<p>${p}</p>`).join("")}
-          </section>
-        ` : ""}
-
-        ${item.notes && item.notes.length ? `
-          <section class="archive-context">
-            <h3>Context &amp; Notes</h3>
-            <ul>
-              ${item.notes.map(n => `<li>${n}</li>`).join("")}
-            </ul>
-          </section>
-        ` : ""}
-
-        ${item.rights ? `
-          <section class="archive-rights">
-            <h3>Rights &amp; Credit</h3>
-            <p>${item.rights}</p>
-          </section>
-        ` : ""}
-
-        <section class="archive-navigation">
-          <p>
-            <a href="/wmrn-archive-app/photos.html">← Back to Photos</a>
-            &nbsp;&nbsp;
-            <a href="/wmrn-archive-app/decades.html">Browse by Decade →</a>
-          </p>
+        <section class="archive-description">
+          <h2>Description</h2>
+          ${item.description.map(p => `<p>${p}</p>`).join("")}
         </section>
+
+        ${item.notes?.length ? `
+        <section class="archive-context">
+          <h3>Context & Notes</h3>
+          <ul>
+            ${item.notes.map(n => `<li>${n}</li>`).join("")}
+          </ul>
+        </section>
+        ` : ""}
+
+        <section class="archive-rights">
+          <h3>Rights & Credit</h3>
+          <p>${item.rights}</p>
+        </section>
+
+        <nav class="archive-navigation">
+          <a href="/wmrn-archive-app/photos.html">← Back to Photos</a>
+          &nbsp;&nbsp;
+          <a href="/wmrn-archive-app/decades.html">Browse by Decade →</a>
+        </nav>
       `;
     })
     .catch(err => {
       console.error(err);
-      container.innerHTML =
-        "<h1>Archive Item</h1><p>Unable to load item.</p>";
+      container.innerHTML = `
+        <h1>Archive Item</h1>
+        <p class="muted">Unable to load item.</p>
+        <p><a href="/wmrn-archive-app/photos.html">← Back to Photos</a></p>
+      `;
     });
 });
 </script>
 
-<!-- FLOATING BOTTOM NAV -->
 <nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
   <a href="/wmrn-archive-app/index.html"><span class="icon">🏠</span><span>Home</span></a>
   <a href="/wmrn-archive-app/decades.html"><span class="icon">📆</span><span>Decades</span></a>
-  <a href="/wmrn-archive-app/photos.html" class="active"><span class="icon">📷</span><span>Photos</span></a>
+  <a href="/wmrn-archive-app/photos.html"><span class="icon">📷</span><span>Photos</span></a>
   <a href="/wmrn-archive-app/audio.html"><span class="icon">🎙️</span><span>Audio</span></a>
   <a href="/wmrn-archive-app/submit.html"><span class="icon">✍️</span><span>Submit</span></a>
   <a href="/wmrn-archive-app/settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
