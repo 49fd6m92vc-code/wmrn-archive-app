@@ -1,71 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
-  <title>Photos – WMRN Archive</title>
-
-  <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
-  <meta name="theme-color" content="#9b1c1c">
-
-  <script src="/wmrn-archive-app/app.js" defer></script>
-</head>
-
-<body>
-
-<main class="photos-page">
-  <h1>Photo Archive</h1>
-
-  <p class="page-intro">
-    This section preserves photographs documenting the people, studios,
-    equipment, and daily life of WMRN Radio.
-  </p>
-
-  <section id="photoGrid" class="photo-grid"></section>
-</main>
-
 <script>
-fetch("/wmrn-archive-app/items.json")
-  .then(res => res.json())
-  .then(items => {
-    const grid = document.getElementById("photoGrid");
+const grid = document.getElementById("photoGrid");
 
-    items.forEach(item => {
-      const link = document.createElement("a");
-      link.href = `/wmrn-archive-app/item.html?id=${item.id}`;
-      link.className = "photo-card";
+// 🔧 CHANGE THESE TWO VALUES IF NEEDED
+const GITHUB_USER = "49fd6m92vc";
+const REPO_NAME = "wmrn-archive-app";
+const PHOTOS_PATH = "Photos";
 
-      const img = document.createElement("img");
-      img.src = `/wmrn-archive-app/Photos/${item.image}`;
-      img.alt = item.title;
-      img.loading = "lazy";
+fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${PHOTOS_PATH}`)
+  .then(res => {
+    if (!res.ok) throw new Error("GitHub API failed");
+    return res.json();
+  })
+  .then(files => {
+    files
+      .filter(file => file.type === "file" && file.name.match(/\.(jpg|jpeg|png)$/i))
+      .forEach(file => {
+        const filename = file.name;
+        const readable = filename.replace(".jpg", "").replace(/_/g, " ");
 
-      const meta = document.createElement("p");
-      meta.className = "photo-meta";
-      meta.textContent = item.accession;
+        const link = document.createElement("a");
+        link.href = `/wmrn-archive-app/item.html?file=${encodeURIComponent(filename)}`;
+        link.className = "photo-card";
 
-      const caption = document.createElement("p");
-      caption.className = "photo-caption";
-      caption.textContent = item.title;
+        const img = document.createElement("img");
+        img.src = file.download_url;
+        img.alt = readable;
+        img.loading = "lazy";
 
-      link.append(img, meta, caption);
-      grid.appendChild(link);
-    });
+        const meta = document.createElement("p");
+        meta.className = "photo-meta";
+        meta.textContent = "WMRN Radio History Archive";
+
+        const caption = document.createElement("p");
+        caption.className = "photo-caption";
+        caption.textContent = readable;
+
+        link.appendChild(img);
+        link.appendChild(meta);
+        link.appendChild(caption);
+        grid.appendChild(link);
+      });
   })
   .catch(err => {
-    console.error("Failed to load items.json", err);
+    grid.innerHTML = "<p class='muted'>Unable to load photos.</p>";
+    console.error(err);
   });
 </script>
-
-<nav class="bottom-nav" id="bottomNav">
-  <a href="/wmrn-archive-app/index.html">🏠 Home</a>
-  <a href="/wmrn-archive-app/decades.html">📆 Decades</a>
-  <a href="/wmrn-archive-app/photos.html" class="active">📷 Photos</a>
-  <a href="/wmrn-archive-app/audio.html">🎙️ Audio</a>
-  <a href="/wmrn-archive-app/submit.html">✍️ Submit</a>
-  <a href="/wmrn-archive-app/settings.html">⚙️ Settings</a>
-</nav>
-
-</body>
-</html>
