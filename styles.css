@@ -221,9 +221,11 @@ form button {
 .decade summary {
   list-style: none;
   cursor: pointer;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 0.9rem 0;
   font-size: 1.05rem;
   font-weight: 700;
@@ -232,6 +234,10 @@ form button {
 
 .decade summary::-webkit-details-marker {
   display: none;
+}
+
+.decade-title {
+  flex: 1;
 }
 
 .decade-arrow {
@@ -244,8 +250,27 @@ form button {
   transform: rotate(90deg);
 }
 
+.decade-content {
+  padding: 0.25rem 0 1rem;
+}
+
+.decade-content p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.decade-content ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+}
+
+.decade-content li {
+  margin: 0.3rem 0;
+}
+
 /* =========================
-   PHOTOS GRID
+   PHOTOS
    ========================= */
 
 .photo-grid {
@@ -265,56 +290,81 @@ form button {
 .photo-card img {
   width: 100%;
   display: block;
+  cursor: pointer;
 }
 
-/* =========================
-   ✅ ARCHIVE ITEM PAGE — IMAGE FIX (CRITICAL)
-   ========================= */
-
-.archive-header {
-  margin-bottom: 1.25rem;
+.photo-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 0.5rem 0.7rem 0;
 }
+
+.photo-caption {
+  font-size: 0.9rem;
+  padding: 0.3rem 0.7rem 0.8rem;
+}
+
+/* =================================================
+   ARCHIVE ITEM PAGE – IMAGE FIX (SCOPED & SAFE)
+   ================================================= */
 
 .archive-media {
-  margin: 1.75rem 0 2rem;
+  margin: 1.75rem auto;
+  text-align: center;
 }
 
-.archive-media-inner {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-.archive-media-inner img {
+.archive-media img {
   display: block;
   width: 100%;
+  max-width: 640px;
   height: auto;
+  margin: 0 auto;
   border-radius: 6px;
   box-shadow: var(--shadow);
 }
 
 /* =========================
-   ARCHIVE META + CONTENT
+   LIGHTBOX
    ========================= */
 
-.archive-meta,
-.archive-description,
-.archive-context,
-.archive-rights {
-  max-width: 640px;
-  margin: 1.75rem auto;
-  text-align: left;
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
 }
 
-.archive-context ul {
-  padding-left: 1.25rem;
+.lightbox.open {
+  display: flex;
 }
 
-.archive-navigation {
-  margin-top: 2rem;
+.lightbox img {
+  max-width: 95%;
+  max-height: 80vh;
+}
+
+.lightbox-caption {
+  color: #eee;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #fff;
 }
 
 /* =========================
-   BOTTOM NAV
+   BOTTOM NAV — EDGE TO EDGE + SAFE AREA + BUMP + HIDE ON SCROLL
    ========================= */
 
 .bottom-nav {
@@ -326,17 +376,12 @@ form button {
   padding-bottom: env(safe-area-inset-bottom, 0px);
   background: var(--nav-glass);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.25);
   display: flex;
+  align-items: center;
   justify-content: space-around;
   z-index: 1000;
-}
-
-.bottom-nav a {
-  text-align: center;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--muted);
-  text-decoration: none;
 }
 
 /* =========================
