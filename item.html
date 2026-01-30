@@ -9,128 +9,77 @@
   <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
   <meta name="theme-color" content="#9b1c1c">
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="WMRN Archive">
-
-  <!-- GLOBAL APP LOGIC -->
   <script src="/wmrn-archive-app/app.js" defer></script>
-
-  <!-- ARCHIVE METADATA REGISTRY (CRITICAL) -->
-  <script src="/wmrn-archive-app/archive-items.js"></script>
 </head>
 
 <body>
 
-<main>
+<main id="itemContainer"></main>
 
-  <!-- ITEM TITLE -->
-  <header>
-    <h1 id="itemTitle">Archive Item</h1>
-    <p class="muted" id="itemSubtitle"></p>
-  </header>
-
-  <!-- MEDIA -->
-  <section class="archive-media">
-    <figure>
-      <img id="itemImage" src="" alt="" loading="lazy">
-      <figcaption class="muted" id="itemCaption"></figcaption>
-    </figure>
-  </section>
-
-  <!-- METADATA -->
-  <section class="archive-meta">
-    <p><strong>Accession:</strong> <span id="itemAccession"></span></p>
-    <p><strong>Date:</strong> <span id="itemDate"></span></p>
-    <p><strong>Format:</strong> <span id="itemFormat"></span></p>
-    <p><strong>Decade:</strong> <span id="itemDecade"></span></p>
-    <p><strong>Collection:</strong> <span id="itemCollection"></span></p>
-  </section>
-
-  <!-- DESCRIPTION -->
-  <section class="archive-description">
-    <h2>Description</h2>
-    <div id="itemDescription"></div>
-  </section>
-
-  <!-- CONTEXT -->
-  <section class="archive-context">
-    <h3>Context &amp; Notes</h3>
-    <ul id="itemNotes"></ul>
-  </section>
-
-  <!-- RIGHTS -->
-  <section class="archive-rights">
-    <h3>Rights &amp; Credit</h3>
-    <p id="itemRights"></p>
-    <p class="muted">
-      Some materials may be restricted due to condition, rights, or donor preferences.
-    </p>
-  </section>
-
-  <!-- NAV -->
-  <section class="archive-navigation">
-    <p>
-      <a href="/wmrn-archive-app/decades.html">← Back to Decades</a>
-      &nbsp;&nbsp;
-      <a href="/wmrn-archive-app/photos.html">View More Photos →</a>
-    </p>
-  </section>
-
-</main>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav" aria-label="Primary navigation">
-  <a href="/wmrn-archive-app/index.html"><span class="icon">🏠</span><span>Home</span></a>
-  <a href="/wmrn-archive-app/decades.html"><span class="icon">📆</span><span>Decades</span></a>
-  <a href="/wmrn-archive-app/photos.html"><span class="icon">📷</span><span>Photos</span></a>
-  <a href="/wmrn-archive-app/audio.html"><span class="icon">🎙️</span><span>Audio</span></a>
-  <a href="/wmrn-archive-app/submit.html"><span class="icon">✍️</span><span>Submit</span></a>
-  <a href="/wmrn-archive-app/settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
-</nav>
-
-<!-- ITEM LOADER -->
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const itemId = params.get("item");
+const id = new URLSearchParams(location.search).get("id");
 
-  if (!itemId || !archiveItems[itemId]) {
-    document.getElementById("itemTitle").textContent = "Archive Item";
-    document.getElementById("itemSubtitle").textContent =
-      "No archive item selected. Please return and choose an item.";
-  } else {
-    const item = archiveItems[itemId];
+fetch("/wmrn-archive-app/items.json")
+  .then(res => res.json())
+  .then(items => {
+    const item = items.find(i => i.id === id);
+    const container = document.getElementById("itemContainer");
 
-    document.getElementById("itemTitle").textContent = item.title;
-    document.getElementById("itemSubtitle").textContent = item.subtitle;
+    if (!item) {
+      container.innerHTML = "<h1>Archive Item</h1><p>No item found.</p>";
+      return;
+    }
 
-    document.getElementById("itemImage").src =
-      `/wmrn-archive-app/Photos/${item.filename}`;
-    document.getElementById("itemImage").alt = item.title;
-    document.getElementById("itemCaption").textContent = item.id;
+    container.innerHTML = `
+      <header>
+        <h1>${item.title}</h1>
+        <p class="muted">${item.subtitle}</p>
+      </header>
 
-    document.getElementById("itemAccession").textContent = item.accession;
-    document.getElementById("itemDate").textContent = item.date;
-    document.getElementById("itemFormat").textContent = item.format;
-    document.getElementById("itemDecade").textContent = item.decade;
-    document.getElementById("itemCollection").textContent = item.collection;
+      <section class="archive-media">
+        <img src="/wmrn-archive-app/Photos/${item.image}" alt="${item.title}">
+      </section>
 
-    const desc = document.getElementById("itemDescription");
-    item.description.forEach(p => {
-      const para = document.createElement("p");
-      para.textContent = p;
-      desc.appendChild(para);
-    });
+      <section class="archive-meta">
+        <p><strong>Accession:</strong> ${item.accession}</p>
+        <p><strong>Date:</strong> ${item.date}</p>
+        <p><strong>Format:</strong> ${item.format}</p>
+        <p><strong>Decade:</strong> ${item.decade}</p>
+        <p><strong>Collection:</strong> ${item.collection}</p>
+      </section>
 
-    const notes = document.getElementById("itemNotes");
-    item.notes.forEach(n => {
-      const li = document.createElement("li");
-      li.textContent = n;
-      notes.appendChild(li);
-    });
+      <section>
+        <h2>Description</h2>
+        ${item.description.map(p => `<p>${p}</p>`).join("")}
+      </section>
 
-    document.getElementById("itemRights").textContent = item.rights;
-  }
+      <section>
+        <h3>Context & Notes</h3>
+        <ul>${item.notes.map(n => `<li>${n}</li>`).join("")}</ul>
+      </section>
+
+      <section>
+        <h3>Rights & Credit</h3>
+        <p>${item.rights}</p>
+      </section>
+
+      <p>
+        <a href="/wmrn-archive-app/decades.html">← Back to Decades</a>
+        &nbsp;&nbsp;
+        <a href="/wmrn-archive-app/photos.html">View More Photos →</a>
+      </p>
+    `;
+  });
 </script>
+
+<nav class="bottom-nav">
+  <a href="/wmrn-archive-app/index.html">🏠 Home</a>
+  <a href="/wmrn-archive-app/decades.html">📆 Decades</a>
+  <a href="/wmrn-archive-app/photos.html">📷 Photos</a>
+  <a href="/wmrn-archive-app/audio.html">🎙️ Audio</a>
+  <a href="/wmrn-archive-app/submit.html">✍️ Submit</a>
+  <a href="/wmrn-archive-app/settings.html">⚙️ Settings</a>
+</nav>
 
 </body>
 </html>
