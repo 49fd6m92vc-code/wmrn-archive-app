@@ -6,73 +6,65 @@
 
   <title>Photos – WMRN Archive</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/wmrn-archive-app/styles.css">
   <meta name="theme-color" content="#9b1c1c">
 
-  <!-- GLOBAL APP LOGIC -->
-  <script src="app.js" defer></script>
+  <script src="/wmrn-archive-app/app.js" defer></script>
 </head>
 
 <body>
 
 <main class="photos-page">
-
   <h1>Photo Archive</h1>
 
   <p class="page-intro">
     This section preserves photographs documenting the people, studios,
-    equipment, events, and everyday life of WMRN Radio.
-    Many of the images shown here were contributed by former WMRN DJ
-    Paul Van House.
+    equipment, and daily life of WMRN Radio.
   </p>
 
   <section id="photoGrid" class="photo-grid"></section>
-
 </main>
 
-<!-- LOAD PHOTO LIST -->
-<script src="photos.js"></script>
-
-<!-- RENDER PHOTO GRID -->
 <script>
-  const grid = document.getElementById("photoGrid");
+fetch("/wmrn-archive-app/items.json")
+  .then(res => res.json())
+  .then(items => {
+    const grid = document.getElementById("photoGrid");
 
-  photos.forEach(filename => {
-    const itemId = filename.replace(".jpg", "");
+    items.forEach(item => {
+      const link = document.createElement("a");
+      link.href = `/wmrn-archive-app/item.html?id=${item.id}`;
+      link.className = "photo-card";
 
-    const link = document.createElement("a");
-    link.href = `item.html?item=${encodeURIComponent(itemId)}&file=${encodeURIComponent(filename)}`;
-    link.className = "photo-card";
+      const img = document.createElement("img");
+      img.src = `/wmrn-archive-app/Photos/${item.image}`;
+      img.alt = item.title;
+      img.loading = "lazy";
 
-    const img = document.createElement("img");
-    img.src = `Photos/${filename}`;
-    img.alt = itemId.replace(/_/g, " ");
-    img.loading = "lazy";
+      const meta = document.createElement("p");
+      meta.className = "photo-meta";
+      meta.textContent = item.accession;
 
-    const meta = document.createElement("p");
-    meta.className = "photo-meta";
-    meta.textContent = "Accession WMRN-2026-012";
+      const caption = document.createElement("p");
+      caption.className = "photo-caption";
+      caption.textContent = item.title;
 
-    const caption = document.createElement("p");
-    caption.className = "photo-caption";
-    caption.textContent = itemId.replace(/_/g, " ");
-
-    link.appendChild(img);
-    link.appendChild(meta);
-    link.appendChild(caption);
-
-    grid.appendChild(link);
+      link.append(img, meta, caption);
+      grid.appendChild(link);
+    });
+  })
+  .catch(err => {
+    console.error("Failed to load items.json", err);
   });
 </script>
 
-<!-- FLOATING BOTTOM NAV -->
-<nav class="bottom-nav" id="bottomNav" aria-label="Primary navigation">
-  <a href="index.html"><span class="icon">🏠</span><span>Home</span></a>
-  <a href="decades.html"><span class="icon">📆</span><span>Decades</span></a>
-  <a href="photos.html"><span class="icon">📷</span><span>Photos</span></a>
-  <a href="audio.html"><span class="icon">🎙️</span><span>Audio</span></a>
-  <a href="submit.html"><span class="icon">✍️</span><span>Submit</span></a>
-  <a href="settings.html"><span class="icon">⚙️</span><span>Settings</span></a>
+<nav class="bottom-nav" id="bottomNav">
+  <a href="/wmrn-archive-app/index.html">🏠 Home</a>
+  <a href="/wmrn-archive-app/decades.html">📆 Decades</a>
+  <a href="/wmrn-archive-app/photos.html" class="active">📷 Photos</a>
+  <a href="/wmrn-archive-app/audio.html">🎙️ Audio</a>
+  <a href="/wmrn-archive-app/submit.html">✍️ Submit</a>
+  <a href="/wmrn-archive-app/settings.html">⚙️ Settings</a>
 </nav>
 
 </body>
